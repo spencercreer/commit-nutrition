@@ -1,5 +1,29 @@
 {
+  "name": "meal-planner",
+  "version": "1.0.0",
+  "main": "mealPlans.js",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencercreer/meal-planner.git"
+  },
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.5"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spencercreer/meal-planner/issues"
+  },
+  "homepage": "https://github.com/spencercreer/meal-planner#readme",
+  "description": ""
 }
