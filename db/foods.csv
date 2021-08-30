@@ -1,0 +1,110 @@
+﻿Hello,id,name,description,serving_size,calories,carbs,protein,fat,sodium,createdAt,updatedAt
+Hello,1,Quick Oats,Quaker,1/2 cup dry,150,27,5,3,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,2,Grits,Quaker Old Fashioned,1/4 cup,140,32,3,0.5,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,3,Brown Rice Crisp Cereal,Barbara's,1 1/3 cup,160,35,3,1,125,8/29/2021 22:41,8/29/2021 22:41
+Hello,4,Whole Wheat Tortilla,Mission,1 tortilla,110,22,4,2,380,8/29/2021 22:41,8/29/2021 22:41
+Hello,5,Wheat Sandwich Thin,Orowheat,1 bun,140,28,6,2,300,8/29/2021 22:41,8/29/2021 22:41
+Hello,6,Cauliflower Rice,Birds Eye; About 3.5 servings per container,2/3 cup cooked,25,4,2,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,7,Long Grain Rice,Great Value,1/4 cup dry,160,36,3,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,8,Couscous,Rice Select,1/4 cup dry,200,41,7,0.5,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,9,Quinoa,White - Great Value,1/4 cup dry,170,29,6,2.5,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,10,Triscuits,Balsamic Vinegar and Basil,6 crackers (28 g),120,20,3,3.5,120,8/29/2021 22:41,8/29/2021 22:41
+Hello,11,Apple,Medium,1 medium,95,25,0.5,0.3,2,8/29/2021 22:41,8/29/2021 22:41
+Hello,12,Asparagus,medium,1 spear,3,0.6,0.4,0,0.3,8/29/2021 22:41,8/29/2021 22:41
+Hello,13,Blueberries,Fresh Blueberries,1 cup,85,21,1.1,0.5,1,8/29/2021 22:41,8/29/2021 22:41
+Hello,14,Banana,Medium,1 medium,105,27,1.3,0.4,1,8/29/2021 22:41,8/29/2021 22:41
+Hello,15,Clementines,Cuties,2 clementines,90,22,1,0.5,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,16,Dried Cranberries,,1/4 cup (40 g),140,34,0,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,17,Carrot,Large,1 large (78g/2.75oz),30,7,1,0,60,8/29/2021 22:41,8/29/2021 22:41
+Hello,18,Corn,1 can; No Salt Added; Great Value,1/2 cup,60,13,1,1,10,8/29/2021 22:41,8/29/2021 22:41
+Hello,19,Frozen Corn,Great Value - 2 lb,2/3 cup (90 g),80,16,2,1,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,20,Cilantro,16 grams,1 cup,4,0.6,0.3,0.1,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,21,Cucumber,Large,1 large,34,6,1.6,0.4,6,8/29/2021 22:41,8/29/2021 22:41
+Hello,22,Grapes,1 cup,1 cup,104,27,1,0.2,3,8/29/2021 22:41,8/29/2021 22:41
+Hello,23,Lemon Juice,ReaLemon,1 tsp.,0,0,0,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,24,Lime Juice,ReaLime,1 tsp.,0,0,0,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,25,Portobello Mushroom,large cap,1 large cap,22,4,2,0,9,8/29/2021 22:41,8/29/2021 22:41
+Hello,26,Radish,100 g,100 g,16,3.4,0.7,0.1,39,8/29/2021 22:41,8/29/2021 22:41
+Hello,27,Red Bell Pepper,medium,1 medium,32,7.6,1,0.2,4,8/29/2021 22:41,8/29/2021 22:41
+Hello,28,Green Bell Pepper,medium,1 medium,32,7.6,1,0.2,4,8/29/2021 22:41,8/29/2021 22:41
+Hello,29,Jalapeno Peppers,Mezzetta - Jarred,1/4 cup (30 g),5,1,0,0,380,8/29/2021 22:41,8/29/2021 22:41
+Hello,30,Red Onion,Chopped,1 cup,67,16.18,1.47,0.13,5,8/29/2021 22:41,8/29/2021 22:41
+Hello,31,Romaine Lettuce,Chopped,1 cup,8,1.6,0,0.1,4,8/29/2021 22:41,8/29/2021 22:41
+Hello,32,Yellow Onion,Chopped,1 cup,64,14.9,1.8,0.2,6.4,8/29/2021 22:41,8/29/2021 22:41
+Hello,33,Roma Tomato,medium,1 medium,18,3.5,0.5,0.3,3,8/29/2021 22:41,8/29/2021 22:41
+Hello,34,Baked Potato,"large; baked, flesh, and skin",1 large (300 g),279,63.2,7.5,0.4,30,8/29/2021 22:41,8/29/2021 22:41
+Hello,35,Sugar Snap Peas,Walmart Organic,3 oz.,35,6,2,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,36,Sweet Potatoe,Large; Baked,1 large,167,37.3,4,0.2,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,37,Spinach,Raw,1 cup,7,1.1,0.9,0.1,23.7,8/29/2021 22:41,8/29/2021 22:41
+Hello,38,Frozen Strawberries,Great Value,1 cup,50,13,1,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,39,Peaches,Frozen,100 g,39,10,0.9,0.3,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,40,Honey,Organic Raw - Kirkland/Great Value,1 Tbsp,60,17,0,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,41,Ketchup,Great Value,1 Tbsp,20,5,0,0,160,8/29/2021 22:41,8/29/2021 22:41
+Hello,42,Mustard,Heinz and Great Value,1 Tbsp,0,0,0,0,60,8/29/2021 22:41,8/29/2021 22:41
+Hello,43,Jalapeno Honey Mustard,Tagge's Famous Fruit and Veggie Farms,1 Tbsp,15,3,0,0,120,8/29/2021 22:41,8/29/2021 22:41
+Hello,44,Celery,1 medium stalk,1 medium,6,1.2,0.3,0.1,32,8/29/2021 22:41,8/29/2021 22:41
+Hello,45,Broccoli,Steamed,1 cup,31,6,2.6,0.3,30,8/29/2021 22:41,8/29/2021 22:41
+Hello,46,Frozen Broccoli,Frozen - Birds Eye',1 1/3 cup,30,4,1,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,47,Diced Green Chiles,Ortega; Mild; 7 oz.,2 tbsp,10,2,1,0,120,8/29/2021 22:41,8/29/2021 22:41
+Hello,48,Minced Garlic,Spice World; Preminced; 1/2 tsp approx. 1 clove fresh,1 tsp,5,1,0,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,49,Green Chile Enchilada Sauce,Old El Paso - Mild,1/4 cup,25,4,0,1.5,280,8/29/2021 22:41,8/29/2021 22:41
+Hello,50,BBQ Sauce,Sweet Baby Rays - Honey Barbecue,2 Tbsp,70,17,0,0,300,8/29/2021 22:41,8/29/2021 22:41
+Hello,51,Mini Dark Chocolate Chips,,1/4 cup,280,36,2,18,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,52,Dark Chocolate Chips,Nestle,1 Tbsp (14 g),80,8,1,5,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,53,Reduced Fat Wheat Thins,,16 crackers (29 g),120,22,2,3.5,200,8/29/2021 22:41,8/29/2021 22:41
+Hello,54,Crystal Light,Water bottle packet,1 packet,10,3,0,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,55,Lunchmeat,Cracked Black Pepper Turkey Breast - Oscar Mayer,2 oz.,50,2,9,1,500,8/29/2021 22:41,8/29/2021 22:41
+Hello,56,Low Sodium Lunchmeat,Kretschmar's Turkey,2 oz.,60,0,13,1,240,8/29/2021 22:41,8/29/2021 22:41
+Hello,57,Egg,Large,1 large,70,0.4,6.3,4.8,71,8/29/2021 22:41,8/29/2021 22:41
+Hello,58,Egg Whites,Large,1 large,17,0.2,3.6,0.1,54.8,8/29/2021 22:41,8/29/2021 22:41
+Hello,59,Turkey Bacon,Butterball,1 slice,25,0,2,2,135,8/29/2021 22:41,8/29/2021 22:41
+Hello,60,Low Sodium Turkey Bacon,Butterball,1 slice,25,0,2,2,80,8/29/2021 22:41,8/29/2021 22:41
+Hello,61,GNC Protein Powder,GNC,1 scoop,130,5,24,2,80,8/29/2021 22:41,8/29/2021 22:41
+Hello,62,BF Protein Powder,Body Fortress,1 scoop,200,8,30,3,230,8/29/2021 22:41,8/29/2021 22:41
+Hello,63,Chicken Breast,4 oz.,4 oz.,124,0,26.1,1.4,73,8/29/2021 22:41,8/29/2021 22:41
+Hello,64,Stew Beef,Walmart,4 oz.,250,0,21,18,65,8/29/2021 22:41,8/29/2021 22:41
+Hello,65,Low Fat Ground Turkey,Foster Farms; 99% fat free,4 oz.,120,0,26,1.5,85,8/29/2021 22:41,8/29/2021 22:41
+Hello,66,5 oz. Canned Chicken,Food Club,2 oz.,60,0,12,1,230,8/29/2021 22:41,8/29/2021 22:41
+Hello,67,Spicy Guacamole,Wholly Guacamole,1 package,120,5,1,10,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,68,Almond Butter,MaraNatha,2 Tbsp,190,7,7,16,60,8/29/2021 22:41,8/29/2021 22:41
+Hello,69,Jif Peanut Butter,Jif,2 Tbsp,190,8,7,16,80,8/29/2021 22:41,8/29/2021 22:41
+Hello,70,Peanut Butter,Adams,2 Tbsp,190,7,8,16,80,8/29/2021 22:41,8/29/2021 22:41
+Hello,71,Pistachios,Wonderful,1/4 cup (28 g),150,8,6,13,135,8/29/2021 22:41,8/29/2021 22:41
+Hello,72,Greek Yogurt,Plain - The Greek Gods,2/3 cup,140,11,7,9,110,8/29/2021 22:41,8/29/2021 22:41
+Hello,73,Nonfat Greek Yogurt,Macy's; Food Club,2/3 cup (170 g),100,7,17,0,60,8/29/2021 22:41,8/29/2021 22:41
+Hello,74,Sour Cream,Daisy,2 Tbsp,60,1,1,5,15,8/29/2021 22:41,8/29/2021 22:41
+Hello,75,Mayonnaise,Olive Oil - Best Foods,1 Tbsp,60,1,0,6,125,8/29/2021 22:41,8/29/2021 22:41
+Hello,76,Almond Milk,Blue Diamond; Unsweetened Original,1 cup,30,1,1,2.5,170,8/29/2021 22:41,8/29/2021 22:41
+Hello,77,Fat Free Milk,,1 cup,90,13,8,0,130,8/29/2021 22:41,8/29/2021 22:41
+Hello,78,Low Fat Margarine,I can't believe it's not butter - Original,1 Tbsp,60,0,0,6,90,8/29/2021 22:41,8/29/2021 22:41
+Hello,79,Mozzarella Cheese,Low-Moisture Part-Skim - Great Value,1/4 cup,80,1,6,5,190,8/29/2021 22:41,8/29/2021 22:41
+Hello,80,Fat Free Mozzarella Cheese,Great Value,1/4 cup,45,2,9,0,200,8/29/2021 22:41,8/29/2021 22:41
+Hello,81,Cheddar Cheese,Mild,1/3 cup,110,1,7,9,170,8/29/2021 22:41,8/29/2021 22:41
+Hello,82,Parmesan Cheese,Great Value,1/3 cup,110,1,10,7,340,8/29/2021 22:41,8/29/2021 22:41
+Hello,83,Cotija Cheese,La Chona,1/4 cup (28 g),100,2,6,7,480,8/29/2021 22:41,8/29/2021 22:41
+Hello,84,Feta Cheese,Frigo,1/4 cup (28 g),80,1,5,6,320,8/29/2021 22:41,8/29/2021 22:41
+Hello,85,Goat Cheese,Simple Truth Organic,1 oz.,80,0,5,6,80,8/29/2021 22:41,8/29/2021 22:41
+Hello,86,String Cheese,Galbani,1 pack,80,0,7,6,170,8/29/2021 22:41,8/29/2021 22:41
+Hello,87,Cottage Cheese,2% milk fat; Viva,1/2 cup (113 g),90,4,13,2,420,8/29/2021 22:41,8/29/2021 22:41
+Hello,88,Pinto Beans,Bush's,1/2 cup,100,18,6,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,89,Low Sodium Black Beans,Great Value; No Salt Added,1/2 cup,120,22,7,0.5,10,8/29/2021 22:41,8/29/2021 22:41
+Hello,90,Black Beans,Kroger,1/2 cup,110,18,6,0,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,91,Great Northern Beans,Macy's; Food Clup,1/2 cup,110,19,7,0,300,8/29/2021 22:41,8/29/2021 22:41
+Hello,92,Garbanzo Beans,S and W - Low Sodium,1/2 cup,120,20,7,2,140,8/29/2021 22:41,8/29/2021 22:41
+Hello,93,Avocado,medium,1 medium,240,12.8,3,22,10.5,8/29/2021 22:41,8/29/2021 22:41
+Hello,94,Olive Oil,Extra Virgin; Pompeian,1 Tbsp,120,0,0,14,0,8/29/2021 22:41,8/29/2021 22:41
+Hello,95,Nature Valley Peanut Butter Granola Bar,Nature Valley,1 bar,100,14,2,4,80,8/29/2021 22:41,8/29/2021 22:41
+Hello,96,Salt,,1 g.,0,0,0,0,400,8/29/2021 22:41,8/29/2021 22:41
+Hello,97,Black Pepper,,1 g.,3,0.6,0.1,0,0.2,8/29/2021 22:41,8/29/2021 22:41
+Hello,98,Basil,Gourmet Garden Lightly Dried Basil,1 tsp,0,0,0,0,25,8/29/2021 22:41,8/29/2021 22:41
+Hello,99,Ground Cumin,McCormick,1 tsp,10,0.8,0.4,0.4,4.8,8/29/2021 22:41,8/29/2021 22:41
+,100,Onion Powder,,1 tsp,8.2,1.9,0.3,0,1.8,8/29/2021 22:41,8/29/2021 22:41
+,101,Oregano,,1 tsp,3,0.7,0.1,0,0.2,8/29/2021 22:41,8/29/2021 22:41
+,102,Garlic Powder,,1 tsp,10,2.3,0.5,0,1.9,8/29/2021 22:41,8/29/2021 22:41
+,103,Chili Powder,Great Value,1/4 tsp,0,0,0,0,10,8/29/2021 22:41,8/29/2021 22:41
+,104,Ranch Seasoning,Badia,1/4 tsp (0.7 g),4,1,0,0,65,8/29/2021 22:41,8/29/2021 22:41
+,105,Rosemary,,1 Tbsp,2,0.4,0.1,0.1,0.4,8/29/2021 22:41,8/29/2021 22:41
+,106,Sage,,1 Tbsp,6,1.2,0.2,0.3,0.2,8/29/2021 22:41,8/29/2021 22:41
+,107,Dried Thyme,,1 tsp,3,0.6,0.1,0.1,0.6,8/29/2021 22:41,8/29/2021 22:41
+,108,Cinnamon,,1 tsp,6.4,2.1,0.1,0,0.3,8/29/2021 22:41,8/29/2021 22:41
+,109,Chicken Broth,Great Value,1 cup,10,0,1,0,840,8/29/2021 22:41,8/29/2021 22:41
