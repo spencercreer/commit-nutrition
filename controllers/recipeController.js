@@ -36,6 +36,24 @@ const recipeController = {
                 console.log(err)
                 res.status(500).json(err)
             })
+    },
+    addIngredient(req, res) {
+        Recipe.findOneAndUpdate(
+            { _id: req.params.recipeId },
+            { $addToSet: { ingredients: req.body}}
+        )
+            .then((dbRecipeData) => {
+                if (!dbRecipeData) {
+                    return res.status(404).json({
+                        message: 'No recipe with this id.'
+                    })
+                }
+                res.json(dbRecipeData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
     }
 }
 

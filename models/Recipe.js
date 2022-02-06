@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const ingredientSchema = require('./Ingredient')
 
 const recipeSchema = new Schema(
     {
@@ -24,12 +25,7 @@ const recipeSchema = new Schema(
         recipe_cost: {
             type: Number
         },
-        ingredients: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Food'
-            }
-        ]
+        ingredients: [ingredientSchema]
     }
 )
 
