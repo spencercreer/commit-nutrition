@@ -25,7 +25,6 @@ const foodController = {
     },
 
     createFood(req, res) {
-        console.log(req.body)
         Food.create(req.body)
             .then((dbFoodData) => {
                 res.json({ message: 'Food successfully created' })
@@ -35,6 +34,20 @@ const foodController = {
                 res.status(500).json(err)
             })
     },
+
+    updateFood(req, res) {
+        Food.findOneAndUpdate({ _id: req.params.foodId }, { $set: req.body })
+            .then((dbFoodData) => {
+                if (!dbFoodData) {
+                    return res.status(404).json({ message: 'No food with this id.'})
+                }
+                res.json(dbFoodData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
+    }
 }
 
 module.exports = foodController

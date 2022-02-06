@@ -4,13 +4,19 @@ const foodSchema = new Schema(
     {
         name: {
             type: String,
-            // required: 'Food name required',
+            required: 'Food name required',
         },
         description: {
             type: String
         },
+        brand: {
+            type: String
+        },
+        category: {
+            type: String
+        },
         serving_size: {
-            type: String,
+            type: String
         },
         serving_size_grams: {
             type: Number
