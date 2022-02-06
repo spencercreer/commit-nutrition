@@ -1,30 +1,16 @@
-// Dependencies
-const express = require('express')
-const mysql = require('mysql2')
-const path = require('path')
-require('dotenv').config()
+const express = require('express');
+const db = require('./config/connection');
+const routes = require('./routes');
 
-const db = require('./config/database')
+const PORT = process.env.PORT || 3001;
+const app = express();
 
-// Test db connection
-db.authenticate()
-    .then(() => console.log('Database connected...'))
-    .catch(err => console.log('db authenticate error: ' + err))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-// Set up port
-const PORT = process.env.PORT || 8080
-
-const app = express()
-
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-
-// Give the server access to the routes
-app.use('/', require('./routes/htmlRoutes'))
-app.use('/api/foods', require('./routes/foodRoutes'))
-
-app.listen(PORT, () => {
-    console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT)
-})
-
+db.once('open', () => {
+    app.listen(PORT, () => {
+        console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT)
+    });
+});

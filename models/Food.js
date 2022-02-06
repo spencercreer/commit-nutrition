@@ -1,31 +1,44 @@
-const Sequelize = require('sequelize')
-const db = require('../config/database')
+const { Schema, model } = require('mongoose')
 
-const Food = db.define('foods', {
-    name: {
-        type: Sequelize.STRING
-    },
-    description: {
-        type: Sequelize.STRING
-    },
-    serving_size: {
-        type: Sequelize.STRING
-    },
-    calories: {
-        type: Sequelize.DOUBLE
-    },
-    carbs: {
-        type: Sequelize.DOUBLE
-    },
-    protein: {
-        type: Sequelize.DOUBLE
-    },
-    fat: {
-        type: Sequelize.DOUBLE
-    },
-    sodium: {
-        type: Sequelize.DOUBLE
-    },
-})
+const foodSchema = new Schema(
+    {
+        name: {
+            type: String,
+            // required: 'Food name required',
+        },
+        description: {
+            type: String
+        },
+        serving_size: {
+            type: String,
+        },
+        serving_size_grams: {
+            type: Number
+        },
+        calories: {
+            type: Number
+        },
+        carbs: {
+            type: Number
+        },
+        protein: {
+            type: Number
+        },
+        fat: {
+            type: Number
+        },
+        sodium: {
+            type: Number
+        },
+        container_servings: {
+            type: Number
+        },
+        container_price: {
+            type: Number
+        }
+    }
+)
+
+const Food = model('Food', foodSchema)
 
 module.exports = Food
