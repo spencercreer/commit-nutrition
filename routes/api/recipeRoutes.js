@@ -3,11 +3,15 @@ const {
     getRecipes,
     getOneRecipe,
     createRecipe,
-    addIngredient
+    addIngredient,
+    removeIngredient
 } = require('../../controllers/recipeController')
 
+// /api/recipes
 router.route('/').get(getRecipes).post(createRecipe)
 
 router.route('/:recipeId/ingredients').post(addIngredient)
+
+router.route('/:recipeId/ingredients/:foodId').delete(removeIngredient)
 
 module.exports = router

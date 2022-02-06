@@ -54,6 +54,23 @@ const recipeController = {
                 console.log(err)
                 res.status(500).json(err)
             })
+    },
+    removeIngredient(req, res) {
+        console.log(req.params)
+        Recipe.findOneAndUpdate(
+            { _id: req.params.recipeId },
+            { $pull: { ingredients: { foodId: req.params.foodId } } }
+        )
+            .then((dbRecipeData) => {
+                if (!dbRecipeData) {
+                    return res.status(404).json({ message: 'No recipe with this id.'})
+                }
+                res.json(dbRecipeData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
     }
 }
 
