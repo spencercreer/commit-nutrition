@@ -14,7 +14,7 @@ const foodController = {
         Food.findOne({ _id: req.params.foodId })
             .then((dbFoodData) => {
                 if (!dbFoodData) {
-                    return res.status(404).json( { message: 'No thought with this id.'})
+                    return res.status(404).json( { message: 'No food with this id.'})
                 }
                 res.json(dbFoodData)
             })
