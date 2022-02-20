@@ -46,6 +46,60 @@ const FoodForm = () => {
 
     return (
         <Form onSubmit={handleFormSubmit}>
+              {/* <Row>
+            <Col sm={6}>
+                <Select
+                    showSearch
+                    placeholder="Food"
+                    optionFilterProp="children"
+                    onChange={onChange}
+                    onSearch={onSearch}
+                    filterOption={(input, option) =>
+                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                >
+                    <Option value="appld">Apple</Option>
+                    <Option value="banana">Banana</Option>
+                    <Option value="peach">Peach</Option>
+                </Select>
+            </Col>
+            <Col sm={4}>
+                <InputNumber
+                    style={{ marginRight: '5px' }}
+                    addonAfter="g"
+                    step="0.01"
+                />
+            </Col>
+            <Col sm={4}>
+                <InputNumber
+                    style={{ marginRight: '5px' }}
+                    addonAfter="g"
+                    step="0.01"
+                />
+            </Col>
+            <Col sm={4}>
+                <InputNumber
+                    style={{ marginRight: '5px' }}
+                    addonAfter="g"
+                    step="0.01"
+                />
+            </Col>
+            <Col sm={4}>
+                <InputNumber
+                    style={{ marginRight: '5px' }}
+                    addonAfter="mg"
+                    step="0.01"
+                />
+            </Col>
+            <Col sm={2}>
+                <Button
+                    style={{ marginRight: '5px' }}
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    // onClick={this.addRow}
+                />
+            </Col>
+        </Row> */}
             <Label>Food Name</Label>
             <InputGroup className="mb-3">
                 <FormControl

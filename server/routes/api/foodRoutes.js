@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const {
-    getFood,
+    getFoods,
     getOneFood,
     createFood,
     updateFood
 } = require('../../controllers/foodController')
 
-router.route('/').get(getFood).post(createFood)
+router.route('/').get(getFoods).post(createFood)
 
 router.route('/:foodId').get(getOneFood).put(updateFood)
 

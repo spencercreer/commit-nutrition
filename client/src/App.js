@@ -1,5 +1,6 @@
 import Header from './components/Header'
 import FoodForm from './components/FoodForm';
+import MealForm from './components/MealForm';
 import { Container } from 'react-bootstrap'
 import './App.css';
 
@@ -8,7 +9,8 @@ function App() {
     <div className="App">
       <Header />
       <Container className="my-3">
-        <FoodForm />
+        {/* <FoodForm /> */}
+        <MealForm />
       </Container>
     </div>
   );
