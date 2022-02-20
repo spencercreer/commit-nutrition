@@ -1,7 +1,7 @@
 const { Food } = require('../models')
 
 const foodController = {
-    getFood(req, res) {
+    getFoods(req, res) {
         Food.find()
             .then((dbFoodData) => res.json(dbFoodData))
             .catch((err) => {
