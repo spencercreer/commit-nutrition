@@ -1,15 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import FoodPage from './pages/FoodPage'
-import RecipePage from './pages/RecipePage'
-import MealPage from './pages/MealPage'
+import Nav from './components/Nav'
+import FoodPage from './pages/food/FoodPage'
+import RecipePage from './pages/recipe/RecipePage'
+import MealPage from './pages/meal/MealPage'
 
 import { Layout } from 'antd'
 import './App.css';
 
 function App() {
   return (
-    <Layout>
-      <Router>
+    <Router>
+      <Nav />
+      <Layout>
         <Routes>
           <Route
             path="/"
@@ -28,8 +30,8 @@ function App() {
             element={<MealPage />}
           />
         </Routes>
-      </Router>
-    </Layout>
+      </Layout>
+    </Router>
   );
 }
 

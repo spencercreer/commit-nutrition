@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 
+import AddFoodForm from './components/AddFoodForm'
+
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
 
@@ -22,7 +24,7 @@ const FoodPage = () => {
                 </Menu>
             </Sider>
             <Content>
-                <div>FoodPage</div>
+                <AddFoodForm />
             </Content>
         </>
     )

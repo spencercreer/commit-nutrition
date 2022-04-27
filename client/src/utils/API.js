@@ -6,6 +6,7 @@ export const createFood = (foodData) => {
         },
         body: JSON.stringify(foodData)
     })
+    .then(res => res.json())
 }
 
 export const getFoods = () => {

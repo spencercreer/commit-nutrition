@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Col, Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import IngredientRow from './IngredientRow'
-
+// Utils
 import { getFoods } from '../utils/API'
 
 const MealForm = () => {
