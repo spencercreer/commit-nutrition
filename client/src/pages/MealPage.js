@@ -3,10 +3,8 @@ import MealForm from '../components/MealForm'
 import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 
-const { Sider } = Layout
+const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
-
-const { Content } = Layout
 
 const MealPage = () => {
     return (
@@ -19,8 +17,9 @@ const MealPage = () => {
         defaultOpenKeys={['sub1']}
       >
         <SubMenu key='sub1' title='Dashboard'>
-            <Item key='1'><Link to={'/students/active'} >Active</Link></Item>
-            <Item key='2'><Link to={'/students'} >All Students</Link></Item>
+            <Item key='1'><Link to={'/foods'} >Foods</Link></Item>
+            <Item key='2'><Link to={'/recipes'} >Recipes</Link></Item>
+            <Item key='3'><Link to={'/meals'} >Meals</Link></Item>
         </SubMenu>
         </Menu>
         </Sider>
