@@ -1,18 +1,21 @@
-import Header from './components/Header'
-import FoodForm from './components/FoodForm';
-import MealForm from './components/MealForm';
-import { Container } from 'react-bootstrap'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import MealPage from './pages/MealPage'
+
+import { Layout } from 'antd'
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Container className="my-3">
-        {/* <FoodForm /> */}
-        <MealForm />
-      </Container>
-    </div>
+    <Layout>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={<MealPage />}
+          />
+        </Routes>
+      </Router>
+    </Layout>
   );
 }
 

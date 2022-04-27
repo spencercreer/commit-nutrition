@@ -15,7 +15,6 @@ const recipeController = {
     getOneRecipe(req, res) {
         Recipe.findOne({ _id: req.params.recipeId })
             .select('-__v')
-            .populate('foods')
             .then((dbRecipeData) => {
                 if (!dbRecipeData) {
                     return res.status(404).json({ message:'No recipe with this id.'})
@@ -28,6 +27,14 @@ const recipeController = {
             })
     },
     createRecipe(req, res) {
+        // req.body example
+        // {
+        //     "name": "Recipe with quick oats",
+        //     "ingredients": [{
+        //         "foodId": "61ff38830c3a4f7cbf4f1ab5"
+        //     }
+        //     ]
+        // }
         Recipe.create(req.body)
             .then((dbRecipeData) => {
                 res.json(dbRecipeData)

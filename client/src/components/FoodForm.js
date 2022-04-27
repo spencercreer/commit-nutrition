@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import { Form, Button, InputGroup, FormControl } from 'react-bootstrap'
 
 import { createFood } from '../utils/API'
 
-const { Label } = Form
-const { Text } = InputGroup
 
 const FoodForm = () => {
     const [foodFormData, setFoodFormData] = useState({

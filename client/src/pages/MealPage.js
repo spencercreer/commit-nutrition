@@ -1,0 +1,34 @@
+import MealForm from '../components/MealForm'
+
+import { Link } from 'react-router-dom'
+import { Layout, Menu } from 'antd'
+
+const { Sider } = Layout
+const { SubMenu, Item } = Menu
+
+const { Content } = Layout
+
+const MealPage = () => {
+    return (
+        <>
+        <Sider>
+        <Menu
+        mode='inline'
+        style={{ height: '100%', borderRight: 0 }}
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+      >
+        <SubMenu key='sub1' title='Dashboard'>
+            <Item key='1'><Link to={'/students/active'} >Active</Link></Item>
+            <Item key='2'><Link to={'/students'} >All Students</Link></Item>
+        </SubMenu>
+        </Menu>
+        </Sider>
+        <Content>
+            <MealForm />
+        </Content>
+        </>
+    )
+}
+
+export default MealPage
