@@ -27,7 +27,7 @@ const foodController = {
     createFood(req, res) {
         Food.create(req.body)
             .then((dbFoodData) => {
-                res.json({ message: 'Food successfully created' })
+                res.json(dbFoodData)
             })
             .catch((err) => {
                 console.log(err)

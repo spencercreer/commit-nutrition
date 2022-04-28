@@ -16,4 +16,5 @@ export const getFoods = () => {
             'Content-Type': 'application/json'
         }
     })
+    .then(res => res.json())
 }

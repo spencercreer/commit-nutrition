@@ -1,12 +1,22 @@
+// React
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Layout, Menu } from 'antd'
-
-import AddFoodForm from './components/AddFoodForm'
+// Antd
+import { Layout, Menu, Button } from 'antd'
+//Components
+import FoodList from './components/FoodList'
+import AddFoodModal from './components/AddFoodModal'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
 
 const FoodPage = () => {
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const handleToggleModal = () => {
+        setModalVisible(!modalVisible)
+    }
+
     return (
         <>
             <Sider>
@@ -16,15 +26,27 @@ const FoodPage = () => {
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={['sub1']}
                 >
-                    <SubMenu key='sub1' title='Dashboard'>
-                        <Item key='1'><Link to={'/foods'} >Foods</Link></Item>
-                        <Item key='2'><Link to={'/recipes'} >Recipes</Link></Item>
-                        <Item key='3'><Link to={'/meals'} >Meals</Link></Item>
+                    <SubMenu key='sub1' title='Foods'>
+                        <Item key='1'><Link to={'/vegtables'} >Vegtables</Link></Item>
+                        <Item key='2'><Link to={'/fruits'} >Fruits</Link></Item>
+                        <Item key='3'><Link to={'/grains'} >Grains</Link></Item>
+                        <Item key='4'><Link to={'/meats'} >Meats</Link></Item>
+                        <Item key='5'><Link to={'/seasonings'} >Seasonings</Link></Item>
                     </SubMenu>
                 </Menu>
             </Sider>
             <Content>
-                <AddFoodForm />
+                <Button
+                    type='primary'
+                    onClick={() => setModalVisible(true)}
+                >
+                    Add Food
+                </Button>
+                <FoodList />
+                <AddFoodModal
+                    visible={modalVisible}
+                    handleCloseModal={handleToggleModal}
+                />
             </Content>
         </>
     )

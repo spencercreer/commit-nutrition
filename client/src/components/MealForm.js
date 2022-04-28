@@ -22,7 +22,6 @@ const MealForm = () => {
     useEffect(() => {
         let mounted = true;
         getFoods()
-            .then(res => res.json())
             .then(items => {
                 console.log(items)
                 if (mounted) {
