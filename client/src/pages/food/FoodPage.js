@@ -31,7 +31,10 @@ const FoodPage = () => {
                         <Item key='2'><Link to={'/fruits'} >Fruits</Link></Item>
                         <Item key='3'><Link to={'/grains'} >Grains</Link></Item>
                         <Item key='4'><Link to={'/meats'} >Meats</Link></Item>
-                        <Item key='5'><Link to={'/seasonings'} >Seasonings</Link></Item>
+                        <Item key='5'><Link to={'/dairy'} >Dairy</Link></Item>
+                        <Item key='6'><Link to={'/oils_fats'} >Oils & Fats</Link></Item>
+                        <Item key='7'><Link to={'/seasonings'} >Seasonings</Link></Item>
+                        <Item key='8'><Link to={'/other-foods'} >Other</Link></Item>
                     </SubMenu>
                 </Menu>
             </Sider>

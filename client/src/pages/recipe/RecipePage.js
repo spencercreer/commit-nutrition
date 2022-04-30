@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import { Layout, Menu } from 'antd'
+// Antd
+import { Layout, Menu, Select } from 'antd'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
+const { Option } = Select
 
 const RecipePage = () => {
     return (
@@ -22,7 +24,20 @@ const RecipePage = () => {
                 </Menu>
             </Sider>
             <Content>
-                <div>RecipePage</div>
+                <Select
+                    showSearch
+                    placeholder="Select a person"
+                    optionFilterProp="children"
+                    // onChange={onChange}
+                    // onSearch={onSearch}
+                    filterOption={(input, option) =>
+                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                >
+                    <Option value="jack">Jack</Option>
+                    <Option value="lucy">Lucy</Option>
+                    <Option value="tom">Tom</Option>
+                </Select>
             </Content>
         </>
     )

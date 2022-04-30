@@ -1,5 +1,7 @@
+// React
+import { useState } from 'react'
 // Antd
-import { Modal, Form, Input, InputNumber, Select, DatePicker, message, Alert, Button } from 'antd'
+import { Modal, Form, Input, InputNumber, Select, message, Alert, Button } from 'antd'
 // Utils
 import { createFood } from '../../../utils/API'
 import { validateMessages, layout } from '../../../utils/form'
@@ -10,19 +12,47 @@ const { Option } = Select
 
 const AddFoodModal = ({ visible, handleCloseModal }) => {
     const [form] = Form.useForm()
+    const [alert, setAlert] = useState()
 
     const onFinish = async (values) => {
         console.log(values)
         createFood(values)
-            .then(res => console.log(res))
+            .then(res => {
+                message.success(`${res.name} added successfully!`)
+                form.resetFields()
+                setAlert(null)
+            })
+            .catch(err => {
+                setAlert('We were not able to save this food. Please try again.')
+                console.log(err)
+            })
     }
+
+    const footerButtons =
+        [
+            <Button
+                key='back'
+                onClick={handleCloseModal}
+            >
+                Exit
+            </Button>,
+            <Button
+                type='primary'
+                htmlType='submit'
+                style={{ width: '125px' }}
+                // loading={loading}
+                onClick={() => form.submit()}
+            >
+                Submit
+            </Button>,
+        ]
 
     return (
         <Modal
             title={'Add Food'}
             visible={visible}
             onCancel={handleCloseModal}
-        // footer={footerButtons}
+            footer={footerButtons}
         >
             <Form
                 {...layout}
@@ -37,15 +67,8 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 <Item name={'description'} label='Description'>
                     <Input />
                 </Item>
-                <Item label='Serving Size'>
-                    <Group compact>
-                        <Item name={['serving_size', 'size']} noStyle rules={[{ required: true, message: 'Serving Size is required' }]}>
-                            <InputNumber />
-                        </Item>
-                        <Item name={['serving_size', 'unit']} style={{ width: '100px', margin: '0px' }}>
-                            <Input placeholder='Unit' />
-                        </Item>
-                    </Group>
+                <Item name={'serving_size'} label='Serving Size' rules={[{ required: true }]}>
+                    <Input />
                 </Item>
                 <Item name={'calories'} label='Calories' rules={[{ required: true }]}>
                     <InputNumber
@@ -82,14 +105,20 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                         addonAfter='mg'
                     />
                 </Item>
-
-                <Item>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
+                <Item name={'category'} label='Category'>
+                    <Select>
+                        <Option value={'vegetables'} >Vegetables</Option>
+                        <Option value={'fruits'} >Fruits</Option>
+                        <Option value={'grains'} >Grains</Option>
+                        <Option value={'meat'} >Meat</Option>
+                        <Option value={'dairy'} >Dairy</Option>
+                        <Option value={'fats'} >Oils & Fats</Option>
+                        <Option value={'seasoning'} >Seasonings</Option>
+                        <Option value={'other'} >Other</Option>
+                    </Select>
                 </Item>
                 {
-                    alert?.error && <Alert message={alert.text} type='error' />
+                    alert && <Alert message={alert} type='error' />
                 }
             </Form>
         </Modal>
