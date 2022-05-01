@@ -1,22 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Col, Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import AddIngredientRow from './AddIngredientRow'
 import IngredientRow from './IngredientRow'
 // Utils
 import { getFoods } from '../utils/API'
 
 const MealForm = () => {
-    const [mealFormData, setMealFormData] = useState([
-        {
-            name: null,
-            description: null,
-            calories: null,
-            carbs: null,
-            protein: null,
-            fat: null,
-            sodium: null
-        }
-    ])
+    const [mealFormData, setMealFormData] = useState([])
     const [foods, setFoods] = useState()
 
     useEffect(() => {
@@ -31,39 +22,36 @@ const MealForm = () => {
         return () => mounted = false;
     }, [])
 
-    function onSearch(val) {
-        console.log('search:', val)
-    }
-
-    function addRow() {
-        const newRow = {
-            name: null,
-            description: null,
-            calories: null,
-            carbs: null,
-            protein: null,
-            fat: null,
-            sodium: null
-        }
-        setMealFormData(data => [...data, newRow])
-    }
     return (
         <>
-            {
-                mealFormData.map((data, i) => (
-                    <IngredientRow
-                        key={i}
-                        foods={foods}
-                    />
-                ))
-            }
+            <div style={{ margin: '10px' }}>
+                <AddIngredientRow
+                    foods={foods}
+                    setMealFormData={setMealFormData}
+                />
+                {/* Should I make addIngredientRow and IngredientRow the same? */}
+            </div>
+            <div style={{ margin: '10px' }}>
+                {
+                    mealFormData.map((data, i) => (
+                        <IngredientRow
+                            key={i}
+                            index={i}
+                            foods={foods}
+                            edit={false}
+                            mealFormData={mealFormData}
+                            setMealFormData={setMealFormData}
+                        />
+                    ))
+                }
+            </div>
             <Col sm={2}>
-                <Button
+                {/* <Button
                     style={{ marginRight: '5px' }}
                     type="primary"
                     icon={<PlusOutlined />}
                     onClick={addRow}
-                />
+                /> */}
             </Col>
         </>
     )

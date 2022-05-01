@@ -3,17 +3,23 @@ import { Select, InputNumber, Button, Row, Col, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 const { Option } = Select
 
-const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) => {
-    const [food, setFood] = useState(mealFormData[index])
-    const [servings, setServings] = useState(food.servings)
+const AddIngredientRow = ({ foods, setMealFormData }) => {
+    const [food, setFood] = useState()
+    const [servings, setServings] = useState()
 
     function onFoodChange(value) {
         setFood(foods[parseInt(value.key)])
-        setMealFormData((data) => [...data.slice(0, index), { ...foods[parseInt(value.key)]}, ...data.slice(index + 1)])
     }
 
     function onServingChange(value) {
         setServings(value)
+    }
+
+    function addRow() {
+        const newRow = {
+            ...food, servings
+        }
+        setMealFormData(data => [...data, newRow])
     }
 
     return (
@@ -25,8 +31,6 @@ const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) =>
                     placeholder="Food"
                     optionFilterProp="children"
                     labelInValue
-                    defaultValue={food?.name}
-                    disabled={!edit}
                     onChange={onFoodChange}
                     filterOption={(input, option) =>
                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -48,8 +52,6 @@ const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) =>
                 <InputNumber
                     style={{ width: '20%' }}
                     placeholder="Number of Servings"
-                    value={servings}
-                    disabled={!edit}
                     onChange={onServingChange}
                 />
             </Col>
@@ -88,6 +90,12 @@ const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) =>
                         />
                     </Col>
                     <Col md={4}>
+                        <Button
+                            style={{ marginRight: '5px' }}
+                            type="primary"
+                            icon={<PlusOutlined />}
+                            onClick={addRow}
+                        />
                     </Col>
                 </Row>
             </Col>
@@ -95,4 +103,4 @@ const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) =>
     )
 }
 
-export default IngredientRow
+export default AddIngredientRow

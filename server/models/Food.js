@@ -16,7 +16,8 @@ const foodSchema = new Schema(
             type: String
         },
         serving_size: {
-            type: String
+            size: { type: Number },
+            unit: { type: String }
         },
         serving_size_grams: {
             type: Number

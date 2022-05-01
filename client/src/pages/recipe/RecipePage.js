@@ -1,12 +1,32 @@
+// React
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+// Components
+import IngredientRow from '../../components/IngredientRow'
 // Antd
 import { Layout, Menu, Select } from 'antd'
+// Utils
+import { getFoods } from '../../utils/API'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
 const { Option } = Select
 
 const RecipePage = () => {
+    const [foods, setFoods] = useState()
+
+    useEffect(() => {
+        let mounted = true;
+        getFoods()
+            .then(items => {
+                console.log(items)
+                if (mounted) {
+                    setFoods(items)
+                }
+            })
+        return () => mounted = false;
+    }, [])
+
     return (
         <>
             <Sider>
@@ -24,20 +44,7 @@ const RecipePage = () => {
                 </Menu>
             </Sider>
             <Content>
-                <Select
-                    showSearch
-                    placeholder="Select a person"
-                    optionFilterProp="children"
-                    // onChange={onChange}
-                    // onSearch={onSearch}
-                    filterOption={(input, option) =>
-                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                    }
-                >
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="tom">Tom</Option>
-                </Select>
+                <IngredientRow foods={foods} />
             </Content>
         </>
     )

@@ -67,8 +67,24 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 <Item name={'description'} label='Description'>
                     <Input />
                 </Item>
-                <Item name={'serving_size'} label='Serving Size' rules={[{ required: true }]}>
-                    <Input />
+                <Item label='Serving Size'>
+                    <Group compact>
+                        <Item name={['serving_size', 'unit']} style={{ width: '100px', margin: '0px' }}>
+                            <Select>
+                                <Option value={'tsp'} >tsp</Option>
+                                <Option value={'Tbsp'} >Tbsp</Option>
+                                <Option value={'cup'} >Cup</Option>
+                                <Option value={'milliliter'} >mL</Option>
+                                <Option value={'liter'} >L</Option>
+                                <Option value={'gram'} >g</Option>
+                                <Option value={'ounce'} >oz</Option>
+                                <Option value={'other'} >Other</Option>
+                            </Select>
+                        </Item>
+                        <Item name={['serving_size', 'size']} noStyle rules={[{ required: true, message: 'Serving Size is required' }]}>
+                            <InputNumber />
+                        </Item>
+                    </Group>
                 </Item>
                 <Item name={'calories'} label='Calories' rules={[{ required: true }]}>
                     <InputNumber
