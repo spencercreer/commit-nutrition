@@ -69,20 +69,15 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 </Item>
                 <Item label='Serving Size'>
                     <Group compact>
-                        <Item name={['serving_size', 'unit']} style={{ width: '100px', margin: '0px' }}>
-                            <Select>
-                                <Option value={'tsp'} >tsp</Option>
-                                <Option value={'Tbsp'} >Tbsp</Option>
-                                <Option value={'cup'} >Cup</Option>
-                                <Option value={'milliliter'} >mL</Option>
-                                <Option value={'liter'} >L</Option>
-                                <Option value={'gram'} >g</Option>
-                                <Option value={'ounce'} >oz</Option>
-                                <Option value={'other'} >Other</Option>
-                            </Select>
-                        </Item>
                         <Item name={['serving_size', 'size']} noStyle rules={[{ required: true, message: 'Serving Size is required' }]}>
-                            <InputNumber />
+                            <InputNumber
+                                placeholder='size'
+                            />
+                        </Item>
+                        <Item name={['serving_size', 'unit']} style={{ width: '100px', margin: '0px' }}>
+                            <Input
+                                placeholder='unit'
+                            />
                         </Item>
                     </Group>
                 </Item>
@@ -122,7 +117,14 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                     />
                 </Item>
                 <Item name={'category'} label='Category'>
-                    <Select>
+                    <Select
+                          showSearch
+                          optionFilterProp="children"
+                          labelInValue
+                          filterOption={(input, option) =>
+                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                          }
+                    >
                         <Option value={'vegetables'} >Vegetables</Option>
                         <Option value={'fruits'} >Fruits</Option>
                         <Option value={'grains'} >Grains</Option>

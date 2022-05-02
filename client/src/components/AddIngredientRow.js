@@ -6,6 +6,7 @@ const { Option } = Select
 const AddIngredientRow = ({ foods, setMealFormData }) => {
     const [food, setFood] = useState()
     const [servings, setServings] = useState()
+    const [error, setError] = useState()
 
     function onFoodChange(value) {
         setFood(foods[parseInt(value.key)])
@@ -16,21 +17,39 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
     }
 
     function addRow() {
+        const errorMessages = []
+        if (!food) {
+            errorMessages.push('Food is required')
+            setError(errorMessages)
+        }
+        if (!servings) {
+            errorMessages.push('Number of servings is required')
+            setError(errorMessages)
+        }
+        if(errorMessages.length > 0) {
+            console.log('hello')
+            setError(null)
+            return
+        }
+
         const newRow = {
             ...food, servings
         }
         setMealFormData(data => [...data, newRow])
+        setFood(null)
+        setServings(null)
     }
 
     return (
         <Row>
             <Col xs={14}>
                 <Select
-                    style={{ width: '60%' }}
+                    style={{ width: '50%' }}
                     showSearch
                     placeholder="Food"
                     optionFilterProp="children"
                     labelInValue
+                    value={food?.name}
                     onChange={onFoodChange}
                     filterOption={(input, option) =>
                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -43,16 +62,17 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
                     }
                 </Select>
                 <Input
-                    style={{ width: '20%' }}
+                    style={{ width: '25%' }}
                     placeholder="Serving Size"
                     optionFilterProp="children"
-                    value={food?.serving_size}
+                    value={food?.serving_size ? `${food?.serving_size.size} ${food?.serving_size.unit}` : null}
                     disabled
                 />
                 <InputNumber
-                    style={{ width: '20%' }}
+                    style={{ width: '25%' }}
                     placeholder="Number of Servings"
                     onChange={onServingChange}
+                    value={servings}
                 />
             </Col>
             <Col xs={8}>

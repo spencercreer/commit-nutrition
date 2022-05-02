@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Button } from 'antd'
+import { Row, Col, Button, InputNumber } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import AddIngredientRow from './AddIngredientRow'
 import IngredientRow from './IngredientRow'
@@ -44,15 +44,49 @@ const MealForm = () => {
                         />
                     ))
                 }
+                <Row>
+                    <Col xs={14}>
+                    </Col>
+                    <Col xs={8}>
+                        <Row>
+                            <Col md={5}>
+                                <InputNumber
+                                    style={{ marginRight: '5px' }}
+                                    addonAfter="g"
+                                    // value={food?.carbs * servings}
+                                    disabled
+                                />
+                            </Col>
+                            <Col md={5}>
+                                <InputNumber
+                                    style={{ marginRight: '5px' }}
+                                    addonAfter="g"
+                                    // value={food?.protein * servings}
+                                    disabled
+                                />
+                            </Col>
+                            <Col md={5}>
+                                <InputNumber
+                                    style={{ marginRight: '5px' }}
+                                    addonAfter="g"
+                                    // value={food?.fat * servings}
+                                    disabled
+                                />
+                            </Col>
+                            <Col md={5}>
+                                <InputNumber
+                                    style={{ marginRight: '5px' }}
+                                    addonAfter="mg"
+                                    // value={food?.sodium * servings}
+                                    disabled
+                                />
+                            </Col>
+                            <Col md={4}>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </div>
-            <Col sm={2}>
-                {/* <Button
-                    style={{ marginRight: '5px' }}
-                    type="primary"
-                    icon={<PlusOutlined />}
-                    onClick={addRow}
-                /> */}
-            </Col>
         </>
     )
 }
