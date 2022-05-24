@@ -24,7 +24,8 @@ const MealPage = () => {
         </Menu>
         </Sider>
         <Content>
-            <MealForm />
+            <div>MealPage</div>
+            {/* <MealForm /> */}
         </Content>
         </>
     )

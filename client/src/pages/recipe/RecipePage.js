@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 // Components
-import IngredientRow from '../../components/IngredientRow'
+import RecipeForm from '../../components/RecipeForm'
 // Antd
 import { Layout, Menu, Select } from 'antd'
 // Utils
@@ -44,7 +44,7 @@ const RecipePage = () => {
                 </Menu>
             </Sider>
             <Content>
-                <IngredientRow foods={foods} />
+                <RecipeForm />
             </Content>
         </>
     )

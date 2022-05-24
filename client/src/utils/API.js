@@ -18,3 +18,14 @@ export const getFoods = () => {
     })
     .then(res => res.json())
 }
+
+export const createRecipe = (recipeData) => {
+    return fetch('/api/recipes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'  
+        },
+        body: JSON.stringify(recipeData)
+    })
+    .then(res => res.json())
+}
