@@ -1,5 +1,5 @@
 {
-  "name": "meal-planner",
+  "name": "server",
   "version": "1.0.0",
   "main": "server.js",
   "homepage": "https://github.com/spencercreer/meal-planner#readme",
