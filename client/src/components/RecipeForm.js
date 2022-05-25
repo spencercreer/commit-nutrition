@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Row, Col, Button, InputNumber } from 'antd'
+import { Row, Col, Button, Input, InputNumber } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import AddIngredientRow from './AddIngredientRow'
 import IngredientRow from './IngredientRow'
 // Utils
-import { getFoods } from '../utils/API'
+import { getFoods, createRecipe } from '../utils/API'
 
-const MealForm = () => {
+const RecipeForm = () => {
+    const [recipeName, setRecipeName] = useState('')
+    const [recipeDescription, setRecipeDescription] = useState('')
+    //TODO: Change mealFormData to recipeData
     const [mealFormData, setMealFormData] = useState([])
     const [foods, setFoods] = useState()
 
@@ -22,8 +25,37 @@ const MealForm = () => {
         return () => mounted = false;
     }, [])
 
+    const handleCreateRecipe = () => {
+        //Maybe refactor when I add an ingredient to only add the id when adding a new food
+        const ingredients = mealFormData.map(ingredient => {
+            return { foodId: ingredient._id}
+        })
+        createRecipe({
+            name: recipeName,
+            description: recipeDescription,
+            ingredients
+        })
+            .then(recipe => {
+                console.log(recipe)
+            })
+    }
+
     return (
         <>
+            <Row>
+                <div>Recipe Name:</div>
+                <Input
+                    value={recipeName}
+                    onChange={(e) => setRecipeName(e.target.value)}
+                />
+            </Row>
+            <Row>
+                <div>Recipe Description:</div>
+                <Input
+                    value={recipeDescription}
+                    onChange={(e) => setRecipeDescription(e.target.value)}
+                />
+            </Row>
             <div style={{ margin: '10px' }}>
                 <AddIngredientRow
                     foods={foods}
@@ -87,8 +119,9 @@ const MealForm = () => {
                     </Col>
                 </Row>
             </div>
+            <Button onClick={handleCreateRecipe}>Create Recipe</Button>
         </>
     )
 }
 
-export default MealForm
+export default RecipeForm

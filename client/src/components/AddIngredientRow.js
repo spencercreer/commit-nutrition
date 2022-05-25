@@ -3,30 +3,53 @@ import { Select, InputNumber, Button, Row, Col, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 const { Option } = Select
 
-const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) => {
-    const [food, setFood] = useState(mealFormData[index])
-    const [servings, setServings] = useState(food.servings)
+const AddIngredientRow = ({ foods, setMealFormData }) => {
+    const [food, setFood] = useState()
+    const [servings, setServings] = useState()
+    const [error, setError] = useState()
 
     function onFoodChange(value) {
         setFood(foods[parseInt(value.key)])
-        setMealFormData((data) => [...data.slice(0, index), { ...foods[parseInt(value.key)]}, ...data.slice(index + 1)])
     }
 
     function onServingChange(value) {
         setServings(value)
     }
 
+    function addRow() {
+        const errorMessages = []
+        if (!food) {
+            errorMessages.push('Food is required')
+            setError(errorMessages)
+        }
+        if (!servings) {
+            errorMessages.push('Number of servings is required')
+            setError(errorMessages)
+        }
+        if(errorMessages.length > 0) {
+            console.log('hello')
+            setError(null)
+            return
+        }
+
+        const newRow = {
+            ...food, servings
+        }
+        setMealFormData(data => [...data, newRow])
+        setFood(null)
+        setServings(null)
+    }
+
     return (
         <Row>
             <Col xs={14}>
                 <Select
-                    style={{ width: '60%' }}
+                    style={{ width: '50%' }}
                     showSearch
                     placeholder="Food"
                     optionFilterProp="children"
                     labelInValue
-                    defaultValue={food?.name}
-                    disabled={!edit}
+                    value={food?.name}
                     onChange={onFoodChange}
                     filterOption={(input, option) =>
                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -39,18 +62,17 @@ const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) =>
                     }
                 </Select>
                 <Input
-                    style={{ width: '20%' }}
+                    style={{ width: '25%' }}
                     placeholder="Serving Size"
                     optionFilterProp="children"
-                    value={food?.serving_size}
+                    value={food?.serving_size ? `${food?.serving_size.size} ${food?.serving_size.unit}` : null}
                     disabled
                 />
                 <InputNumber
-                    style={{ width: '20%' }}
+                    style={{ width: '25%' }}
                     placeholder="Number of Servings"
-                    value={servings}
-                    disabled={!edit}
                     onChange={onServingChange}
+                    value={servings}
                 />
             </Col>
             <Col xs={8}>
@@ -88,6 +110,12 @@ const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) =>
                         />
                     </Col>
                     <Col md={4}>
+                        <Button
+                            style={{ marginRight: '5px' }}
+                            type="primary"
+                            icon={<PlusOutlined />}
+                            onClick={addRow}
+                        />
                     </Col>
                 </Row>
             </Col>
@@ -95,4 +123,4 @@ const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) =>
     )
 }
 
-export default IngredientRow
+export default AddIngredientRow
