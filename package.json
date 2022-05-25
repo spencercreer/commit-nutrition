@@ -1,7 +1,7 @@
 {
   "name": "meal-planner",
   "version": "1.0.0",
-  "description": "",
+  "description": "An application for planning the macronutrients of meals.",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
