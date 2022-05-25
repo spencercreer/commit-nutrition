@@ -19,7 +19,12 @@ const FoodPage = () => {
 
     return (
         <>
-            <Sider>
+            <Sider
+                width={200}
+                className='site-layout-background'
+                breakpoint='md'
+                collapsedWidth='0'
+            >
                 <Menu
                     mode='inline'
                     style={{ height: '100%', borderRight: 0 }}

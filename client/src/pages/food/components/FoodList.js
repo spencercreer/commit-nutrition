@@ -21,11 +21,15 @@ const FoodList = () => {
 
     return (
         <>
-        {foods?.map(food => (
-              <Card title={<div>{food.name}</div>}>
-              
-            </Card>
-        ))}
+            {foods?.map(food => (
+                <Card title={<div>{food.name}</div>}>
+                    <p>Calories: {food.calories}</p>
+                    <p>Carbs: {food.carbs}</p>
+                    <p>Protein: {food.protein}</p>
+                    <p>Fat: {food.fat}</p>
+                    <p>Sodium: {food.sodium}</p>
+                </Card>
+            ))}
         </>
     )
 }
