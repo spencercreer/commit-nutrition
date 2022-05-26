@@ -11,7 +11,6 @@ const FoodList = () => {
         let mounted = true;
         getFoods()
             .then(items => {
-                console.log(items)
                 if (mounted) {
                     setFoods(items)
                 }

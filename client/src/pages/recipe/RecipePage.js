@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 // Components
 import RecipeForm from './components/RecipeForm'
+import RecipeList from './components/RecipeList'
 // Antd
-import { Layout, Menu, Select } from 'antd'
+import { Layout, Menu, Select, Button } from 'antd'
 // Utils
 import { getFoods } from '../../utils/API'
 
@@ -14,18 +15,22 @@ const { Option } = Select
 
 const RecipePage = () => {
     const [foods, setFoods] = useState()
+    const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
         let mounted = true;
         getFoods()
             .then(items => {
-                console.log(items)
                 if (mounted) {
                     setFoods(items)
                 }
             })
         return () => mounted = false;
     }, [])
+
+    const handleToggleModal = () => {
+        setModalVisible(!modalVisible)
+    }
 
     return (
         <>
@@ -53,8 +58,15 @@ const RecipePage = () => {
                     </SubMenu>
                 </Menu>
             </Sider>
-            <Content>
-                <RecipeForm />
+            <Content style={{ margin: '10px 60px' }}>
+                <Button
+                    type='primary'
+                    onClick={() => setModalVisible(true)}
+                >
+                    Add Recipe
+                </Button>
+                <RecipeList />
+                {/* <RecipeForm /> */}
             </Content>
         </>
     )

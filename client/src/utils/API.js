@@ -1,3 +1,13 @@
+export const getFoods = () => {
+    return fetch('/api/foods', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+}
+
 export const createFood = (foodData) => {
     return fetch('/api/foods', {
         method: 'POST',
@@ -9,8 +19,8 @@ export const createFood = (foodData) => {
     .then(res => res.json())
 }
 
-export const getFoods = () => {
-    return fetch('/api/foods', {
+export const getRecipes = () => {
+    return fetch('api/recipes', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
