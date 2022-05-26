@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 // Components
 import RecipeForm from './components/RecipeForm'
 import RecipeList from './components/RecipeList'
+import AddRecipeModal from './components/AddRecipeModal'
 // Antd
 import { Layout, Menu, Select, Button } from 'antd'
 // Utils
@@ -66,7 +67,10 @@ const RecipePage = () => {
                     Add Recipe
                 </Button>
                 <RecipeList />
-                {/* <RecipeForm /> */}
+                <AddRecipeModal
+                    visible={modalVisible}
+                    handleCloseModal={handleToggleModal}
+                />
             </Content>
         </>
     )

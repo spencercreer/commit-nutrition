@@ -119,7 +119,11 @@ const RecipeForm = () => {
                     </Col>
                 </Row>
             </div>
-            <Button onClick={handleCreateRecipe}>Create Recipe</Button>
+            <Button 
+                type='primary'
+                htmlType='submit'
+                onClick={handleCreateRecipe}
+            >Create Recipe</Button>
         </>
     )
 }
