@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Row, Col, Button, InputNumber } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import AddIngredientRow from './AddIngredientRow'
-import IngredientRow from './IngredientRow'
+import AddIngredientRow from '../pages/recipe/components/AddIngredientRow'
+import IngredientRow from '../pages/recipe/components/IngredientRow'
 // Utils
 import { getFoods } from '../utils/API'
 

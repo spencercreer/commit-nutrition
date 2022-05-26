@@ -43,7 +43,7 @@ const FoodPage = () => {
                     </SubMenu>
                 </Menu>
             </Sider>
-            <Content>
+            <Content style={{ margin: '10px 60px' }}>
                 <Button
                     type='primary'
                     onClick={() => setModalVisible(true)}

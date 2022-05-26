@@ -3,13 +3,13 @@ import { Select, InputNumber, Button, Row, Col, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 const { Option } = Select
 
-const IngredientRow = ({ foods, index, edit, mealFormData, setMealFormData }) => {
-    const [food, setFood] = useState(mealFormData[index])
+const IngredientRow = ({ foods, index, edit, recipeFormData, setRecipeFormData }) => {
+    const [food, setFood] = useState(recipeFormData[index])
     const [servings, setServings] = useState(food.servings)
 
     function onFoodChange(value) {
         setFood(foods[parseInt(value.key)])
-        setMealFormData((data) => [...data.slice(0, index), { ...foods[parseInt(value.key)]}, ...data.slice(index + 1)])
+        setRecipeFormData((data) => [...data.slice(0, index), { ...foods[parseInt(value.key)]}, ...data.slice(index + 1)])
     }
 
     function onServingChange(value) {

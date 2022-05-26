@@ -4,13 +4,13 @@ import { PlusOutlined } from '@ant-design/icons'
 import AddIngredientRow from './AddIngredientRow'
 import IngredientRow from './IngredientRow'
 // Utils
-import { getFoods, createRecipe } from '../utils/API'
+import { getFoods, createRecipe } from '../../../utils/API'
 
 const RecipeForm = () => {
     const [recipeName, setRecipeName] = useState('')
     const [recipeDescription, setRecipeDescription] = useState('')
-    //TODO: Change mealFormData to recipeData
-    const [mealFormData, setMealFormData] = useState([])
+    //TODO: Change recipeFormData to recipeData
+    const [recipeFormData, setRecipeFormData] = useState([])
     const [foods, setFoods] = useState()
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const RecipeForm = () => {
 
     const handleCreateRecipe = () => {
         //Maybe refactor when I add an ingredient to only add the id when adding a new food
-        const ingredients = mealFormData.map(ingredient => {
+        const ingredients = recipeFormData.map(ingredient => {
             return { foodId: ingredient._id}
         })
         createRecipe({
@@ -42,37 +42,37 @@ const RecipeForm = () => {
 
     return (
         <>
-            <Row>
+            <Row style={{ margin: '10px 60px' }}>
                 <div>Recipe Name:</div>
                 <Input
                     value={recipeName}
                     onChange={(e) => setRecipeName(e.target.value)}
                 />
             </Row>
-            <Row>
+            <Row style={{ margin: '10px 60px' }}>
                 <div>Recipe Description:</div>
                 <Input
                     value={recipeDescription}
                     onChange={(e) => setRecipeDescription(e.target.value)}
                 />
             </Row>
-            <div style={{ margin: '10px' }}>
+            <div style={{ margin: '10px 60px' }}>
                 <AddIngredientRow
                     foods={foods}
-                    setMealFormData={setMealFormData}
+                    setRecipeFormData={setRecipeFormData}
                 />
                 {/* Should I make addIngredientRow and IngredientRow the same? */}
             </div>
-            <div style={{ margin: '10px' }}>
+            <div style={{ margin: '10px 60px' }}>
                 {
-                    mealFormData.map((data, i) => (
+                    recipeFormData.map((data, i) => (
                         <IngredientRow
                             key={i}
                             index={i}
                             foods={foods}
                             edit={false}
-                            mealFormData={mealFormData}
-                            setMealFormData={setMealFormData}
+                            recipeFormData={recipeFormData}
+                            setRecipeFormData={setRecipeFormData}
                         />
                     ))
                 }

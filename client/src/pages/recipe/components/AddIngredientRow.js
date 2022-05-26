@@ -42,7 +42,7 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
 
     return (
         <Row>
-            <Col xs={14}>
+            <Col sm={14}>
                 <Select
                     style={{ width: '50%' }}
                     showSearch
@@ -75,7 +75,7 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
                     value={servings}
                 />
             </Col>
-            <Col xs={8}>
+            <Col sm={8}>
                 <Row>
                     <Col md={5}>
                         <InputNumber
