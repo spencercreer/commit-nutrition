@@ -142,6 +142,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         }
       </Form> */}
       <RecipeForm />
+
     </Modal>
   )
 }

@@ -119,8 +119,6 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 <Item name={'category'} label='Category'>
                     <Select
                           showSearch
-                          optionFilterProp="children"
-                          labelInValue
                           filterOption={(input, option) =>
                               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                           }
