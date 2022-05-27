@@ -1,3 +1,4 @@
+import LoadingCards from '../../../components/LoadingCards'
 // Antd
 import { Card } from 'antd'
 // Utils
@@ -10,7 +11,8 @@ const RecipeList = () => {
     return (
         <>
             {
-                loading ? <div>Loading...</div>
+                loading ?
+                    <LoadingCards />
                     :
                     recipeData?.map(recipe => (
                         <Card title={<div>{recipe.name}</div>}>

@@ -1,3 +1,4 @@
+import LoadingCards from '../../../components/LoadingCards'
 // Antd
 import { Card } from 'antd'
 // Utils
@@ -10,8 +11,8 @@ const FoodList = () => {
     return (
         <>
             {
-                //TODO: Make loading cards
-                loading ? <div>Loading...</div>
+                loading ?
+                    <LoadingCards />
                     :
                     foodData?.map(food => (
                         <Card title={<div>{food.name}</div>}>
