@@ -3,7 +3,7 @@ import { useState } from 'react'
 // Antd
 import { Modal, Form, Input, InputNumber, Select, message, Alert, Button } from 'antd'
 // Utils
-import { createFood } from '../../../utils/API'
+import { usePost } from '../../../utils/API'
 import { validateMessages, layout, foodCategories } from '../../../utils/form'
 
 const { Item } = Form
@@ -13,6 +13,7 @@ const { Option } = Select
 const AddFoodModal = ({ visible, handleCloseModal }) => {
     const [form] = Form.useForm()
     const [alert, setAlert] = useState()
+    const [createFood] = usePost('/api/foods')
 
     const onFinish = async (values) => {
         console.log(values)

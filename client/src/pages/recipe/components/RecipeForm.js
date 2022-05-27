@@ -4,9 +4,9 @@ import AddIngredientRow from './AddIngredientRow'
 // import IngredientRow from './IngredientRow'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
-import { createRecipe, useGet } from '../../../utils/API'
+import { useGet, usePost } from '../../../utils/API'
 import { recipeCategories } from '../../../utils/form';
-import { Button, Form, Input, Select, Space } from 'antd';
+import { Button, Form, Input, Select, Space, message } from 'antd';
 const { Option } = Select;
 
 const sights = {
@@ -15,15 +15,24 @@ const sights = {
 };
 
 const RecipeForm = () => {
-    //     const [recipeName, setRecipeName] = useState('')
-    //     const [recipeDescription, setRecipeDescription] = useState('')
     //     //TODO: Change recipeFormData to recipeData
     //     const [recipeFormData, setRecipeFormData] = useState([])
     const [form] = Form.useForm();
     const { data: foodData, loading }  = useGet('/api/foods')
+    const [createRecipe] = usePost('/api/recipes')
 
     const onFinish = (values) => {
         console.log('Received values of form:', values);
+        createRecipe(values)
+        .then(res => {
+            message.success(`${res.name} added successfully!`)
+            form.resetFields()
+            // setAlert(null)
+        })
+        .catch(err => {
+            // setAlert('We were not able to save this recipe. Please try again.')
+            console.log(err)
+        })
     };
 
     
@@ -85,8 +94,7 @@ const RecipeForm = () => {
                                     {() => (
                                         <Form.Item
                                         {...field}
-                                        label="Food"
-                                        name={[field.name, 'food']}
+                                        name={[field.name, 'foodId']}
                                         rules={[
                                                 {
                                                     required: true,
@@ -95,9 +103,12 @@ const RecipeForm = () => {
                                             ]}
                                             >
                                             <Select
-                                                style={{
-                                                    width: 130,
-                                                }}
+                                                style={{ width: 130, }}
+                                                showSearch
+                                                placeholder="Food"
+                                                filterOption={(input, option) =>
+                                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                }
                                                 >
                                                 {foodData.map((food) => (
                                                     <Option key={food._id} value={food._id}>
