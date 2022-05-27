@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Modal, Form, Input, InputNumber, Select, message, Alert, Button } from 'antd'
 // Utils
 import { createFood } from '../../../utils/API'
-import { validateMessages, layout } from '../../../utils/form'
+import { validateMessages, layout, foodCategories } from '../../../utils/form'
 
 const { Item } = Form
 const { Group } = Input
@@ -118,19 +118,21 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 </Item>
                 <Item name={'category'} label='Category'>
                     <Select
-                          showSearch
-                          filterOption={(input, option) =>
-                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                          }
+                        showSearch
+                        filterOption={(input, option) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }
                     >
-                        <Option value={'vegetables'} >Vegetables</Option>
-                        <Option value={'fruits'} >Fruits</Option>
-                        <Option value={'grains'} >Grains</Option>
-                        <Option value={'meat'} >Meat</Option>
-                        <Option value={'dairy'} >Dairy</Option>
-                        <Option value={'fats'} >Oils & Fats</Option>
-                        <Option value={'seasoning'} >Seasonings</Option>
-                        <Option value={'other'} >Other</Option>
+                        {
+                            foodCategories.map((foodCategory, i) => (
+                                <Option
+                                    key={i}
+                                    value={foodCategory.value}
+                                >
+                                    {foodCategory.label}
+                                </Option>
+                            ))
+                        }
                     </Select>
                 </Item>
                 {

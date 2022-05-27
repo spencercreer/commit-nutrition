@@ -14,8 +14,11 @@ const FoodList = () => {
                 loading ?
                     <LoadingCards />
                     :
-                    foodData?.map(food => (
-                        <Card title={<div>{food.name}</div>}>
+                    foodData?.map((food, i) => (
+                        <Card
+                            key={i}
+                            title={<div>{food.name}</div>}
+                        >
                             <p>Calories: {food.calories}</p>
                             <p>Carbs: {food.carbs}</p>
                             <p>Protein: {food.protein}</p>

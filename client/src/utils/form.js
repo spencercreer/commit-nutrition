@@ -1,6 +1,45 @@
-export const foodCategories = {
-
-}
+export const foodCategories = [
+    {
+        label: 'Vegtables',
+        value: 'vegtables',
+    },
+    {
+        label: 'Fruits',
+        value: 'fruits',
+    },
+    {
+        label: 'Grains',
+        value: 'grains',
+    },
+    {
+        label: 'Meats',
+        value: 'meats',
+    },
+    {
+        label: 'Protein',
+        value: 'protein',
+    },
+    {
+        label: 'Dairy',
+        value: 'dairy',
+    },
+    {
+        label: 'Oils & Fats',
+        value: 'oils-fats',
+    },
+    {
+        label: 'Sugars & Sweeteners',
+        value: 'sugars',
+    },
+    {
+        label: 'Seasonings',
+        value: 'seasonings',
+    },
+    {
+        label: 'Other',
+        value: 'other',
+    },
+]
 
 export const recipeCategories = [
     {

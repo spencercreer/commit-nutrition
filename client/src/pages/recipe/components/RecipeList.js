@@ -14,8 +14,11 @@ const RecipeList = () => {
                 loading ?
                     <LoadingCards />
                     :
-                    recipeData?.map(recipe => (
-                        <Card title={<div>{recipe.name}</div>}>
+                    recipeData?.map((recipe, i) => (
+                        <Card
+                            key={i}
+                            title={<div>{recipe.name}</div>}
+                        >
                             <p>Calories:</p>
                             <p>Carbs:</p>
                             <p>Protein:</p>

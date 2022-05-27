@@ -8,6 +8,7 @@ import AddRecipeModal from './components/AddRecipeModal'
 // Antd
 import { Layout, Menu, Select, Button } from 'antd'
 // Utils
+import { recipeCategories } from '../../utils/form'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
@@ -35,14 +36,11 @@ const RecipePage = () => {
                     defaultOpenKeys={['sub1']}
                 >
                     <SubMenu key='sub1' title='Recipes'>
-                        <Item key='1'><Link to={'/vegtables'} >Vegtables</Link></Item>
-                        <Item key='2'><Link to={'/fruits'} >Fruits</Link></Item>
-                        <Item key='3'><Link to={'/grains'} >Grains</Link></Item>
-                        <Item key='4'><Link to={'/meats'} >Meats</Link></Item>
-                        <Item key='5'><Link to={'/dairy'} >Dairy</Link></Item>
-                        <Item key='6'><Link to={'/oils_fats'} >Oils & Fats</Link></Item>
-                        <Item key='7'><Link to={'/seasonings'} >Seasonings</Link></Item>
-                        <Item key='8'><Link to={'/other-foods'} >Other</Link></Item>
+                        {
+                            recipeCategories.map((recipeCategory, i) => (
+                                <Item key={i}>{recipeCategory.label}</Item>
+                            ))
+                        }
                     </SubMenu>
                 </Menu>
             </Sider>

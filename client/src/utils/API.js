@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 
 export const createFood = (foodData) => {
     return fetch('/api/foods', {
@@ -26,7 +26,7 @@ export const useGet = (url) => {
     const [state, setState] = useState({ data: null, loading: true })
 
     useEffect(() => {
-        setState(state => ({ data: state.data, loading: true }))
+        setState(state => ({ ...state, loading: true }))
         fetch(url, {
             method: 'GET',
             headers: {
@@ -41,3 +41,24 @@ export const useGet = (url) => {
 
     return state
 }
+
+// export const usePost = (url, body) => {
+//     const [state, setState] = useState({ data: null, error: null, loading: false });
+//     const callAPI = useCallback(() => {
+//          setState(state => ({ ...state, loading: true }));
+//          fetch(url, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'  
+//             },
+//             body: JSON.stringify(body)
+//          })
+//          .then(res => res.json())
+//          .then(data => {
+//             setState({ data, loading: false, error: null });
+//          }).catch((error) => {
+//             setState({ data: null, loading: false, error });
+//          })
+//     }, [url, headers, payload])
+//     return [state, callAPI];
+// }
