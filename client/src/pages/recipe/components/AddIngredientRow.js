@@ -47,7 +47,7 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
                     style={{ width: '50%' }}
                     showSearch
                     placeholder="Food"
-                    optionFilterProp="children"
+                    // optionFilterProp="children"
                     labelInValue
                     value={food?.name}
                     onChange={onFoodChange}
@@ -64,7 +64,7 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
                 <Input
                     style={{ width: '25%' }}
                     placeholder="Serving Size"
-                    optionFilterProp="children"
+                    // optionFilterProp="children"
                     value={food?.serving_size ? `${food?.serving_size.size} ${food?.serving_size.unit}` : null}
                     disabled
                 />

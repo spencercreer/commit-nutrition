@@ -23,7 +23,7 @@ const IngredientRow = ({ foods, index, edit, recipeFormData, setRecipeFormData }
                     style={{ width: '60%' }}
                     showSearch
                     placeholder="Food"
-                    optionFilterProp="children"
+                    // optionFilterProp="children"
                     labelInValue
                     defaultValue={food?.name}
                     disabled={!edit}
@@ -41,7 +41,7 @@ const IngredientRow = ({ foods, index, edit, recipeFormData, setRecipeFormData }
                 <Input
                     style={{ width: '20%' }}
                     placeholder="Serving Size"
-                    optionFilterProp="children"
+                    // optionFilterProp="children"
                     value={food?.serving_size}
                     disabled
                 />
