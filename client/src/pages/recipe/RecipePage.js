@@ -8,26 +8,13 @@ import AddRecipeModal from './components/AddRecipeModal'
 // Antd
 import { Layout, Menu, Select, Button } from 'antd'
 // Utils
-import { getFoods } from '../../utils/API'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
 const { Option } = Select
 
 const RecipePage = () => {
-    const [foods, setFoods] = useState()
     const [modalVisible, setModalVisible] = useState(false)
-
-    useEffect(() => {
-        let mounted = true;
-        getFoods()
-            .then(items => {
-                if (mounted) {
-                    setFoods(items)
-                }
-            })
-        return () => mounted = false;
-    }, [])
 
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)

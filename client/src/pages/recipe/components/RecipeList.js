@@ -1,34 +1,27 @@
-// React
-import { useState, useEffect } from 'react'
+// Antd
 import { Card } from 'antd'
 // Utils
-import { getRecipes } from '../../../utils/API'
+import { useGet } from '../../../utils/API'
 
 const RecipeList = () => {
-    const [recipes, setRecipes] = useState()
 
-    useEffect(() => {
-        let mounted = true;
-        getRecipes()
-            .then(items => {
-                if (mounted) {
-                    setRecipes(items)
-                }
-            })
-        return () => mounted = false;
-    }, [])
+    const { data: recipeData, loading } = useGet('/api/recipes')
 
     return (
         <>
-            {recipes?.map(recipe => (
-                <Card title={<div>{recipe.name}</div>}>
-                    <p>Calories:</p>
-                    <p>Carbs:</p>
-                    <p>Protein:</p>
-                    <p>Fat:</p>
-                    <p>Sodium:</p>
-                </Card>
-            ))}
+            {
+                loading ? <div>Loading...</div>
+                    :
+                    recipeData?.map(recipe => (
+                        <Card title={<div>{recipe.name}</div>}>
+                            <p>Calories:</p>
+                            <p>Carbs:</p>
+                            <p>Protein:</p>
+                            <p>Fat:</p>
+                            <p>Sodium:</p>
+                        </Card>
+                    ))
+            }
         </>
     )
 }

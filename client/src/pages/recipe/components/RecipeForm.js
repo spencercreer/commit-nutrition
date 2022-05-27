@@ -1,175 +1,135 @@
-// import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 // import { Row, Col, Button, Input, InputNumber } from 'antd'
-// import { PlusOutlined } from '@ant-design/icons'
-// import AddIngredientRow from './AddIngredientRow'
+import AddIngredientRow from './AddIngredientRow'
 // import IngredientRow from './IngredientRow'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
-// // Utils
-// import { getFoods, createRecipe } from '../../../utils/API'
+// Utils
+import { createRecipe, useGet } from '../../../utils/API'
+import { recipeCategories } from '../../../utils/form';
+import { Button, Form, Input, Select, Space } from 'antd';
+const { Option } = Select;
+
+const sights = {
+    Beijing: ['Tiananmen', 'Great Wall'],
+    Shanghai: ['Oriental Pearl', 'The Bund'],
+};
 
 const RecipeForm = () => {
     //     const [recipeName, setRecipeName] = useState('')
     //     const [recipeDescription, setRecipeDescription] = useState('')
     //     //TODO: Change recipeFormData to recipeData
     //     const [recipeFormData, setRecipeFormData] = useState([])
-    //     const [foods, setFoods] = useState()
-
-    //     useEffect(() => {
-    //         let mounted = true;
-    //         getFoods()
-    //             .then(items => {
-    //                 console.log(items)
-    //                 if (mounted) {
-    //                     setFoods(items)
-    //                 }
-    //             })
-    //         return () => mounted = false;
-    //     }, [])
+    const [form] = Form.useForm();
+    const { data: foodData, loading }  = useGet('/api/foods')
 
     const onFinish = (values) => {
         console.log('Received values of form:', values);
     };
 
-    const formItemLayout = {
-        labelCol: {
-            xs: {
-                span: 24,
-            },
-            sm: {
-                span: 4,
-            },
-        },
-        wrapperCol: {
-            xs: {
-                span: 24,
-            },
-            sm: {
-                span: 20,
-            },
-        },
+    
+    const handleChange = () => {
+        form.setFieldsValue({
+            sights: [],
+        });
     };
-    const formItemLayoutWithOutLabel = {
-        wrapperCol: {
-            xs: {
-                span: 24,
-                offset: 0,
-            },
-            sm: {
-                span: 20,
-                offset: 4,
-            },
-        },
-    };
-
+    
     //     const handleCreateRecipe = () => {
     //         //Maybe refactor when I add an ingredient to only add the id when adding a new food
     //         const ingredients = recipeFormData.map(ingredient => {
-    //             return { foodId: ingredient._id}
-    //         })
-    //         createRecipe({
-    //             name: recipeName,
-    //             description: recipeDescription,
-    //             ingredients
-    //         })
-    //             .then(recipe => {
-    //                 console.log(recipe)
+        //             return { foodId: ingredient._id}
+        //         })
+        //         createRecipe({
+            //             name: recipeName,
+            //             description: recipeDescription,
+            //             ingredients
+            //         })
+            //             .then(recipe => {
+                //                 console.log(recipe)
     //             })
     //     }
-
+    
     return (
-        <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinish}>
+        <>
+        <AddIngredientRow />
+        <Form form={form} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
             <Form.Item
                 name='name'
                 label='Recipe Name'
-            >
-                <Input
-                // value={recipeName}
-                // onChange={(e) => setRecipeName(e.target.value)}
-                />
+                rules={[{ required: true }]}
+                >
+                <Input />
             </Form.Item>
             <Form.Item
                 name='description'
                 label='Description'
-            >
-                <Input
-                // value={recipeDescription}
-                // onChange={(e) => setRecipeDescription(e.target.value)}
-                />
+                >
+                <Input />
             </Form.Item>
-            <Form.List
-                name="ingredients"
-                rules={[
-                    {
-                        validator: async (_, names) => {
-                            if (!names || names.length < 2) {
-                                return Promise.reject(new Error('At least 2 ingredients required'));
-                            }
-                        },
-                    },
-                ]}
-            >
-                {(fields, { add, remove }, { errors }) => (
+            <Form.Item
+                name="category"
+                label="Category"
+                >
+                <Select options={recipeCategories} onChange={handleChange} />
+            </Form.Item>
+            <Form.List name="ingredients">
+                {(fields, { add, remove }) => (
                     <>
-                        {fields.map((field, index) => (
-                            <Form.Item
-                                {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                                label={index === 0 ? 'Ingredients' : ''}
-                                required={false}
-                                key={field.key}
-                            >
+                        {fields.map((field) => (
+                            <Space key={field.key} align="baseline">
+                                <Form.Item
+                                    noStyle
+                                    shouldUpdate={(prevValues, curValues) =>
+                                        prevValues.area !== curValues.area || prevValues.sights !== curValues.sights
+                                    }
+                                    >
+                                    {() => (
+                                        <Form.Item
+                                        {...field}
+                                        label="Food"
+                                        name={[field.name, 'food']}
+                                        rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Missing food',
+                                                },
+                                            ]}
+                                            >
+                                            <Select
+                                                style={{
+                                                    width: 130,
+                                                }}
+                                                >
+                                                {foodData.map((food) => (
+                                                    <Option key={food._id} value={food._id}>
+                                                        {food.name}
+                                                    </Option>
+                                                ))}
+                                            </Select>
+                                        </Form.Item>
+                                    )}
+                                </Form.Item>
                                 <Form.Item
                                     {...field}
-                                    validateTrigger={['onChange', 'onBlur']}
+                                    label="Number of Servings"
+                                    name={[field.name, 'number_of_servings']}
                                     rules={[
                                         {
                                             required: true,
-                                            whitespace: true,
-                                            message: "Please input ingredient information or delete this field.",
+                                            message: 'Missing number of servings',
                                         },
                                     ]}
-                                    noStyle
                                 >
-                                    <Input
-                                        placeholder="passenger name"
-                                        style={{
-                                            width: '60%',
-                                        }}
-                                    />
+                                    <Input />
                                 </Form.Item>
-                                {fields.length > 1 ? (
-                                    <MinusCircleOutlined
-                                        className="dynamic-delete-button"
-                                        onClick={() => remove(field.name)}
-                                    />
-                                ) : null}
-                            </Form.Item>
+
+                                <MinusCircleOutlined onClick={() => remove(field.name)} />
+                            </Space>
                         ))}
+
                         <Form.Item>
-                            <Button
-                                type="dashed"
-                                onClick={() => add()}
-                                style={{
-                                    width: '60%',
-                                }}
-                                icon={<PlusOutlined />}
-                            >
+                            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                                 Add ingredient
                             </Button>
-                            <Button
-                                type="dashed"
-                                onClick={() => {
-                                    add('The head item', 0);
-                                }}
-                                style={{
-                                    width: '60%',
-                                    marginTop: '20px',
-                                }}
-                                icon={<PlusOutlined />}
-                            >
-                                Add ingredient to top
-                            </Button>
-                            <Form.ErrorList errors={errors} />
                         </Form.Item>
                     </>
                 )}
@@ -180,58 +140,59 @@ const RecipeForm = () => {
                 </Button>
             </Form.Item>
         </Form>
+        </>
     );
-
+    
     //     return (
-    //         <>
-    //             <Row style={{ margin: '10px 60px' }}>
-    //                 <div>Recipe Name:</div>
-    //                 <Input
-    //                     value={recipeName}
-    //                     onChange={(e) => setRecipeName(e.target.value)}
-    //                 />
-    //             </Row>
-    //             <Row style={{ margin: '10px 60px' }}>
-    //                 <div>Recipe Description:</div>
-    //                 <Input
-    //                     value={recipeDescription}
-    //                     onChange={(e) => setRecipeDescription(e.target.value)}
-    //                 />
-    //             </Row>
-    //             <div style={{ margin: '10px 60px' }}>
-    //                 <AddIngredientRow
-    //                     foods={foods}
-    //                     setRecipeFormData={setRecipeFormData}
-    //                 />
-    //                 {/* Should I make addIngredientRow and IngredientRow the same? */}
-    //             </div>
-    //             <div style={{ margin: '10px 60px' }}>
-    //                 {
-    //                     recipeFormData.map((data, i) => (
-    //                         <IngredientRow
-    //                             key={i}
-    //                             index={i}
-    //                             foods={foods}
-    //                             edit={false}
-    //                             recipeFormData={recipeFormData}
-    //                             setRecipeFormData={setRecipeFormData}
-    //                         />
-    //                     ))
-    //                 }
-    //                 <Row>
-    //                     <Col xs={14}>
-    //                     </Col>
-    //                     <Col xs={8}>
-    //                         <Row>
-    //                             <Col md={5}>
-    //                                 <InputNumber
-    //                                     style={{ marginRight: '5px' }}
-    //                                     addonAfter="g"
-    //                                     // value={food?.carbs * servings}
-    //                                     disabled
-    //                                 />
-    //                             </Col>
-    //                             <Col md={5}>
+        //         <>
+        //             <Row style={{ margin: '10px 60px' }}>
+        //                 <div>Recipe Name:</div>
+        //                 <Input
+        //                     value={recipeName}
+        //                     onChange={(e) => setRecipeName(e.target.value)}
+        //                 />
+        //             </Row>
+        //             <Row style={{ margin: '10px 60px' }}>
+        //                 <div>Recipe Description:</div>
+        //                 <Input
+        //                     value={recipeDescription}
+        //                     onChange={(e) => setRecipeDescription(e.target.value)}
+        //                 />
+        //             </Row>
+        //             <div style={{ margin: '10px 60px' }}>
+        //                 <AddIngredientRow
+        //                     foods={foods}
+        //                     setRecipeFormData={setRecipeFormData}
+        //                 />
+        //                 {/* Should I make addIngredientRow and IngredientRow the same? */}
+        //             </div>
+        //             <div style={{ margin: '10px 60px' }}>
+        //                 {
+            //                     recipeFormData.map((data, i) => (
+                //                         <IngredientRow
+                //                             key={i}
+                //                             index={i}
+                //                             foods={foods}
+                //                             edit={false}
+                //                             recipeFormData={recipeFormData}
+                //                             setRecipeFormData={setRecipeFormData}
+                //                         />
+                //                     ))
+                //                 }
+                //                 <Row>
+                //                     <Col xs={14}>
+                //                     </Col>
+                //                     <Col xs={8}>
+                //                         <Row>
+                //                             <Col md={5}>
+                //                                 <InputNumber
+                //                                     style={{ marginRight: '5px' }}
+                //                                     addonAfter="g"
+                //                                     // value={food?.carbs * servings}
+                //                                     disabled
+                //                                 />
+                //                             </Col>
+                //                             <Col md={5}>
     //                                 <InputNumber
     //                                     style={{ marginRight: '5px' }}
     //                                     addonAfter="g"
@@ -269,7 +230,37 @@ const RecipeForm = () => {
     //         </>
     //     )
     // }
-
+    
 }
 
 export default RecipeForm
+// const formItemLayout = {
+//     labelCol: {
+//         xs: {
+//             span: 24,
+//         },
+//         sm: {
+//             span: 4,
+//         },
+//     },
+//     wrapperCol: {
+//         xs: {
+//             span: 24,
+//         },
+//         sm: {
+//             span: 20,
+//         },
+//     },
+// };
+// const formItemLayoutWithOutLabel = {
+//     wrapperCol: {
+//         xs: {
+//             span: 24,
+//             offset: 0,
+//         },
+//         sm: {
+//             span: 20,
+//             offset: 4,
+//         },
+//     },
+// };

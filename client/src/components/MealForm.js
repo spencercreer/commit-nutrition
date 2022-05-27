@@ -4,29 +4,18 @@ import { PlusOutlined } from '@ant-design/icons'
 import AddIngredientRow from '../pages/recipe/components/AddIngredientRow'
 import IngredientRow from '../pages/recipe/components/IngredientRow'
 // Utils
-import { getFoods } from '../utils/API'
+import { useGet } from '../utils/API'
 
 const MealForm = () => {
     const [mealFormData, setMealFormData] = useState([])
-    const [foods, setFoods] = useState()
 
-    useEffect(() => {
-        let mounted = true;
-        getFoods()
-            .then(items => {
-                console.log(items)
-                if (mounted) {
-                    setFoods(items)
-                }
-            })
-        return () => mounted = false;
-    }, [])
+    const { data: foodData, loading }  = useGet('/api/foods')
 
     return (
         <>
             <div style={{ margin: '10px' }}>
                 <AddIngredientRow
-                    foods={foods}
+                    foods={foodData}
                     setMealFormData={setMealFormData}
                 />
                 {/* Should I make addIngredientRow and IngredientRow the same? */}
@@ -37,7 +26,7 @@ const MealForm = () => {
                         <IngredientRow
                             key={i}
                             index={i}
-                            foods={foods}
+                            foods={foodData}
                             edit={false}
                             mealFormData={mealFormData}
                             setMealFormData={setMealFormData}
