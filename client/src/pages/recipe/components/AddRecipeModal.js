@@ -1,33 +1,73 @@
-// React
-import { useState } from 'react'
-// Antd
-import { Modal, Form, Input, InputNumber, Select, message, Alert, Button } from 'antd'
+import { useState, useEffect } from 'react'
+import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, Space, message } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
-// import { createFood } from '../../../utils/API'
-import { validateMessages, layout } from '../../../utils/form'
-import RecipeForm from './RecipeForm'
-
+import { useGet, usePost } from '../../../utils/API'
+import { validateMessages, layout, recipeCategories } from '../../../utils/form';
+const { Option } = Select;
 const { Item } = Form
-const { Group } = Input
-const { Option } = Select
 
 const AddRecipeModal = ({ visible, handleCloseModal }) => {
+  const [recipeData, setRecipeData] = useState([])
   const [form] = Form.useForm()
+  const [recipeNutrients, setRecipeNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
+  const { data: foodData, loading } = useGet('/api/foods')
+  const [createRecipe] = usePost('/api/recipes')
   const [alert, setAlert] = useState()
 
-  const onFinish = async (values) => {
-    console.log(values)
-    // createFood(values)
+  const onFinish = (values) => {
+    console.log('Received values of form:', values);
+    createRecipe(values)
       .then(res => {
         message.success(`${res.name} added successfully!`)
         form.resetFields()
-        setAlert(null)
+        // setAlert(null)
       })
       .catch(err => {
-        setAlert('We were not able to save this food. Please try again.')
+        // setAlert('We were not able to save this recipe. Please try again.')
         console.log(err)
       })
+  };
+
+  const handleIngredientChange = () => {
+    let { ingredients } = form.getFieldsValue()
+    ingredients = ingredients.map(ingredient => {
+      if (ingredient.foodId && ingredient.number_of_servings) {
+        const food = foodData.find((food) => food._id === ingredient.foodId)
+        const servings = ingredient.number_of_servings
+        const calories = food.calories * servings
+        const carbs = food.carbs * servings
+        const protein = food.protein * servings
+        const fat = food.fat * servings
+        const sodium = food.sodium * servings
+        return { ...food, calories, carbs, protein, fat, sodium, number_of_servings: servings }
+      } else {
+        return ingredient
+      }
+    })
+
+    let recipeCal = 0, recipeCarbs = 0, recipeProtein = 0, recipeFat = 0, recipeSodium = 0
+    ingredients.forEach(ingredient => {
+      if (ingredient._id && ingredient.number_of_servings) {
+        recipeCal += ingredient.calories
+        recipeCarbs += ingredient.carbs
+        recipeProtein += ingredient.protein
+        recipeFat += ingredient.fat
+        recipeSodium += ingredient.sodium
+      }
+    })
+    setRecipeNutrients({ calories: recipeCal, carbs: recipeCarbs, protein: recipeProtein, fat: recipeFat, sodium: recipeSodium })
+    setRecipeData(ingredients)
   }
+
+  const formItemLayoutWithOutLabel = {
+    wrapperCol: {
+      xs: {
+        span: 24,
+        offset: 0,
+      }
+    },
+  };
 
   const footerButtons =
     [
@@ -38,6 +78,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         Exit
       </Button>,
       <Button
+        key='submit'
         type='primary'
         htmlType='submit'
         style={{ width: '125px' }}
@@ -56,93 +97,161 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
       footer={footerButtons}
       width={1000}
     >
-      {/* <Form
-        {...layout}
-        form={form}
-        name='add-student'
-        onFinish={onFinish}
-        validateMessages={validateMessages}
-      >
-        <Item name={'name'} label='Food Name' rules={[{ required: true }]}>
-          <Input />
-        </Item>
-        <Item name={'description'} label='Description'>
-          <Input />
-        </Item>
-        <Item label='Serving Size'>
-          <Group compact>
-            <Item name={['serving_size', 'size']} noStyle rules={[{ required: true, message: 'Serving Size is required' }]}>
-              <InputNumber
-                placeholder='size'
-              />
-            </Item>
-            <Item name={['serving_size', 'unit']} style={{ width: '100px', margin: '0px' }}>
-              <Input
-                placeholder='unit'
-              />
-            </Item>
-          </Group>
-        </Item>
-        <Item name={'calories'} label='Calories' rules={[{ required: true }]}>
-          <InputNumber
-            min="0"
-            step="0.1"
-            addonAfter='cal'
-          />
-        </Item>
-        <Item name={'carbs'} label='Carbs' rules={[{ required: true }]}>
-          <InputNumber
-            min="0"
-            step="0.1"
-            addonAfter='g'
-          />
-        </Item>
-        <Item name={'protein'} label='Protein' rules={[{ required: true }]}>
-          <InputNumber
-            min="0"
-            step="0.1"
-            addonAfter='g'
-          />
-        </Item>
-        <Item name={'fat'} label='Fat' rules={[{ required: true }]}>
-          <InputNumber
-            min="0"
-            step="0.1"
-            addonAfter='g'
-          />
-        </Item>
-        <Item name={'sodium'} label='Sodium'>
-          <InputNumber
-            min="0"
-            step="0.1"
-            addonAfter='mg'
-          />
-        </Item>
-        <Item name={'category'} label='Category'>
-          <Select
-            showSearch
-            optionFilterProp="children"
-            labelInValue
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
+      <>
+        <Form
+          // {...formItemLayoutWithOutLabel}
+          form={form}
+          onFinish={onFinish}
+          autoComplete="off"
+        // initialValues={{
+        //     total_calories: recipeNutrients.calories
+        // }}
+        >
+          <Item
+            name='name'
+            rules={[{ required: true }]}
           >
-            <Option value={'vegetables'} >Vegetables</Option>
-            <Option value={'fruits'} >Fruits</Option>
-            <Option value={'grains'} >Grains</Option>
-            <Option value={'meat'} >Meat</Option>
-            <Option value={'dairy'} >Dairy</Option>
-            <Option value={'fats'} >Oils & Fats</Option>
-            <Option value={'seasoning'} >Seasonings</Option>
-            <Option value={'other'} >Other</Option>
-          </Select>
-        </Item>
-        {
-          alert && <Alert message={alert} type='error' />
-        }
-      </Form> */}
-      <RecipeForm />
+            <Input
+              placeholder='Title'
+            />
+          </Item>
+          <Item name='description'>
+            <Input
+              placeholder='Description'
+            />
+          </Item>
+          <Item name="category">
+            <Select
+              showSearch
+              placeholder='Category'
+              // options={recipeCategories}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {recipeCategories.map((category, i) => (
+                <Option key={i} value={category.value._id}>
+                  {category.label}
+                </Option>
+              ))}
+            </Select>
+          </Item>
+          {/* <Row> */}
+          {/* <Item name='total_calories'> */}
+          <InputNumber
+            style={{ width: '100%' }}
+            addonAfter="cal"
+            value={recipeNutrients.calories}
+            disabled
+          />
+          {/* </Item>
+                    <Item name='total_carbs'> */}
+          <InputNumber
+            style={{ width: '100%' }}
+            addonAfter="g"
+            value={recipeNutrients.carbs}
+            disabled
+          />
+          {/* </Item>
+                    <Item name='total_protein'> */}
+          <InputNumber
+            style={{ width: '100%' }}
+            addonAfter="g"
+            value={recipeNutrients.protein}
+            disabled
+          />
+          {/* </Item>
+                    <Item name='total_fat'> */}
+          <InputNumber
+            style={{ width: '100%' }}
+            addonAfter="g"
+            value={recipeNutrients.fat}
+            disabled
+          />
+          {/* </Item> */}
+          {/* <Item name='total_sodium'>
+                        <InputNumber
+                            style={{ width: '100%' }}
+                            addonAfter="mg"
+                            value={recipeNutrients.sodium}
+                            disabled
+                        />
+                    </Item> */}
+          {/* </Row> */}
+          <Form.List
+            name="ingredients"
+          >
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map((field) => (
+                  <Space key={field.key}>
+                    <Item
+                      key={'food'}
+                      name={[field.name, 'foodId']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Missing food',
+                        },
+                      ]}
+                    // style={{ width: '60%', }}
+                    >
+                      <Select
+                        showSearch
+                        placeholder="Food"
+                        onChange={handleIngredientChange}
+                        filterOption={(input, option) =>
+                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }
+                      >
+                        {foodData.map((food, i) => (
+                          <Option key={i} value={food._id}>
+                            {food.name}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Item>
+                    <Item
+                    // style={{ width: '20%' }}
+                    >
+                      <Input
+                        placeholder="Serving Size"
+                        // value={food?.serving_size ? `${food?.serving_size.size} ${food?.serving_size.unit}` : null}
+                        disabled
+                      />
+                    </Item>
+                    <Item
+                      name={[field.name, 'number_of_servings']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Missing number of servings',
+                        },
+                      ]}
+                    // style={{ width: '20%' }}
+                    >
+                      <InputNumber
+                        placeholder="Number of Servings"
+                        onChange={handleIngredientChange}
+                      />
+                    </Item>
+                    <MinusCircleOutlined onClick={() => {
+                      remove(field.name)
+                      handleIngredientChange()
+                    }} />
+                  </Space>
+                ))}
 
+                <Item>
+                  <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                    Add ingredient
+                  </Button>
+                </Item>
+              </>
+            )}
+          </Form.List>
+        </Form>
+      </>
     </Modal>
   )
 }

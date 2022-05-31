@@ -13,6 +13,21 @@ const recipeSchema = new Schema(
         category: {
             type: String
         },
+        total_calories: {
+            type: Number
+        },
+        total_carbs: {
+            type: Number
+        },
+        total_protein: {
+            type: Number
+        },
+        total_fat: {
+            type: Number
+        },
+        total_sodium: {
+            type: Number
+        },
         serving_size: {
             type: String
         },
