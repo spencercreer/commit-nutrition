@@ -13,19 +13,19 @@ const recipeSchema = new Schema(
         category: {
             type: String
         },
-        total_calories: {
+        calories: {
             type: Number
         },
-        total_carbs: {
+        carbs: {
             type: Number
         },
-        total_protein: {
+        protein: {
             type: Number
         },
-        total_fat: {
+        fat: {
             type: Number
         },
-        total_sodium: {
+        sodium: {
             type: Number
         },
         serving_size: {

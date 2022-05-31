@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, Space, message } from 'antd';
+import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, Space, Alert, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
@@ -16,15 +16,14 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const [alert, setAlert] = useState()
 
   const onFinish = (values) => {
-    console.log('Received values of form:', values);
-    createRecipe(values)
+    createRecipe({ ...values, calories: recipeNutrients.calories, carbs: recipeNutrients.carbs, protein: recipeNutrients.protein, fat: recipeNutrients.fat, sodium: recipeNutrients.sodium })
       .then(res => {
         message.success(`${res.name} added successfully!`)
         form.resetFields()
-        // setAlert(null)
+        setAlert(null)
       })
       .catch(err => {
-        // setAlert('We were not able to save this recipe. Please try again.')
+        setAlert('We were not able to save this recipe. Please try again.')
         console.log(err)
       })
   };
@@ -136,48 +135,38 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               ))}
             </Select>
           </Item>
-          {/* <Row> */}
-          {/* <Item name='total_calories'> */}
-          <InputNumber
-            style={{ width: '100%' }}
-            addonAfter="cal"
-            value={recipeNutrients.calories}
-            disabled
-          />
-          {/* </Item>
-                    <Item name='total_carbs'> */}
-          <InputNumber
-            style={{ width: '100%' }}
-            addonAfter="g"
-            value={recipeNutrients.carbs}
-            disabled
-          />
-          {/* </Item>
-                    <Item name='total_protein'> */}
-          <InputNumber
-            style={{ width: '100%' }}
-            addonAfter="g"
-            value={recipeNutrients.protein}
-            disabled
-          />
-          {/* </Item>
-                    <Item name='total_fat'> */}
-          <InputNumber
-            style={{ width: '100%' }}
-            addonAfter="g"
-            value={recipeNutrients.fat}
-            disabled
-          />
-          {/* </Item> */}
-          {/* <Item name='total_sodium'>
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            addonAfter="mg"
-                            value={recipeNutrients.sodium}
-                            disabled
-                        />
-                    </Item> */}
-          {/* </Row> */}
+          <Row>
+            <InputNumber
+              style={{ width: '100%' }}
+              addonAfter="cal"
+              value={recipeNutrients.calories}
+              disabled
+            />
+            <InputNumber
+              style={{ width: '100%' }}
+              addonAfter="g"
+              value={recipeNutrients.carbs}
+              disabled
+            />
+            <InputNumber
+              style={{ width: '100%' }}
+              addonAfter="g"
+              value={recipeNutrients.protein}
+              disabled
+            />
+            <InputNumber
+              style={{ width: '100%' }}
+              addonAfter="g"
+              value={recipeNutrients.fat}
+              disabled
+            />
+            <InputNumber
+              style={{ width: '100%' }}
+              addonAfter="mg"
+              value={recipeNutrients.sodium}
+              disabled
+            />
+          </Row>
           <Form.List
             name="ingredients"
           >
@@ -250,6 +239,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               </>
             )}
           </Form.List>
+          <Alert message={alert} type='error' />
         </Form>
       </>
     </Modal>

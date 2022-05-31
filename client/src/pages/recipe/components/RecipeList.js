@@ -19,11 +19,11 @@ const RecipeList = () => {
                             key={i}
                             title={<div>{recipe.name}</div>}
                         >
-                            <p>Calories:</p>
-                            <p>Carbs:</p>
-                            <p>Protein:</p>
-                            <p>Fat:</p>
-                            <p>Sodium:</p>
+                            <p>Calories: {recipe.calories}</p>
+                            <p>Carbs: {recipe.carbs}</p>
+                            <p>Protein: {recipe.protein}</p>
+                            <p>Fat: {recipe.fat}</p>
+                            <p>Sodium: {recipe.sodium}</p>
                         </Card>
                     ))
             }
