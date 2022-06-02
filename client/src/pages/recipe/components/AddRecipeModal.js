@@ -4,8 +4,10 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
 import { validateMessages, layout, recipeCategories } from '../../../utils/form';
-const { Option } = Select;
+
 const { Item } = Form
+const { Group } = Input
+const { Option } = Select;
 
 const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const [recipeData, setRecipeData] = useState([])
@@ -21,6 +23,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         message.success(`${res.name} added successfully!`)
         form.resetFields()
         setAlert(null)
+        setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
       })
       .catch(err => {
         setAlert('We were not able to save this recipe. Please try again.')
@@ -40,6 +43,9 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         const fat = food.fat * servings
         const sodium = food.sodium * servings
         return { ...food, calories, carbs, protein, fat, sodium, number_of_servings: servings }
+      } else if (ingredient.foodId) {
+        const food = foodData.find((food) => food._id === ingredient.foodId)
+        return food
       } else {
         return ingredient
       }
@@ -102,9 +108,6 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
           form={form}
           onFinish={onFinish}
           autoComplete="off"
-        // initialValues={{
-        //     total_calories: recipeNutrients.calories
-        // }}
         >
           <Item
             name='name'
@@ -123,17 +126,44 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
             <Select
               showSearch
               placeholder='Category'
-              // options={recipeCategories}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             >
               {recipeCategories.map((category, i) => (
-                <Option key={i} value={category.value._id}>
+                <Option key={i} value={category.value}>
                   {category.label}
                 </Option>
               ))}
             </Select>
+          </Item>
+          <Item >
+            <Group compact>
+              <Item
+                name={['serving_size', 'size']}
+                noStyle
+                rules={[{ required: true }]}
+              >
+                <InputNumber
+                  style={{ width: '50%' }}
+                  placeholder='Serving Size'
+                />
+              </Item>
+              <Item
+                name={['serving_size', 'unit']}
+                noStyle
+              >
+                <Input
+                  style={{ width: '50%' }}
+                  placeholder='Unit'
+                />
+              </Item>
+            </Group>
+          </Item>
+          <Item name='recipe_servings'>
+            <Input
+              placeholder='Number of Servings'
+            />
           </Item>
           <Row>
             <InputNumber
@@ -174,60 +204,60 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               <>
                 {fields.map((field) => (
                   <Space key={field.key}>
-                    <Item
-                      key={'food'}
-                      name={[field.name, 'foodId']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing food',
-                        },
-                      ]}
-                    // style={{ width: '60%', }}
-                    >
-                      <Select
-                        showSearch
-                        placeholder="Food"
-                        onChange={handleIngredientChange}
-                        filterOption={(input, option) =>
-                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
+                    <Row>
+                      <Item
+                        key={'food'}
+                        name={[field.name, 'foodId']}
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Missing food',
+                          },
+                        ]}
+                        style={{ width: '60%', }}
                       >
-                        {foodData.map((food, i) => (
-                          <Option key={i} value={food._id}>
-                            {food.name}
-                          </Option>
-                        ))}
-                      </Select>
-                    </Item>
-                    <Item
-                    // style={{ width: '20%' }}
-                    >
+                        <Select
+                          showSearch
+                          placeholder="Food"
+                          onChange={handleIngredientChange}
+                          filterOption={(input, option) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                          }
+                        >
+                          {foodData.map((food, i) => (
+                            <Option key={i} value={food._id}>
+                              {food.name}
+                            </Option>
+                          ))}
+                        </Select>
+                      </Item>
                       <Input
                         placeholder="Serving Size"
-                        // value={food?.serving_size ? `${food?.serving_size.size} ${food?.serving_size.unit}` : null}
+                        value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
                         disabled
+                        style={{ width: '20%' }}
                       />
-                    </Item>
-                    <Item
-                      name={[field.name, 'number_of_servings']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing number of servings',
-                        },
-                      ]}
-                    // style={{ width: '20%' }}
-                    >
-                      <InputNumber
-                        placeholder="Number of Servings"
-                        onChange={handleIngredientChange}
-                      />
-                    </Item>
-                    <MinusCircleOutlined onClick={() => {
-                      remove(field.name)
-                      handleIngredientChange()
-                    }} />
+                      <Item
+                        name={[field.name, 'number_of_servings']}
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Missing number of servings',
+                          },
+                        ]}
+                      // style={{ width: '20%' }}
+                      >
+                        <InputNumber
+                          placeholder="Number of Servings"
+                          onChange={handleIngredientChange}
+                        />
+                      </Item>
+                      <MinusCircleOutlined onClick={() => {
+                        remove(field.name)
+                        handleIngredientChange()
+                      }} />
+
+                    </Row>
                   </Space>
                 ))}
 
@@ -239,7 +269,9 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               </>
             )}
           </Form.List>
-          <Alert message={alert} type='error' />
+          {
+            alert && <Alert message={alert} type='error' />
+          }
         </Form>
       </>
     </Modal>

@@ -13,6 +13,16 @@ const recipeSchema = new Schema(
         category: {
             type: String
         },
+        serving_size: {
+            size: { type: Number },
+            unit: { type: String }
+        },
+        serving_size_grams: {
+            type: Number
+        },
+        recipe_servings: {
+            type: Number
+        },
         calories: {
             type: Number
         },
@@ -26,15 +36,6 @@ const recipeSchema = new Schema(
             type: Number
         },
         sodium: {
-            type: Number
-        },
-        serving_size: {
-            type: String
-        },
-        serving_size_grams: {
-            type: Number
-        },
-        recipe_servings: {
             type: Number
         },
         recipe_cost: {
