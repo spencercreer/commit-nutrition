@@ -1,4 +1,4 @@
-const { Recipe, Food } = require('../models')
+const { Recipe } = require('../models')
 
 const recipeController = {
     getRecipes(req, res) {

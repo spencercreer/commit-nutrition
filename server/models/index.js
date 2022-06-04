@@ -1,5 +1,5 @@
 const Food = require('./Food')
 const Recipe = require('./Recipe')
-// const Meal = require('./Meal')
+const Meal = require('./Meal')
 
-module.exports = { Food, Recipe }
+module.exports = { Food, Recipe, Meal }

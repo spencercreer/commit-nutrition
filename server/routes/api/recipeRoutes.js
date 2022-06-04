@@ -7,7 +7,6 @@ const {
     removeIngredient
 } = require('../../controllers/recipeController')
 
-// /api/recipes
 router.route('/').get(getRecipes).post(createRecipe)
 
 router.route('/:recipeId').get(getOneRecipe)
