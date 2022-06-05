@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Row, Col, Button, InputNumber } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { useState } from 'react'
+import { Row, Col, InputNumber } from 'antd'
 import AddIngredientRow from '../pages/recipe/components/AddIngredientRow'
 import IngredientRow from '../pages/recipe/components/IngredientRow'
 // Utils
@@ -9,7 +8,7 @@ import { useGet } from '../utils/API'
 const MealForm = () => {
     const [mealFormData, setMealFormData] = useState([])
 
-    const { data: foodData, loading }  = useGet('/api/foods')
+    const { data: foodData }  = useGet('/api/foods')
 
     return (
         <>

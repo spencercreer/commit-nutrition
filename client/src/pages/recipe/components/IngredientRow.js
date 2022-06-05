@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Select, InputNumber, Button, Row, Col, Input } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+// React
+import { useState } from 'react'
+// Antd
+import { Select, InputNumber, Row, Col, Input } from 'antd'
 const { Option } = Select
 
 const IngredientRow = ({ foods, index, edit, recipeFormData, setRecipeFormData }) => {

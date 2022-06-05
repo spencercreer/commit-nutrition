@@ -16,9 +16,10 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
     const [createFood] = usePost('/api/foods')
 
     const onFinish = async (values) => {
-        console.log(values)
         createFood(values)
             .then(res => {
+                console.log(res)
+                
                 message.success(`${res.name} added successfully!`)
                 form.resetFields()
                 setAlert(null)

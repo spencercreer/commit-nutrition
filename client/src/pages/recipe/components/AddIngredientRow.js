@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Select, InputNumber, Button, Row, Col, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 const { Option } = Select

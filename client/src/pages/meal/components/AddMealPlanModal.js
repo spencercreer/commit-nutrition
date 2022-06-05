@@ -1,19 +1,17 @@
-import { useState, useEffect } from 'react'
-import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, Space, Alert, message } from 'antd';
+import { useState } from 'react'
+import { Modal, Row, Button, Form, Input, InputNumber, Select, Space, Alert, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
-import { validateMessages, layout, recipeCategories } from '../../../utils/form';
 
 const { Item } = Form
-const { Group } = Input
 const { Option } = Select;
 
 const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   const [recipeData, setRecipeData] = useState([])
   const [form] = Form.useForm()
   const [recipeNutrients, setRecipeNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
-  const { data: foodData, loading } = useGet('/api/foods')
+  const { data: foodData } = useGet('/api/foods')
   const [createRecipe] = usePost('/api/recipes')
   const [alert, setAlert] = useState()
 
@@ -65,14 +63,14 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
     setRecipeData(ingredients)
   }
 
-  const formItemLayoutWithOutLabel = {
-    wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 0,
-      }
-    },
-  };
+  // const formItemLayoutWithOutLabel = {
+  //   wrapperCol: {
+  //     xs: {
+  //       span: 24,
+  //       offset: 0,
+  //     }
+  //   },
+  // };
 
   const footerButtons =
     [

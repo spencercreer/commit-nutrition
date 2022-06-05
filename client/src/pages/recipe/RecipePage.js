@@ -1,17 +1,15 @@
 // React
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 // Components
 import RecipeList from './components/RecipeList'
 import AddRecipeModal from './components/AddRecipeModal'
 // Antd
-import { Layout, Menu, Select, Button } from 'antd'
+import { Layout, Menu, Button } from 'antd'
 // Utils
 import { recipeCategories } from '../../utils/form'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
-const { Option } = Select
 
 const RecipePage = () => {
     const [modalVisible, setModalVisible] = useState(false)

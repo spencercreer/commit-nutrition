@@ -36,6 +36,10 @@ export const foodCategories = [
         value: 'seasonings',
     },
     {
+        label: 'Sauces',
+        value: 'sauces',
+    },
+    {
         label: 'Other',
         value: 'other',
     },
