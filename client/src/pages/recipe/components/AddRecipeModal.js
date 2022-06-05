@@ -231,12 +231,13 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                           ))}
                         </Select>
                       </Item>
-                      <Input
-                        placeholder="Serving Size"
-                        value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
-                        disabled
-                        style={{ width: '20%' }}
-                      />
+                      <Item>
+                        <Input
+                          placeholder="Serving Size"
+                          value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
+                          disabled
+                        />
+                      </Item>
                       <Item
                         name={[field.name, 'number_of_servings']}
                         rules={[
@@ -252,10 +253,12 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                           onChange={handleIngredientChange}
                         />
                       </Item>
-                      <MinusCircleOutlined onClick={() => {
-                        remove(field.name)
-                        handleIngredientChange()
-                      }} />
+                      <Item>
+                        <MinusCircleOutlined onClick={() => {
+                          remove(field.name)
+                          handleIngredientChange()
+                        }} />
+                      </Item>
 
                     </Row>
                   </Space>
