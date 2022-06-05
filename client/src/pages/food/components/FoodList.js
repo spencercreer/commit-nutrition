@@ -1,6 +1,7 @@
 import LoadingCards from '../../../components/LoadingCards'
 // Antd
 import { Card } from 'antd'
+import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 // Utils
 import { useGet } from '../../../utils/API'
 
@@ -18,12 +19,26 @@ const FoodList = () => {
                         <Card
                             key={i}
                             title={<div>{food.name}</div>}
+                            actions={[
+                                <EllipsisOutlined
+                                    key='ellipsis'
+                                    // onClick={() => handleOnClick(false)}
+                                />,
+                                <EditOutlined
+                                    key='edit'
+                                    // onClick={() => handleOnClick(true)}
+                                />,
+                                // <Switch 
+                                    // checked={active}
+                                    // onChange={handleStatusChange}
+                                // />,
+                            ]}
                         >
-                            <p>Calories: {food.calories}</p>
-                            <p>Carbs: {food.carbs}</p>
-                            <p>Protein: {food.protein}</p>
-                            <p>Fat: {food.fat}</p>
-                            <p>Sodium: {food.sodium}</p>
+                            <p>Calories: {food.calories} cal</p>
+                            <p>Carbs: {food.carbs} g</p>
+                            <p>Protein: {food.protein} g</p>
+                            <p>Fat: {food.fat} g</p>
+                            <p>Sodium: {food.sodium} mg</p>
                         </Card>
                     ))
             }

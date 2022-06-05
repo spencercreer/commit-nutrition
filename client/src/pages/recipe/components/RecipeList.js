@@ -1,6 +1,7 @@
 import LoadingCards from '../../../components/LoadingCards'
 // Antd
 import { Card } from 'antd'
+import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 // Utils
 import { useGet } from '../../../utils/API'
 
@@ -18,12 +19,26 @@ const RecipeList = () => {
                         <Card
                             key={i}
                             title={<div>{recipe.name}</div>}
+                            actions={[
+                                <EllipsisOutlined
+                                    key='ellipsis'
+                                    // onClick={() => handleOnClick(false)}
+                                />,
+                                <EditOutlined
+                                    key='edit'
+                                    // onClick={() => handleOnClick(true)}
+                                />,
+                                // <Switch 
+                                    // checked={active}
+                                    // onChange={handleStatusChange}
+                                // />,
+                            ]}
                         >
-                            <p>Calories: {recipe.calories}</p>
-                            <p>Carbs: {recipe.carbs}</p>
-                            <p>Protein: {recipe.protein}</p>
-                            <p>Fat: {recipe.fat}</p>
-                            <p>Sodium: {recipe.sodium}</p>
+                            <p>Calories: {recipe.calories} cal</p>
+                            <p>Carbs: {recipe.carbs} g</p>
+                            <p>Protein: {recipe.protein} g</p>
+                            <p>Fat: {recipe.fat} g</p>
+                            <p>Sodium: {recipe.sodium} mg</p>
                         </Card>
                     ))
             }
