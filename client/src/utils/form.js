@@ -76,6 +76,6 @@ export const validateMessages = {
 };
 
 export const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 16 },
+    labelCol: { span: 3 },
+    wrapperCol: { span: 18 },
 };

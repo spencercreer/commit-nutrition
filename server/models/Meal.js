@@ -6,6 +6,10 @@ const mealSchema = new Schema(
         date: {
             type: Date
         },
+        breakfast: [ingredientSchema],
+        lunch: [ingredientSchema],
+        dinner: [ingredientSchema],
+        snacks: [ingredientSchema],
         calories: {
             type: Number
         },
@@ -20,8 +24,7 @@ const mealSchema = new Schema(
         },
         sodium: {
             type: Number
-        },
-        ingredients: [ingredientSchema]
+        }
     }
 )
 

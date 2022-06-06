@@ -30,13 +30,14 @@ const FoodPage = () => {
                 <Menu
                     mode='inline'
                     style={{ height: '100%', borderRight: 0 }}
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={['0']}
                     defaultOpenKeys={['sub1']}
                 >
                     <SubMenu key='sub1' title='Foods'>
+                        <Item key={0}>All</Item>
                         {
                             foodCategories.map((foodCategory, i) => (
-                                <Item key={i}>{foodCategory.label}</Item>
+                                <Item key={i + 1}>{foodCategory.label}</Item>
                             ))
                         }
                     </SubMenu>

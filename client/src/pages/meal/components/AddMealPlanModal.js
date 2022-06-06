@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Modal, Row, Button, Form, Input, InputNumber, Select, Space, Alert, message } from 'antd';
+import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, DatePicker, Space, Alert, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
+import { layout } from '../../../utils/form';
 
 const { Item } = Form
 const { Option } = Select;
@@ -16,17 +17,18 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   const [alert, setAlert] = useState()
 
   const onFinish = (values) => {
-    createRecipe({ ...values, calories: recipeNutrients.calories, carbs: recipeNutrients.carbs, protein: recipeNutrients.protein, fat: recipeNutrients.fat, sodium: recipeNutrients.sodium })
-      .then(res => {
-        message.success(`${res.name} added successfully!`)
-        form.resetFields()
-        setAlert(null)
-        setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
-      })
-      .catch(err => {
-        setAlert('We were not able to save this recipe. Please try again.')
-        console.log(err)
-      })
+    console.log(values)
+    // createRecipe({ ...values, calories: recipeNutrients.calories, carbs: recipeNutrients.carbs, protein: recipeNutrients.protein, fat: recipeNutrients.fat, sodium: recipeNutrients.sodium })
+    //   .then(res => {
+    //     message.success(`${res.name} added successfully!`)
+    //     form.resetFields()
+    //     setAlert(null)
+    //     setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
+    //   })
+    //   .catch(err => {
+    //     setAlert('We were not able to save this recipe. Please try again.')
+    //     console.log(err)
+    //   })
   };
 
   const handleIngredientChange = () => {
@@ -102,74 +104,94 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
     >
       <>
         <Form
-          // {...formItemLayoutWithOutLabel}
+          {...layout}
           form={form}
           onFinish={onFinish}
           autoComplete="off"
         >
+          <Item
+            name='date'
+            rules={[{ required: true }]}
+          >
+            <DatePicker />
+          </Item>
           <Item label='Breakfast'>
-          <Form.List
+            <Form.List
               name="breakfast"
             >
               {(fields, { add, remove }) => (
                 <>
                   {fields.map((field) => (
-                    <Space key={field.key}>
+                    <Space
+                    key={field.key}
+                    >
                       <Row>
-                        <Item
-                          key={'food'}
-                          name={[field.name, 'foodId']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing food',
-                            },
-                          ]}
-                          style={{ width: '60%', }}
-                        >
-                          <Select
-                            showSearch
-                            placeholder="Food"
-                            onChange={handleIngredientChange}
-                            filterOption={(input, option) =>
-                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
+                        <Col md={10}>
+                          <Item
+                            key={'food'}
+                            name={[field.name, 'foodId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing food',
+                              },
+                            ]}
+                          style={{ width: 200, }}
                           >
-                            {foodData.map((food, i) => (
-                              <Option key={i} value={food._id}>
-                                {food.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        </Item>
-                        <Item>
-                          <Input
-                            placeholder="Serving Size"
-                            value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
-                            disabled
-                          />
-                        </Item>
-                        <Item
-                          name={[field.name, 'number_of_servings']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing number of servings',
-                            },
-                          ]}
-                        // style={{ width: '20%' }}
-                        >
-                          <InputNumber
-                            placeholder="Number of Servings"
-                            onChange={handleIngredientChange}
-                          />
-                        </Item>
-                        <Item>
-                          <MinusCircleOutlined onClick={() => {
-                            remove(field.name)
-                            handleIngredientChange()
-                          }} />
-                        </Item>
+                            <Select
+                              showSearch
+                              placeholder="Food"
+                              // onChange={handleIngredientChange}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {foodData.map((food, i) => (
+                                <Option key={i} value={food._id}>
+                                  {food.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                          style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                          style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                            // onChange={handleIngredientChange}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item
+                          // style={{ width: '5%' }}
+                          >
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              // handleIngredientChange()
+                            }} />
+                          </Item>
+                        </Col>
                       </Row>
                     </Space>
                   ))}
@@ -183,7 +205,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
             </Form.List>
           </Item>
           <Item label='Lunch'>
-          <Form.List
+            <Form.List
               name="lunch"
             >
               {(fields, { add, remove }) => (
@@ -205,7 +227,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           <Select
                             showSearch
                             placeholder="Food"
-                            onChange={handleIngredientChange}
+                            // onChange={handleIngredientChange}
                             filterOption={(input, option) =>
                               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
@@ -236,13 +258,13 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                         >
                           <InputNumber
                             placeholder="Number of Servings"
-                            onChange={handleIngredientChange}
+                          // onChange={handleIngredientChange}
                           />
                         </Item>
                         <Item>
                           <MinusCircleOutlined onClick={() => {
                             remove(field.name)
-                            handleIngredientChange()
+                            // handleIngredientChange()
                           }} />
                         </Item>
                       </Row>
@@ -258,7 +280,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
             </Form.List>
           </Item>
           <Item label='Dinner'>
-          <Form.List
+            <Form.List
               name="dinner"
             >
               {(fields, { add, remove }) => (
@@ -280,7 +302,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           <Select
                             showSearch
                             placeholder="Food"
-                            onChange={handleIngredientChange}
+                            // onChange={handleIngredientChange}
                             filterOption={(input, option) =>
                               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
@@ -311,13 +333,13 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                         >
                           <InputNumber
                             placeholder="Number of Servings"
-                            onChange={handleIngredientChange}
+                          // onChange={handleIngredientChange}
                           />
                         </Item>
                         <Item>
                           <MinusCircleOutlined onClick={() => {
                             remove(field.name)
-                            handleIngredientChange()
+                            // handleIngredientChange()
                           }} />
                         </Item>
                       </Row>
@@ -355,7 +377,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           <Select
                             showSearch
                             placeholder="Food"
-                            onChange={handleIngredientChange}
+                            // onChange={handleIngredientChange}
                             filterOption={(input, option) =>
                               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
@@ -386,13 +408,13 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                         >
                           <InputNumber
                             placeholder="Number of Servings"
-                            onChange={handleIngredientChange}
+                          // onChange={handleIngredientChange}
                           />
                         </Item>
                         <Item>
                           <MinusCircleOutlined onClick={() => {
                             remove(field.name)
-                            handleIngredientChange()
+                            // handleIngredientChange()
                           }} />
                         </Item>
                       </Row>

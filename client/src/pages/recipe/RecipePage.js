@@ -29,13 +29,14 @@ const RecipePage = () => {
                 <Menu
                     mode='inline'
                     style={{ height: '100%', borderRight: 0 }}
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={['0']}
                     defaultOpenKeys={['sub1']}
                 >
                     <SubMenu key='sub1' title='Recipes'>
+                        <Item key={0}>All</Item>
                         {
                             recipeCategories.map((recipeCategory, i) => (
-                                <Item key={i}>{recipeCategory.label}</Item>
+                                <Item key={i + 1}>{recipeCategory.label}</Item>
                             ))
                         }
                     </SubMenu>

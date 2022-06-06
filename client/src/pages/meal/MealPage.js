@@ -1,10 +1,12 @@
 // React
 import { useState } from 'react'
-import MealForm from '../../components/MealForm'
 import AddMealPlanModal from './components/AddMealPlanModal'
+import LoadingCards from '../../components/LoadingCards'
 import { Link } from 'react-router-dom'
 // Antd
-import { Layout, Menu, Button } from 'antd'
+import { Layout, Menu, Card, Button } from 'antd'
+import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+
 // Utils
 import { useGet } from '../../utils/API'
 
@@ -19,6 +21,7 @@ const MealPage = () => {
     }
 
     const { data: mealData, loading } = useGet('/api/meals')
+    console.log(mealData)
 
     return (
         <>
@@ -41,18 +44,67 @@ const MealPage = () => {
                     </SubMenu>
                 </Menu>
             </Sider>
-            <Content>
+            <Content style={{ margin: '10px 60px' }}>
                 <Button
                     type='primary'
                     onClick={() => setModalVisible(true)}
                 >
                     Add Meal Plan
                 </Button>
-                <div>MealPage</div>
-                <MealForm />
+                {/* <MealForm /> */}
+                {/* Below will be moved to meal list */}
                 {
+                    loading ? 
+                    <LoadingCards />
+                    :
                     mealData?.map((meal, i) => (
-                        <div key={i}>Calories: {meal.calories}</div>
+                        <Card
+                            key={i}
+                            title={<div>Meal Plan: {meal.date}</div>}
+                            actions={[
+                                <EllipsisOutlined
+                                    key='ellipsis'
+                                    // onClick={() => handleOnClick(false)}
+                                />,
+                                <EditOutlined
+                                    key='edit'
+                                    // onClick={() => handleOnClick(true)}
+                                />,
+                            ]}
+                        >
+                            <div>
+                                <div>Breakfast</div>
+                                {
+                                    meal.breakfast.map((ingredient, i) => (
+                                        <div key={i}>{ingredient.foodId}</div>
+                                    ))
+                                }
+                            </div>
+                            <div>
+                                <div>Lunch</div>
+                                {
+                                    meal.lunch.map((ingredient, i) => (
+                                        <div key={i}>{ingredient.foodId}</div>
+                                    ))
+                                }
+                            </div>
+                            <div>
+                                <div>Dinner</div>
+                                {
+                                    meal.dinner.map((ingredient, i) => (
+                                        <div key={i}>{ingredient.foodId}</div>
+                                    ))
+                                }
+                            </div>
+                            <div>
+                                <div>Snacks</div>
+                                {
+                                    meal.snacks.map((ingredient, i) => (
+                                        <div key={i}>{ingredient.foodId}</div>
+                                    ))
+                                }
+                            </div>
+                        </Card>
                     ))
                 }
                 <AddMealPlanModal
