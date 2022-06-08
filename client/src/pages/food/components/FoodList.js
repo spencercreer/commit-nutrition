@@ -22,7 +22,7 @@ const FoodList = () => {
                             actions={[
                                 <EllipsisOutlined
                                     key='ellipsis'
-                                    // onClick={() => handleOnClick(false)}
+                                    // onClick={() => handleOnClick()}
                                 />,
                                 <EditOutlined
                                     key='edit'

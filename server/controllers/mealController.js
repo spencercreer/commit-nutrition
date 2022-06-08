@@ -4,7 +4,13 @@ const mealController = {
     getMeals(req, res) {
         Meal.find()
             .select('-__v')
-            // .populate('breakfast')
+            // .populate({
+            //     path: 'breakfast',
+            //     populate: {
+            //         path: 'foodId',
+            //         model: 'Food'
+            //     }
+            // })
             .then((dbMealData) => {
                 res.json(dbMealData)
             })

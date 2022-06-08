@@ -15,6 +15,13 @@ const recipeController = {
     getOneRecipe(req, res) {
         Recipe.findOne({ _id: req.params.recipeId })
             .select('-__v')
+            .populate({
+                path: 'ingredients',
+                populate: {
+                path: 'foodId',
+                model: 'Food'
+              }
+            })
             .then((dbRecipeData) => {
                 if (!dbRecipeData) {
                     return res.status(404).json({ message:'No recipe with this id.'})

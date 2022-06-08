@@ -1,13 +1,28 @@
+import { useState } from 'react';
 import LoadingCards from '../../../components/LoadingCards'
+import IngredientModal from '../../food/components/IngredientModal'
 // Antd
 import { Card } from 'antd'
-import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { EditOutlined, EllipsisOutlined } from '@ant-design/icons'
 // Utils
-import { useGet } from '../../../utils/API'
+import { useGet, useGetOne } from '../../../utils/API'
 
 const RecipeList = () => {
-
+    const [selectedRecipeId, setSelectedRecipeId] = useState()
+    const [modalVisible, setModalVisible] = useState(false)
+    // const []
     const { data: recipeData, loading } = useGet('/api/recipes')
+
+    const handleOnClick = (recipeId) => {
+        handleToggleModal()
+        setSelectedRecipeId(recipeId)
+    }
+
+    const handleToggleModal = () => {
+        setModalVisible(!modalVisible)
+    }
+
+    console.log(recipeData)
 
     return (
         <>
@@ -22,7 +37,7 @@ const RecipeList = () => {
                             actions={[
                                 <EllipsisOutlined
                                     key='ellipsis'
-                                    // onClick={() => handleOnClick(false)}
+                                    onClick={() => handleOnClick(recipe._id)}
                                 />,
                                 <EditOutlined
                                     key='edit'
@@ -42,6 +57,11 @@ const RecipeList = () => {
                         </Card>
                     ))
             }
+            <IngredientModal
+                recipeId={selectedRecipeId}
+                visible={modalVisible}
+                handleCloseModal={handleToggleModal}
+            />
         </>
     )
 }

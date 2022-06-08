@@ -19,7 +19,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
         createFood(values)
             .then(res => {
                 console.log(res)
-                
+
                 message.success(`${res.name} added successfully!`)
                 form.resetFields()
                 setAlert(null)

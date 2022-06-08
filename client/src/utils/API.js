@@ -20,6 +20,25 @@ export const useGet = (url) => {
     return state
 }
 
+export const useGetOne = (url) => {
+    const callAPI = useCallback((parameter) => {
+        return fetch(`${url}/${parameter}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'  
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            return data
+        })
+        .catch((error) => {
+            throw error
+        })
+    }, [url])
+    return [callAPI]
+}
+
 export const usePost = (url) => {
     const callAPI = useCallback((body) => {
          return fetch(url, {
@@ -32,7 +51,8 @@ export const usePost = (url) => {
          .then(res => res.json())
          .then(data => {
             return data
-         }).catch((error) => {
+         })
+         .catch((error) => {
             throw error
          })
     }, [url])

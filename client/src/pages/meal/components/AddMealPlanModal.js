@@ -13,22 +13,22 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   const [form] = Form.useForm()
   const [recipeNutrients, setRecipeNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
   const { data: foodData } = useGet('/api/foods')
-  const [createRecipe] = usePost('/api/recipes')
+  const [createMeal] = usePost('/api/meals')
   const [alert, setAlert] = useState()
 
   const onFinish = (values) => {
     console.log(values)
-    // createRecipe({ ...values, calories: recipeNutrients.calories, carbs: recipeNutrients.carbs, protein: recipeNutrients.protein, fat: recipeNutrients.fat, sodium: recipeNutrients.sodium })
-    //   .then(res => {
-    //     message.success(`${res.name} added successfully!`)
-    //     form.resetFields()
-    //     setAlert(null)
-    //     setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
-    //   })
-    //   .catch(err => {
-    //     setAlert('We were not able to save this recipe. Please try again.')
-    //     console.log(err)
-    //   })
+    createMeal(values)
+      .then(res => {
+        message.success(`Meal plan added successfully!`)
+        form.resetFields()
+        setAlert(null)
+        // setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
+      })
+      .catch(err => {
+        setAlert('We were not able to save this recipe. Please try again.')
+        console.log(err)
+      })
   };
 
   const handleIngredientChange = () => {
