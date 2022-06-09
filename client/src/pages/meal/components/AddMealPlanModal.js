@@ -4,6 +4,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
 import { layout } from '../../../utils/form';
+import moment from 'moment';
 
 const { Item } = Form
 const { Option } = Select;
@@ -94,6 +95,11 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       </Button>,
     ]
 
+  const disabledDate = (current) => {
+    // Can not select days before today and today
+    return current && current < moment().endOf('day');
+  };
+
   return (
     <Modal
       title={'Create Meal Plan'}
@@ -113,7 +119,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
             name='date'
             rules={[{ required: true }]}
           >
-            <DatePicker />
+            <DatePicker disabledDate={disabledDate} />
           </Item>
           <Item label='Breakfast'>
             <Form.List
@@ -123,7 +129,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                 <>
                   {fields.map((field) => (
                     <Space
-                    key={field.key}
+                      key={field.key}
                     >
                       <Row>
                         <Col md={10}>
@@ -136,7 +142,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                                 message: 'Missing food',
                               },
                             ]}
-                          style={{ width: 200, }}
+                            style={{ width: 200, }}
                           >
                             <Select
                               showSearch
@@ -156,7 +162,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                         </Col>
                         <Col md={6}>
                           <Item
-                          style={{ width: '100%', }}
+                            style={{ width: '100%', }}
                           >
                             <Input
                               placeholder="Serving Size"
@@ -174,7 +180,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                                 message: 'Missing number of servings',
                               },
                             ]}
-                          style={{ width: '100%' }}
+                            style={{ width: '100%' }}
                           >
                             <InputNumber
                               placeholder="Number of Servings"

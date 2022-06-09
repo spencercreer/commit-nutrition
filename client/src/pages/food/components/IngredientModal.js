@@ -33,7 +33,7 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
 
     return (
         <Modal
-            title={<div></div>}
+            title={'Recipe Details'}
             visible={visible}
             onCancel={handleCloseModal}
             footer={footerButtons}
