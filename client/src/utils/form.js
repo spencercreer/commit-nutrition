@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const foodCategories = [
     {
         label: 'Vegtables',
@@ -79,3 +81,18 @@ export const layout = {
     labelCol: { span: 3 },
     wrapperCol: { span: 18 },
 };
+
+
+// const formItemLayoutWithOutLabel = {
+//   wrapperCol: {
+//     xs: {
+//       span: 24,
+//       offset: 0,
+//     }
+//   },
+// };
+
+export const disabledDate = (current) => {
+    // Can not select days before today and today
+    return current && current < moment().endOf('day');
+  };

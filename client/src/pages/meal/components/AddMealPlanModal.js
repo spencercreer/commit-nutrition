@@ -3,17 +3,17 @@ import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, DatePicker, 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
-import { layout } from '../../../utils/form';
-import moment from 'moment';
+import { layout, disabledDate } from '../../../utils/form';
 
 const { Item } = Form
 const { Option } = Select;
 
 const AddMealPlanModal = ({ visible, handleCloseModal }) => {
-  const [recipeData, setRecipeData] = useState([])
+  const [mealData, setMealData] = useState([])
   const [form] = Form.useForm()
-  const [recipeNutrients, setRecipeNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
-  const { data: foodData } = useGet('/api/foods')
+  const [mealNutrients, setMealNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
+  const { data: foods } = useGet('/api/foods')
+  const { data: recipes } = useGet('/api/recipes')
   const [createMeal] = usePost('/api/meals')
   const [alert, setAlert] = useState()
 
@@ -32,11 +32,12 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       })
   };
 
-  const handleIngredientChange = () => {
-    let { ingredients } = form.getFieldsValue()
+  const handleIngredientChange = (value) => {
+    let { [value]: { ingredients } } = form.getFieldsValue()
+    console.log(ingredients)
     ingredients = ingredients.map(ingredient => {
       if (ingredient.foodId && ingredient.number_of_servings) {
-        const food = foodData.find((food) => food._id === ingredient.foodId)
+        const food = foods.find((food) => food._id === ingredient.foodId)
         const servings = ingredient.number_of_servings
         const calories = food.calories * servings
         const carbs = food.carbs * servings
@@ -45,35 +46,26 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         const sodium = food.sodium * servings
         return { ...food, calories, carbs, protein, fat, sodium, number_of_servings: servings }
       } else if (ingredient.foodId) {
-        const food = foodData.find((food) => food._id === ingredient.foodId)
+        const food = foods.find((food) => food._id === ingredient.foodId)
         return food
       } else {
         return ingredient
       }
     })
 
-    let recipeCal = 0, recipeCarbs = 0, recipeProtein = 0, recipeFat = 0, recipeSodium = 0
+    let mealCal = 0, mealCarbs = 0, mealProtein = 0, mealFat = 0, mealSodium = 0
     ingredients.forEach(ingredient => {
       if (ingredient._id && ingredient.number_of_servings) {
-        recipeCal += ingredient.calories
-        recipeCarbs += ingredient.carbs
-        recipeProtein += ingredient.protein
-        recipeFat += ingredient.fat
-        recipeSodium += ingredient.sodium
+        mealCal += ingredient.calories
+        mealCarbs += ingredient.carbs
+        mealProtein += ingredient.protein
+        mealFat += ingredient.fat
+        mealSodium += ingredient.sodium
       }
     })
-    setRecipeNutrients({ calories: recipeCal, carbs: recipeCarbs, protein: recipeProtein, fat: recipeFat, sodium: recipeSodium })
-    setRecipeData(ingredients)
+    setMealNutrients({ calories: mealCal, carbs: mealCarbs, protein: mealProtein, fat: mealFat, sodium: mealSodium })
+    setMealData(ingredients)
   }
-
-  // const formItemLayoutWithOutLabel = {
-  //   wrapperCol: {
-  //     xs: {
-  //       span: 24,
-  //       offset: 0,
-  //     }
-  //   },
-  // };
 
   const footerButtons =
     [
@@ -94,11 +86,6 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         Submit
       </Button>,
     ]
-
-  const disabledDate = (current) => {
-    // Can not select days before today and today
-    return current && current < moment().endOf('day');
-  };
 
   return (
     <Modal
@@ -123,7 +110,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
           </Item>
           <Item label='Breakfast'>
             <Form.List
-              name="breakfast"
+              name={["breakfast", "ingredients"]}
             >
               {(fields, { add, remove }) => (
                 <>
@@ -134,7 +121,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                       <Row>
                         <Col md={10}>
                           <Item
-                            key={'food'}
+                            key='food'
                             name={[field.name, 'foodId']}
                             rules={[
                               {
@@ -147,12 +134,12 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                             <Select
                               showSearch
                               placeholder="Food"
-                              // onChange={handleIngredientChange}
+                              onChange={() => handleIngredientChange("breakfast")}
                               filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                               }
                             >
-                              {foodData.map((food, i) => (
+                              {foods.map((food, i) => (
                                 <Option key={i} value={food._id}>
                                   {food.name}
                                 </Option>
@@ -166,7 +153,94 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                            style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                              onChange={() => handleIngredientChange("breakfast")}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item
+                          // style={{ width: '5%' }}
+                          >
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              handleIngredientChange('breakfast')
+                            }} />
+                          </Item>
+                        </Col>
+                      </Row>
+                    </Space>
+                  ))}
+                  <Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                      Add Breakfast Ingredient
+                    </Button>
+                  </Item>
+                </>
+              )}
+            </Form.List>
+            <Form.List
+              name={["breakfast", "recipes"]}
+            >
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map((field) => (
+                    <Space
+                      key={field.key}
+                    >
+                      <Row>
+                        <Col md={10}>
+                          <Item
+                            key={'food'}
+                            name={[field.name, 'recipeId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing Recipe',
+                              },
+                            ]}
+                            style={{ width: 200, }}
+                          >
+                            <Select
+                              showSearch
+                              placeholder="Recipe"
+                              // onChange={handleIngredientChange}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {recipes.map((recipe, i) => (
+                                <Option key={i} value={recipe._id}>
+                                  {recipe.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              // value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -203,7 +277,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                   ))}
                   <Item>
                     <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                      Add Breakfast Ingredient
+                      Add Breakfast Recipe
                     </Button>
                   </Item>
                 </>
@@ -212,67 +286,78 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
           </Item>
           <Item label='Lunch'>
             <Form.List
-              name="lunch"
+              name={["lunch", "ingredients"]}
             >
               {(fields, { add, remove }) => (
                 <>
                   {fields.map((field) => (
                     <Space key={field.key}>
                       <Row>
-                        <Item
-                          key={'food'}
-                          name={[field.name, 'foodId']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing food',
-                            },
-                          ]}
-                          style={{ width: '60%', }}
-                        >
-                          <Select
-                            showSearch
-                            placeholder="Food"
-                            // onChange={handleIngredientChange}
-                            filterOption={(input, option) =>
-                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
+                        <Col md={10}>
+                          <Item
+                            key={'food'}
+                            name={[field.name, 'foodId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing food',
+                              },
+                            ]}
+                            style={{ width: 200, }}
                           >
-                            {foodData.map((food, i) => (
-                              <Option key={i} value={food._id}>
-                                {food.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        </Item>
-                        <Item>
-                          <Input
-                            placeholder="Serving Size"
-                            value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
-                            disabled
-                          />
-                        </Item>
-                        <Item
-                          name={[field.name, 'number_of_servings']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing number of servings',
-                            },
-                          ]}
-                        // style={{ width: '20%' }}
-                        >
-                          <InputNumber
-                            placeholder="Number of Servings"
-                          // onChange={handleIngredientChange}
-                          />
-                        </Item>
-                        <Item>
-                          <MinusCircleOutlined onClick={() => {
-                            remove(field.name)
-                            // handleIngredientChange()
-                          }} />
-                        </Item>
+                            <Select
+                              showSearch
+                              placeholder="Food"
+                              onChange={() => handleIngredientChange("lunch")}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {foods.map((food, i) => (
+                                <Option key={i} value={food._id}>
+                                  {food.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                            style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                              onChange={() => handleIngredientChange("lunch")}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item>
+
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              handleIngredientChange('lunch')
+                            }} />
+                          </Item>
+                        </Col>
                       </Row>
                     </Space>
                   ))}
@@ -284,70 +369,168 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                 </>
               )}
             </Form.List>
+            <Form.List
+              name={["lunch", "recipes"]}
+            >
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map((field) => (
+                    <Space
+                      key={field.key}
+                    >
+                      <Row>
+                        <Col md={10}>
+                          <Item
+                            key={'recipe'}
+                            name={[field.name, 'recipeId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing recipe',
+                              },
+                            ]}
+                            style={{ width: 200, }}
+                          >
+                            <Select
+                              showSearch
+                              placeholder="Recipe"
+                              // onChange={handleIngredientChange}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {recipes.map((recipe, i) => (
+                                <Option key={i} value={recipe._id}>
+                                  {recipe.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                            style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                            // onChange={handleIngredientChange}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item
+                          // style={{ width: '5%' }}
+                          >
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              // handleIngredientChange()
+                            }} />
+                          </Item>
+                        </Col>
+                      </Row>
+                    </Space>
+                  ))}
+                  <Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                      Add Lunch Recipe
+                    </Button>
+                  </Item>
+                </>
+              )}
+            </Form.List>
           </Item>
           <Item label='Dinner'>
             <Form.List
-              name="dinner"
+              name={["dinner", "ingredients"]}
             >
               {(fields, { add, remove }) => (
                 <>
                   {fields.map((field) => (
                     <Space key={field.key}>
                       <Row>
-                        <Item
-                          key={'food'}
-                          name={[field.name, 'foodId']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing food',
-                            },
-                          ]}
-                          style={{ width: '60%', }}
-                        >
-                          <Select
-                            showSearch
-                            placeholder="Food"
-                            // onChange={handleIngredientChange}
-                            filterOption={(input, option) =>
-                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
+                        <Col md={10}>
+                          <Item
+                            key={'food'}
+                            name={[field.name, 'foodId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing food',
+                              },
+                            ]}
+                            style={{ width: 200, }}
                           >
-                            {foodData.map((food, i) => (
-                              <Option key={i} value={food._id}>
-                                {food.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        </Item>
-                        <Item>
-                          <Input
-                            placeholder="Serving Size"
-                            value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
-                            disabled
-                          />
-                        </Item>
-                        <Item
-                          name={[field.name, 'number_of_servings']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing number of servings',
-                            },
-                          ]}
-                        // style={{ width: '20%' }}
-                        >
-                          <InputNumber
-                            placeholder="Number of Servings"
-                          // onChange={handleIngredientChange}
-                          />
-                        </Item>
-                        <Item>
-                          <MinusCircleOutlined onClick={() => {
-                            remove(field.name)
-                            // handleIngredientChange()
-                          }} />
-                        </Item>
+                            <Select
+                              showSearch
+                              placeholder="Food"
+                              onChange={() => handleIngredientChange("dinner")}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {foods.map((food, i) => (
+                                <Option key={i} value={food._id}>
+                                  {food.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                            style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                              onChange={() => handleIngredientChange("dinner")}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item>
+
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              handleIngredientChange('dinner')
+                            }} />
+                          </Item>
+                        </Col>
                       </Row>
                     </Space>
                   ))}
@@ -359,70 +542,168 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                 </>
               )}
             </Form.List>
-          </Item>
-          <Item label='Snacks'>
             <Form.List
-              name="snacks"
+              name={["dinner", "recipes"]}
             >
               {(fields, { add, remove }) => (
                 <>
                   {fields.map((field) => (
-                    <Space key={field.key}>
+                    <Space
+                      key={field.key}
+                    >
                       <Row>
-                        <Item
-                          key={'food'}
-                          name={[field.name, 'foodId']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing food',
-                            },
-                          ]}
-                          style={{ width: '60%', }}
-                        >
-                          <Select
-                            showSearch
-                            placeholder="Food"
-                            // onChange={handleIngredientChange}
-                            filterOption={(input, option) =>
-                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
+                        <Col md={10}>
+                          <Item
+                            key={'recipe'}
+                            name={[field.name, 'recipeId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing recipe',
+                              },
+                            ]}
+                            style={{ width: 200, }}
                           >
-                            {foodData.map((food, i) => (
-                              <Option key={i} value={food._id}>
-                                {food.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        </Item>
-                        <Item>
-                          <Input
-                            placeholder="Serving Size"
-                            value={recipeData[field.key] ? `${recipeData[field.key].serving_size?.size} ${recipeData[field.key].serving_size?.unit}` : null}
-                            disabled
-                          />
-                        </Item>
-                        <Item
-                          name={[field.name, 'number_of_servings']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing number of servings',
-                            },
-                          ]}
-                        // style={{ width: '20%' }}
-                        >
-                          <InputNumber
-                            placeholder="Number of Servings"
-                          // onChange={handleIngredientChange}
-                          />
-                        </Item>
-                        <Item>
-                          <MinusCircleOutlined onClick={() => {
-                            remove(field.name)
-                            // handleIngredientChange()
-                          }} />
-                        </Item>
+                            <Select
+                              showSearch
+                              placeholder="Recipe"
+                              // onChange={handleIngredientChange}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {recipes.map((recipe, i) => (
+                                <Option key={i} value={recipe._id}>
+                                  {recipe.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                            style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                            // onChange={handleIngredientChange}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item
+                          // style={{ width: '5%' }}
+                          >
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              // handleIngredientChange()
+                            }} />
+                          </Item>
+                        </Col>
+                      </Row>
+                    </Space>
+                  ))}
+                  <Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                      Add Dinner Recipe
+                    </Button>
+                  </Item>
+                </>
+              )}
+            </Form.List>
+          </Item>
+          <Item label='Snacks'>
+            <Form.List
+              name={["snacks", "ingredients"]}
+            >
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map((field) => (
+                      <Space key={field.key}>
+                      <Row>
+                        <Col md={10}>
+                          <Item
+                            key={'food'}
+                            name={[field.name, 'foodId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing food',
+                              },
+                            ]}
+                            style={{ width: 200, }}
+                          >
+                            <Select
+                              showSearch
+                              placeholder="Food"
+                              onChange={() => handleIngredientChange("snacks")}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {foods.map((food, i) => (
+                                <Option key={i} value={food._id}>
+                                  {food.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                            style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                              onChange={() => handleIngredientChange("snacks")}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item>
+
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              handleIngredientChange('snacks')
+                            }} />
+                          </Item>
+                        </Col>
                       </Row>
                     </Space>
                   ))}
@@ -434,36 +715,123 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                 </>
               )}
             </Form.List>
+            <Form.List
+              name={["snacks", "recipes"]}
+            >
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map((field) => (
+                    <Space
+                      key={field.key}
+                    >
+                      <Row>
+                        <Col md={10}>
+                          <Item
+                            key={'recipe'}
+                            name={[field.name, 'recipeId']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing recipe',
+                              },
+                            ]}
+                            style={{ width: 200, }}
+                          >
+                            <Select
+                              showSearch
+                              placeholder="Recipe"
+                              // onChange={handleIngredientChange}
+                              filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
+                              {recipes.map((recipe, i) => (
+                                <Option key={i} value={recipe._id}>
+                                  {recipe.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            style={{ width: '100%', }}
+                          >
+                            <Input
+                              placeholder="Serving Size"
+                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              disabled
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={6}>
+                          <Item
+                            name={[field.name, 'number_of_servings']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Missing number of servings',
+                              },
+                            ]}
+                            style={{ width: '100%' }}
+                          >
+                            <InputNumber
+                              placeholder="Number of Servings"
+                            // onChange={handleIngredientChange}
+                            />
+                          </Item>
+                        </Col>
+                        <Col md={2}>
+                          <Item
+                          // style={{ width: '5%' }}
+                          >
+                            <MinusCircleOutlined onClick={() => {
+                              remove(field.name)
+                              // handleIngredientChange()
+                            }} />
+                          </Item>
+                        </Col>
+                      </Row>
+                    </Space>
+                  ))}
+                  <Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                      Add Snack Recipe
+                    </Button>
+                  </Item>
+                </>
+              )}
+            </Form.List>
           </Item>
           <Row>
             <InputNumber
               style={{ width: '100%' }}
               addonAfter="cal"
-              value={recipeNutrients.calories}
+              // value={recipeNutrients.calories}
               disabled
             />
             <InputNumber
               style={{ width: '100%' }}
               addonAfter="g"
-              value={recipeNutrients.carbs}
+              // value={recipeNutrients.carbs}
               disabled
             />
             <InputNumber
               style={{ width: '100%' }}
               addonAfter="g"
-              value={recipeNutrients.protein}
+              // value={recipeNutrients.protein}
               disabled
             />
             <InputNumber
               style={{ width: '100%' }}
               addonAfter="g"
-              value={recipeNutrients.fat}
+              // value={recipeNutrients.fat}
               disabled
             />
             <InputNumber
               style={{ width: '100%' }}
               addonAfter="mg"
-              value={recipeNutrients.sodium}
+              // value={recipeNutrients.sodium}
               disabled
             />
           </Row>

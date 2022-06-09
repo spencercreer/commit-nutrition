@@ -1,16 +1,28 @@
 const { Schema, model } = require('mongoose')
 const ingredientSchema = require('./Ingredient')
-const recipeIngredientSchema = require
+const recipeIngredientSchema = require('./RecipeIngredient')
 
 const mealSchema = new Schema(
     {
         date: {
             type: Date
         },
-        breakfast: [ingredientSchema],
-        lunch: [ingredientSchema],
-        dinner: [ingredientSchema],
-        snacks: [ingredientSchema],
+        breakfast: {
+            ingredients: [ingredientSchema],
+            recipes: [recipeIngredientSchema]
+        },
+        lunch: {
+            ingredients: [ingredientSchema],
+            recipes: [recipeIngredientSchema]
+        },
+        dinner: {
+            ingredients: [ingredientSchema],
+            recipes: [recipeIngredientSchema]
+        },
+        snacks: {
+            ingredients: [ingredientSchema],
+            recipes: [recipeIngredientSchema]
+        },
         calories: {
             type: Number
         },

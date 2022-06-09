@@ -4,34 +4,50 @@ const mealController = {
     getMeals(req, res) {
         Meal.find()
             .select('-__v')
-            .populate({
-                path: 'breakfast',
-                populate: {
-                    path: 'foodId',
-                    model: 'Food'
-                }
-            })
-            .populate({
-                path: 'lunch',
-                populate: {
-                    path: 'foodId',
-                    model: 'Food'
-                }
-            })
-            .populate({
-                path: 'dinner',
-                populate: {
-                    path: 'foodId',
-                    model: 'Food'
-                }
-            })
-            .populate({
-                path: 'snacks',
-                populate: {
-                    path: 'foodId',
-                    model: 'Food'
-                }
-            })
+            .populate(
+                [
+                    {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'lunch',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    }
+                ]
+            )
             .then((dbMealData) => {
                 res.json(dbMealData)
             })

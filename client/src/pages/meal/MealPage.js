@@ -76,7 +76,7 @@ const MealPage = () => {
                                 <div>
                                     <h6>Breakfast</h6>
                                     {
-                                        meal.breakfast.map((ingredient, i) => (
+                                        meal.breakfast.ingredients.map((ingredient, i) => (
                                             <Row key={i}>
                                                 <div>{ingredient.foodId.name} calories: {ingredient.foodId.calories} cal, carbs: {ingredient.foodId.carbs} g, protein: {ingredient.foodId.protein} g, fat: {ingredient.foodId.fat} g</div>
                                             </Row>
@@ -86,7 +86,7 @@ const MealPage = () => {
                                 <div>
                                     <h6>Lunch</h6>
                                     {
-                                        meal.lunch.map((ingredient, i) => (
+                                        meal.lunch.ingredients.map((ingredient, i) => (
                                             <Row key={i}>
                                                 <div>{ingredient.foodId.name} calories: {ingredient.foodId.calories} cal, carbs: {ingredient.foodId.carbs} g, protein: {ingredient.foodId.protein} g, fat: {ingredient.foodId.fat} g</div>
                                             </Row>
@@ -96,7 +96,7 @@ const MealPage = () => {
                                 <div>
                                     <h6>Dinner</h6>
                                     {
-                                        meal.dinner.map((ingredient, i) => (
+                                        meal.dinner.ingredients.map((ingredient, i) => (
                                             <Row key={i}>
                                                 <div>{ingredient.foodId.name} calories: {ingredient.foodId.calories} cal, carbs: {ingredient.foodId.carbs} g, protein: {ingredient.foodId.protein} g, fat: {ingredient.foodId.fat} g</div>
                                             </Row>
@@ -106,7 +106,7 @@ const MealPage = () => {
                                 <div>
                                     <h6>Snacks</h6>
                                     {
-                                        meal.snacks.map((ingredient, i) => (
+                                        meal.snacks.ingredients.map((ingredient, i) => (
                                             <Row key={i}>
                                                 <div>{ingredient.foodId.name} calories: {ingredient.foodId.calories} cal, carbs: {ingredient.foodId.carbs} g, protein: {ingredient.foodId.protein} g, fat: {ingredient.foodId.fat} g</div>
                                             </Row>
