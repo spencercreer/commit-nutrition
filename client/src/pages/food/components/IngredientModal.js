@@ -1,15 +1,10 @@
-import { Modal, Form, Input, InputNumber, Select, message, Alert, Button } from 'antd'
+import { Modal, Form, Input, Skeleton, Select, Button } from 'antd'
 import { useGet } from '../../../utils/API'
 
-const { Item } = Form
-const { Group } = Input
-const { Option } = Select
-
 const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
-    // const { data: recipeData, loading } = useGet(`/api/recipes/${recipeId}`)
-    // if (loading) {
-    //     return <div>Hey y'all, we're Loading...</div>
-    // }
+    const { data: recipeData, loading } = useGet(`/api/recipes/${recipeId}`)
+
+    console.log(recipeData)
 
     const footerButtons =
         [
@@ -32,16 +27,26 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
         ]
 
     return (
-        <Modal
-            title={'Recipe Details'}
-            visible={visible}
-            onCancel={handleCloseModal}
-            footer={footerButtons}
-        >
+        <>
+            {
+                    <Modal
+                        title={loading ? <Skeleton loading paragraph={{ rows: 0 }} /> : `${recipeData.name} Details`}
+                        visible={visible}
+                        onCancel={handleCloseModal}
+                        footer={footerButtons}
+                    >
+                        {
+                            loading ?
+                            <Skeleton loading />
+                            :
+                            <div>Heyoo</div>
+                        }
 
-        </Modal>
+                    </Modal>
+            }
+        </>
     )
+
 }
 
 export default IngredientModal
-

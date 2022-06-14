@@ -62,7 +62,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         recipeSodium += ingredient.sodium
       }
     })
-    setRecipeNutrients({ calories: recipeCal, carbs: recipeCarbs, protein: recipeProtein, fat: recipeFat, sodium: recipeSodium })
+    setRecipeNutrients({ calories: recipeCal.toFixed(2), carbs: recipeCarbs.toFixed(2), protein: recipeProtein.toFixed(2), fat: recipeFat.toFixed(2), sodium: recipeSodium.toFixed(2) })
     setRecipeData(ingredients)
   }
 

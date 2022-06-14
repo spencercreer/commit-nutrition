@@ -5,12 +5,11 @@ import IngredientModal from '../../food/components/IngredientModal'
 import { Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons'
 // Utils
-import { useGet, useGetOne } from '../../../utils/API'
+import { useGet } from '../../../utils/API'
 
 const RecipeList = () => {
     const [selectedRecipeId, setSelectedRecipeId] = useState()
     const [modalVisible, setModalVisible] = useState(false)
-    // const []
     const { data: recipeData, loading } = useGet('/api/recipes')
 
     const handleOnClick = (recipeId) => {
@@ -21,8 +20,6 @@ const RecipeList = () => {
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)
     }
-
-    console.log(recipeData)
 
     return (
         <>
@@ -41,27 +38,30 @@ const RecipeList = () => {
                                 />,
                                 <EditOutlined
                                     key='edit'
-                                    // onClick={() => handleOnClick(true)}
+                                // onClick={() => handleOnClick(true)}
                                 />,
                                 // <Switch 
-                                    // checked={active}
-                                    // onChange={handleStatusChange}
+                                // checked={active}
+                                // onChange={handleStatusChange}
                                 // />,
                             ]}
                         >
-                            <p>{recipe.calories} cal, {recipe?.serving_size.size} {recipe?.serving_size.unit}</p>
-                            <p>Carbs: {recipe.carbs} g</p>
-                            <p>Protein: {recipe.protein} g</p>
-                            <p>Fat: {recipe.fat} g</p>
-                            <p>Sodium: {recipe.sodium} mg</p>
+                            <p>{(recipe.calories / recipe.recipe_servings).toFixed()} cal, {recipe?.serving_size.size} {recipe?.serving_size.unit}</p>
+                            <p>Carbs: {(recipe.carbs / recipe.recipe_servings).toFixed()} g</p>
+                            <p>Protein: {(recipe.protein / recipe.recipe_servings).toFixed()} g</p>
+                            <p>Fat: {(recipe.fat / recipe.recipe_servings).toFixed()} g</p>
+                            <p>Sodium: {(recipe.sodium / recipe.recipe_servings).toFixed()} mg</p>
                         </Card>
                     ))
             }
-            <IngredientModal
-                recipeId={selectedRecipeId}
-                visible={modalVisible}
-                handleCloseModal={handleToggleModal}
-            />
+            {
+                selectedRecipeId &&
+                <IngredientModal
+                    recipeId={selectedRecipeId}
+                    visible={modalVisible}
+                    handleCloseModal={handleToggleModal}
+                />
+            }
         </>
     )
 }
