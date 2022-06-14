@@ -34,7 +34,7 @@ const FoodList = () => {
                                 // />,
                             ]}
                         >
-                            <p>Calories: {food.calories} cal</p>
+                            <p>{food.calories} cal, {food.serving_size.size} {food.serving_size.unit}</p>
                             <p>Carbs: {food.carbs} g</p>
                             <p>Protein: {food.protein} g</p>
                             <p>Fat: {food.fat} g</p>

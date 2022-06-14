@@ -49,7 +49,7 @@ const RecipeList = () => {
                                 // />,
                             ]}
                         >
-                            <p>Calories: {recipe.calories} cal</p>
+                            <p>{recipe.calories} cal, {recipe?.serving_size.size} {recipe?.serving_size.unit}</p>
                             <p>Carbs: {recipe.carbs} g</p>
                             <p>Protein: {recipe.protein} g</p>
                             <p>Fat: {recipe.fat} g</p>

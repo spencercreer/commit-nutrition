@@ -4,6 +4,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
 import { layout, disabledDate } from '../../../utils/form';
+import NutrientsRow from '../../../components/NutrientsRow';
 
 const { Item } = Form
 const { Option } = Select;
@@ -12,8 +13,14 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   const [mealData, setMealData] = useState([])
   const [form] = Form.useForm()
   const [mealNutrients, setMealNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
+  // const [mealNutrients, setMealNutrients] = useState({
+  //   breakfast: { calories: null, carbs: null, protein: null, fat: null, sodium: null },
+  //   lunch: { calories: null, carbs: null, protein: null, fat: null, sodium: null },
+  //   dinner: { calories: null, carbs: null, protein: null, fat: null, sodium: null },
+  //   snacks: { calories: null, carbs: null, protein: null, fat: null, sodium: null },
+  // })
   const { data: foods } = useGet('/api/foods')
-  const { data: recipes } = useGet('/api/recipes')
+  const { data: recipeData } = useGet('/api/recipes')
   const [createMeal] = usePost('/api/meals')
   const [alert, setAlert] = useState()
 
@@ -24,7 +31,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         message.success(`Meal plan added successfully!`)
         form.resetFields()
         setAlert(null)
-        // setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
+        setMealNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
       })
       .catch(err => {
         setAlert('We were not able to save this recipe. Please try again.')
@@ -33,7 +40,13 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   };
 
   const handleIngredientChange = (value) => {
-    let { [value]: { ingredients } } = form.getFieldsValue()
+    // let { [value]: { ingredients } } = form.getFieldsValue()
+    let breakfastIngredients = form.getFieldsValue().breakfast.ingredients || []
+    let breakfastRecipes = form.getFieldsValue().breakfast.recipes || []
+
+    console.log(breakfastRecipes)
+
+    let ingredients = breakfastIngredients.concat(breakfastRecipes)
     console.log(ingredients)
     ingredients = ingredients.map(ingredient => {
       if (ingredient.foodId && ingredient.number_of_servings) {
@@ -48,6 +61,18 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       } else if (ingredient.foodId) {
         const food = foods.find((food) => food._id === ingredient.foodId)
         return food
+      } else if (ingredient.recipeId && ingredient.number_of_servings) {
+        const recipe = recipeData.find((recipe) => recipe._id === ingredient.recipeId)
+        const servings = ingredient.number_of_servings
+        const calories = recipe.calories * servings
+        const carbs = recipe.carbs * servings
+        const protein = recipe.protein * servings
+        const fat = recipe.fat * servings
+        const sodium = recipe.sodium * servings
+        return { ...recipe, calories, carbs, protein, fat, sodium, number_of_servings: servings }
+      } else if (ingredient.recipeId) {
+        const recipe = recipeData.find((recipe) => recipe._id === ingredient.recipeId)
+        return recipe
       } else {
         return ingredient
       }
@@ -153,7 +178,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -221,12 +246,12 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                             <Select
                               showSearch
                               placeholder="Recipe"
-                              // onChange={handleIngredientChange}
+                              onChange={() => handleIngredientChange("breakfast")}
                               filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                               }
                             >
-                              {recipes.map((recipe, i) => (
+                              {recipeData.map((recipe, i) => (
                                 <Option key={i} value={recipe._id}>
                                   {recipe.name}
                                 </Option>
@@ -240,7 +265,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              // value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              // value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -258,7 +283,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <InputNumber
                               placeholder="Number of Servings"
-                            // onChange={handleIngredientChange}
+                              onChange={() => handleIngredientChange("breakfast")}
                             />
                           </Item>
                         </Col>
@@ -268,7 +293,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <MinusCircleOutlined onClick={() => {
                               remove(field.name)
-                              // handleIngredientChange()
+                              handleIngredientChange('breakfast')
                             }} />
                           </Item>
                         </Col>
@@ -327,7 +352,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -399,7 +424,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                               }
                             >
-                              {recipes.map((recipe, i) => (
+                              {recipeData.map((recipe, i) => (
                                 <Option key={i} value={recipe._id}>
                                   {recipe.name}
                                 </Option>
@@ -413,7 +438,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -500,7 +525,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -572,7 +597,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                               }
                             >
-                              {recipes.map((recipe, i) => (
+                              {recipeData.map((recipe, i) => (
                                 <Option key={i} value={recipe._id}>
                                   {recipe.name}
                                 </Option>
@@ -586,7 +611,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -673,7 +698,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -745,7 +770,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                               }
                             >
-                              {recipes.map((recipe, i) => (
+                              {recipeData.map((recipe, i) => (
                                 <Option key={i} value={recipe._id}>
                                   {recipe.name}
                                 </Option>
@@ -759,7 +784,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
                           >
                             <Input
                               placeholder="Serving Size"
-                              value={mealData[field.key] ? `${mealData[field.key].serving_size?.size} ${mealData[field.key].serving_size?.unit}` : null}
+                              value={mealData[field.key]?.serving_size ? `${mealData[field.key].serving_size.size} ${mealData[field.key].serving_size.unit}` : null}
                               disabled
                             />
                           </Item>
@@ -803,39 +828,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
               )}
             </Form.List>
           </Item>
-          <Row>
-            <InputNumber
-              style={{ width: '100%' }}
-              addonAfter="cal"
-              // value={recipeNutrients.calories}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonAfter="g"
-              // value={recipeNutrients.carbs}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonAfter="g"
-              // value={recipeNutrients.protein}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonAfter="g"
-              // value={recipeNutrients.fat}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonAfter="mg"
-              // value={recipeNutrients.sodium}
-              disabled
-            />
-          </Row>
-
+          <NutrientsRow nutrients={mealNutrients} />
           {
             alert && <Alert message={alert} type='error' />
           }

@@ -4,6 +4,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
 import { recipeCategories } from '../../../utils/form';
+import NutrientsRow from '../../../components/NutrientsRow';
 
 const { Item } = Form
 const { Group } = Input
@@ -156,43 +157,6 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               placeholder='Number of Servings'
             />
           </Item>
-          <Row>
-            <InputNumber
-              style={{ width: '100%' }}
-              addonBefore='Calories'
-              addonAfter="cal"
-              value={recipeNutrients.calories}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonBefore='Carbs'
-              addonAfter="g"
-              value={recipeNutrients.carbs}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonBefore='Protein'
-              addonAfter="g"
-              value={recipeNutrients.protein}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonBefore='Fat'
-              addonAfter="g"
-              value={recipeNutrients.fat}
-              disabled
-            />
-            <InputNumber
-              style={{ width: '100%' }}
-              addonBefore='Sodium'
-              addonAfter="mg"
-              value={recipeNutrients.sodium}
-              disabled
-            />
-          </Row>
           <Form.List
             name="ingredients"
           >
@@ -277,6 +241,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               </>
             )}
           </Form.List>
+          <NutrientsRow nutrients={recipeNutrients} />
           {
             alert && <Alert message={alert} type='error' />
           }
