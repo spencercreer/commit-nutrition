@@ -71,47 +71,47 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 </Item>
                 <Item label='Serving Size'>
                     <Group compact>
-                        <Item name={['serving_size', 'size']} noStyle rules={[{ required: true, message: 'Serving Size is required' }]}>
+                        <Item name={['serving', 'size']} noStyle rules={[{ required: true, message: 'Serving Size is required' }]}>
                             <InputNumber
                                 placeholder='size'
                             />
                         </Item>
-                        <Item name={['serving_size', 'unit']} style={{ width: '100px', margin: '0px' }}>
+                        <Item name={['serving', 'unit']} style={{ width: '100px', margin: '0px' }}>
                             <Input
                                 placeholder='unit'
                             />
                         </Item>
                     </Group>
                 </Item>
-                <Item name={'calories'} label='Calories' rules={[{ required: true }]}>
+                <Item name={['serving', 'calories']} label='Calories' rules={[{ required: true }]}>
                     <InputNumber
                         min="0"
                         step="0.1"
                         addonAfter='cal'
                     />
                 </Item>
-                <Item name={'carbs'} label='Carbs' rules={[{ required: true }]}>
+                <Item name={['serving', 'carbs']} label='Carbs' rules={[{ required: true }]}>
                     <InputNumber
                         min="0"
                         step="0.1"
                         addonAfter='g'
                     />
                 </Item>
-                <Item name={'protein'} label='Protein' rules={[{ required: true }]}>
+                <Item name={['serving', 'protein']} label='Protein' rules={[{ required: true }]}>
                     <InputNumber
                         min="0"
                         step="0.1"
                         addonAfter='g'
                     />
                 </Item>
-                <Item name={'fat'} label='Fat' rules={[{ required: true }]}>
+                <Item name={['serving', 'fat']} label='Fat' rules={[{ required: true }]}>
                     <InputNumber
                         min="0"
                         step="0.1"
                         addonAfter='g'
                     />
                 </Item>
-                <Item name={'sodium'} label='Sodium'>
+                <Item name={['serving', 'sodium']} label='Sodium'>
                     <InputNumber
                         min="0"
                         step="0.1"

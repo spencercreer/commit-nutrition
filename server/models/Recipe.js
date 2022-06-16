@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const servingSchema = require('./Serving')
 const ingredientSchema = require('./Ingredient')
 
 const recipeSchema = new Schema(
@@ -13,10 +14,13 @@ const recipeSchema = new Schema(
         category: {
             type: String
         },
-        serving_size: {
-            size: { type: Number },
-            unit: { type: String }
+        serving: {
+            type: servingSchema
         },
+        // serving_size: {
+        //     size: { type: Number },
+        //     unit: { type: String }
+        // },
         serving_size_grams: {
             type: Number
         },

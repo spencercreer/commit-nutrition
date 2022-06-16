@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const servingSchema = require('./Serving')
 
 const foodSchema = new Schema(
     {
@@ -15,25 +16,28 @@ const foodSchema = new Schema(
         category: {
             type: String
         },
-        serving_size: {
-            size: { type: Number },
-            unit: { type: String }
+        serving: {
+            type: servingSchema
         },
+        // serving_size: {
+        //     size: { type: Number },
+        //     unit: { type: String }
+        // },
         serving_size_grams: {
             type: Number
         },
-        calories: {
-            type: Number
-        },
-        carbs: {
-            type: Number
-        },
-        protein: {
-            type: Number
-        },
-        fat: {
-            type: Number
-        },
+        // calories: {
+        //     type: Number
+        // },
+        // carbs: {
+        //     type: Number
+        // },
+        // protein: {
+        //     type: Number
+        // },
+        // fat: {
+        //     type: Number
+        // },
         sodium: {
             type: Number
         },

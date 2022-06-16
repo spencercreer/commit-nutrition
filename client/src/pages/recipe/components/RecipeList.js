@@ -46,11 +46,11 @@ const RecipeList = () => {
                                 // />,
                             ]}
                         >
-                            <p>{(recipe.calories / recipe.recipe_servings).toFixed()} cal, {recipe?.serving_size.size} {recipe?.serving_size.unit}</p>
-                            <p>Carbs: {(recipe.carbs / recipe.recipe_servings).toFixed()} g</p>
-                            <p>Protein: {(recipe.protein / recipe.recipe_servings).toFixed()} g</p>
-                            <p>Fat: {(recipe.fat / recipe.recipe_servings).toFixed()} g</p>
-                            <p>Sodium: {(recipe.sodium / recipe.recipe_servings).toFixed()} mg</p>
+                            <p>{(recipe.serving?.calories).toFixed()} cal, {recipe.serving?.size} {recipe.serving?.unit}</p>
+                            <p>Carbs: {(recipe.serving?.carbs).toFixed()} g</p>
+                            <p>Protein: {(recipe.serving?.protein).toFixed()} g</p>
+                            <p>Fat: {(recipe.serving?.fat).toFixed()} g</p>
+                            <p>Sodium: {(recipe.serving?.sodium).toFixed()} mg</p>
                         </Card>
                     ))
             }

@@ -1,5 +1,56 @@
 import moment from 'moment'
 
+export const servingUnits = [
+    {
+        value: 'large',
+    },
+    {
+        value: 'medium',
+    },
+    {
+        value: 'small',
+    },
+    {
+        value: 'gallon',
+    },
+    {
+        value: 'quart',
+    },
+    {
+        value: 'pint',
+    },
+    {
+        value: 'cup',
+    },
+    {
+        value: 'fl oz',
+    },
+    {
+        value: 'liter',
+    },
+    {
+        value: 'ml',
+    },
+    {
+        value: 'Tbsp',
+    },
+    {
+        value: 'tsp',
+    },
+    {
+        value: 'kg',
+    },
+    {
+        value: 'g',
+    },
+    {
+        value: 'lb',
+    },
+    {
+        value: 'oz',
+    },
+]
+
 export const foodCategories = [
     {
         label: 'Vegtables',

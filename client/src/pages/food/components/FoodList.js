@@ -8,6 +8,7 @@ import { useGet } from '../../../utils/API'
 const FoodList = () => {
 
     const { data: foodData, loading } = useGet('/api/foods')
+    console.log(foodData)
 
     return (
         <>
@@ -34,11 +35,11 @@ const FoodList = () => {
                                 // />,
                             ]}
                         >
-                            <p>{food.calories} cal, {food.serving_size.size} {food.serving_size.unit}</p>
-                            <p>Carbs: {food.carbs} g</p>
-                            <p>Protein: {food.protein} g</p>
-                            <p>Fat: {food.fat} g</p>
-                            <p>Sodium: {food.sodium} mg</p>
+                            <p>{food.serving?.calories} cal, {food.serving?.size} {food.serving?.unit}</p>
+                            <p>Carbs: {food.serving?.carbs} g</p>
+                            <p>Protein: {food.serving?.protein} g</p>
+                            <p>Fat: {food.serving?.fat} g</p>
+                            <p>Sodium: {food.serving?.sodium} mg</p>
                         </Card>
                     ))
             }
