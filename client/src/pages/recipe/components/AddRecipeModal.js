@@ -100,6 +100,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         <Form
           // {...formItemLayoutWithOutLabel}
           form={form}
+          name='add-food'
           onFinish={onFinish}
           autoComplete="off"
         >

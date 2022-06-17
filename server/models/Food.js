@@ -19,26 +19,7 @@ const foodSchema = new Schema(
         serving: {
             type: servingSchema
         },
-        // serving_size: {
-        //     size: { type: Number },
-        //     unit: { type: String }
-        // },
         serving_size_grams: {
-            type: Number
-        },
-        // calories: {
-        //     type: Number
-        // },
-        // carbs: {
-        //     type: Number
-        // },
-        // protein: {
-        //     type: Number
-        // },
-        // fat: {
-        //     type: Number
-        // },
-        sodium: {
             type: Number
         },
         container_servings: {

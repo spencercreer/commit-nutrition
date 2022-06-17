@@ -59,68 +59,109 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
             <Form
                 {...layout}
                 form={form}
-                name='add-student'
+                name='add-food'
                 onFinish={onFinish}
                 validateMessages={validateMessages}
             >
-                <Item name={'name'} label='Food Name' rules={[{ required: true }]}>
-                    <Input />
+                <Item
+                    name='name'
+                    rules={[{ required: true }]}
+                >
+                    <Input
+                        placeholder='Food Name'
+                    />
                 </Item>
-                <Item name={'description'} label='Description'>
-                    <Input />
+                <Item name='description'>
+                    <Input
+                        placeholder='Description'
+                    />
                 </Item>
-                <Item label='Serving Size'>
+                <Item>
                     <Group compact>
-                        <Item name={['serving', 'size']} noStyle rules={[{ required: true, message: 'Serving Size is required' }]}>
+                        <Item
+                            name={['serving', 'size']}
+                            style={{ width: '200px', margin: '0px' }}
+                            rules={[{ required: true, message: 'Serving Size is required' }]}
+                        >
                             <InputNumber
-                                placeholder='size'
+                                style={{ width: '100%' }}
+                                min="0"
+                                placeholder='Serving Size'
                             />
                         </Item>
-                        <Item name={['serving', 'unit']} style={{ width: '100px', margin: '0px' }}>
+                        <Item
+                            name={['serving', 'unit']}
+                            style={{ width: '100px', margin: '0px' }}
+                        >
                             <Input
-                                placeholder='unit'
+                                placeholder='Unit'
                             />
                         </Item>
                     </Group>
                 </Item>
-                <Item name={['serving', 'calories']} label='Calories' rules={[{ required: true }]}>
+                <Item
+                    name={['serving', 'calories']}
+                    rules={[{ required: true }]}
+                >
                     <InputNumber
+                        style={{ width: '100%' }}
                         min="0"
                         step="0.1"
+                        addonBefore='Calories'
                         addonAfter='cal'
                     />
                 </Item>
-                <Item name={['serving', 'carbs']} label='Carbs' rules={[{ required: true }]}>
+                <Item
+                    name={['serving', 'carbs']}
+                    rules={[{ required: true }]}
+                >
                     <InputNumber
+                        style={{ width: '100%' }}
                         min="0"
                         step="0.1"
+                        addonBefore='Carbs'
                         addonAfter='g'
                     />
                 </Item>
-                <Item name={['serving', 'protein']} label='Protein' rules={[{ required: true }]}>
+                <Item
+                    name={['serving', 'protein']}
+                    rules={[{ required: true }]}
+                >
                     <InputNumber
+                        style={{ width: '100%' }}
                         min="0"
                         step="0.1"
+                        addonBefore='Protein'
                         addonAfter='g'
                     />
                 </Item>
-                <Item name={['serving', 'fat']} label='Fat' rules={[{ required: true }]}>
+                <Item
+                    name={['serving', 'fat']}
+                    rules={[{ required: true }]}
+                >
                     <InputNumber
+                        style={{ width: '100%' }}
                         min="0"
                         step="0.1"
+                        addonBefore='Fat'
                         addonAfter='g'
                     />
                 </Item>
-                <Item name={['serving', 'sodium']} label='Sodium'>
+                <Item
+                    name={['serving', 'sodium']}
+                >
                     <InputNumber
+                        style={{ width: '100%' }}
                         min="0"
                         step="0.1"
+                        addonBefore='Sodium'
                         addonAfter='mg'
                     />
                 </Item>
-                <Item name={'category'} label='Category'>
+                <Item name='category'>
                     <Select
                         showSearch
+                        placeholder='Category'
                         filterOption={(input, option) =>
                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         }
