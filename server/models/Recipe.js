@@ -17,29 +17,25 @@ const recipeSchema = new Schema(
         serving: {
             type: servingSchema
         },
-        // serving_size: {
-        //     size: { type: Number },
-        //     unit: { type: String }
-        // },
         serving_size_grams: {
             type: Number
         },
         recipe_servings: {
             type: Number
         },
-        calories: {
+        total_calories: {
             type: Number
         },
-        carbs: {
+        total_carbs: {
             type: Number
         },
-        protein: {
+        total_protein: {
             type: Number
         },
-        fat: {
+        total_fat: {
             type: Number
         },
-        sodium: {
+        total_sodium: {
             type: Number
         },
         recipe_cost: {

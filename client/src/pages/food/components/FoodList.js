@@ -8,7 +8,6 @@ import { useGet } from '../../../utils/API'
 const FoodList = () => {
 
     const { data: foodData, loading } = useGet('/api/foods')
-    console.log(foodData)
 
     return (
         <>

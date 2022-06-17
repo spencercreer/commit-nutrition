@@ -19,7 +19,9 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const [alert, setAlert] = useState()
 
   const onFinish = (values) => {
-    createRecipe({ ...values, calories: recipeNutrients.calories, carbs: recipeNutrients.carbs, protein: recipeNutrients.protein, fat: recipeNutrients.fat, sodium: recipeNutrients.sodium })
+    const servings = values.recipe_servings
+    console.log(servings)
+    createRecipe({ ...values, total_calories: recipeNutrients.calories, total_carbs: recipeNutrients.carbs, total_protein: recipeNutrients.protein, total_fat: recipeNutrients.fat, total_sodium: recipeNutrients.sodium, serving: { ...values.serving, calories: (recipeNutrients.calories/servings), carbs: (recipeNutrients.carbs/servings), protein: (recipeNutrients.protein/servings), fat: (recipeNutrients.fat/servings), sodium: (recipeNutrients.sodium/servings) }})
       .then(res => {
         message.success(`${res.name} added successfully!`)
         form.resetFields()
@@ -132,7 +134,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
           <Item >
             <Group compact>
               <Item
-                name={['serving_size', 'size']}
+                name={['serving', 'size']}
                 noStyle
                 rules={[{ required: true }]}
               >
@@ -142,7 +144,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                 />
               </Item>
               <Item
-                name={['serving_size', 'unit']}
+                name={['serving', 'unit']}
                 noStyle
               >
                 <Input
