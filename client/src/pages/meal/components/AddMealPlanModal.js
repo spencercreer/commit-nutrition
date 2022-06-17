@@ -34,7 +34,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         setMealNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
       })
       .catch(err => {
-        setAlert('We were not able to save this recipe. Please try again.')
+        setAlert('We were not able to save this meal. Please try again.')
         console.log(err)
       })
   };

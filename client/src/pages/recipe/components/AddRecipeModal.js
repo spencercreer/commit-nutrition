@@ -3,7 +3,7 @@ import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, Space, Alert
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
-import { recipeCategories } from '../../../utils/form';
+import { validateMessages, recipeCategories } from '../../../utils/form';
 import NutrientsRow from '../../../components/NutrientsRow';
 
 const { Item } = Form
@@ -100,14 +100,14 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         <Form
           // {...formItemLayoutWithOutLabel}
           form={form}
-          name='add-food'
+          name='add-recipe'
           onFinish={onFinish}
           autoComplete="off"
         >
           <Item
             name='name'
-            rules={[{ required: true }]}
-          >
+            rules={validateMessages('Title')}
+            >
             <Input
               placeholder='Title'
             />
@@ -137,7 +137,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               <Item
                 name={['serving', 'size']}
                 noStyle
-                rules={[{ required: true }]}
+                rules={validateMessages('Serving Size')}
               >
                 <InputNumber
                   style={{ width: '50%' }}
@@ -172,12 +172,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                         <Item
                           key='food'
                           name={[field.name, 'foodId']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing food',
-                            },
-                          ]}
+                          rules={validateMessages('Food')}
                           style={{ width: 200, }}
                         >
                           <Select
@@ -210,12 +205,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                       <Col md={6}>
                         <Item
                           name={[field.name, 'number_of_servings']}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Missing number of servings',
-                            },
-                          ]}
+                          rules={validateMessages('Number of Servings')}
                         // style={{ width: '20%' }}
                         >
                           <InputNumber

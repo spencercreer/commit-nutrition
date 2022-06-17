@@ -61,11 +61,10 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 form={form}
                 name='add-food'
                 onFinish={onFinish}
-                validateMessages={validateMessages}
             >
                 <Item
                     name='name'
-                    rules={[{ required: true }]}
+                    rules={validateMessages('Food Name')}
                 >
                     <Input
                         placeholder='Food Name'
@@ -81,7 +80,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                         <Item
                             name={['serving', 'size']}
                             style={{ width: '200px', margin: '0px' }}
-                            rules={[{ required: true, message: 'Serving Size is required' }]}
+                            rules={validateMessages('Serving Size')}
                         >
                             <InputNumber
                                 style={{ width: '100%' }}
@@ -101,8 +100,8 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 </Item>
                 <Item
                     name={['serving', 'calories']}
-                    rules={[{ required: true }]}
-                >
+                    rules={validateMessages('Calories')}
+                    >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"
@@ -113,8 +112,8 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 </Item>
                 <Item
                     name={['serving', 'carbs']}
-                    rules={[{ required: true }]}
-                >
+                    rules={validateMessages('Carbs')}
+                    >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"
@@ -125,8 +124,8 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 </Item>
                 <Item
                     name={['serving', 'protein']}
-                    rules={[{ required: true }]}
-                >
+                    rules={validateMessages('Serving Size')}
+                    >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"
@@ -137,8 +136,8 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 </Item>
                 <Item
                     name={['serving', 'fat']}
-                    rules={[{ required: true }]}
-                >
+                    rules={validateMessages('Calories')}
+                    >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"

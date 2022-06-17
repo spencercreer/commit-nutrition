@@ -121,12 +121,9 @@ export const recipeCategories = [
     }
 ]
 
-export const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not a valid email!',
-    },
-};
+export const validateMessages = (field) => {
+    return [{ required: true, message: `${field} is required` }];
+}
 
 export const layout = {
     labelCol: { span: 3 },
