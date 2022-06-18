@@ -9,19 +9,79 @@ const mealSchema = new Schema(
         },
         breakfast: {
             ingredients: [ingredientSchema],
-            recipes: [recipeIngredientSchema]
+            recipes: [recipeIngredientSchema],
+            calories: {
+                type: Number
+            },
+            carbs: {
+                type: Number
+            },
+            protein: {
+                type: Number
+            },
+            fat: {
+                type: Number
+            },
+            sodium: {
+                type: Number
+            }
         },
         lunch: {
             ingredients: [ingredientSchema],
-            recipes: [recipeIngredientSchema]
+            recipes: [recipeIngredientSchema],
+            calories: {
+                type: Number
+            },
+            carbs: {
+                type: Number
+            },
+            protein: {
+                type: Number
+            },
+            fat: {
+                type: Number
+            },
+            sodium: {
+                type: Number
+            }
         },
         dinner: {
             ingredients: [ingredientSchema],
-            recipes: [recipeIngredientSchema]
+            recipes: [recipeIngredientSchema],
+            calories: {
+                type: Number
+            },
+            carbs: {
+                type: Number
+            },
+            protein: {
+                type: Number
+            },
+            fat: {
+                type: Number
+            },
+            sodium: {
+                type: Number
+            }
         },
         snacks: {
             ingredients: [ingredientSchema],
-            recipes: [recipeIngredientSchema]
+            recipes: [recipeIngredientSchema],
+            calories: {
+                type: Number
+            },
+            carbs: {
+                type: Number
+            },
+            protein: {
+                type: Number
+            },
+            fat: {
+                type: Number
+            },
+            sodium: {
+                type: Number
+            }
         },
         calories: {
             type: Number
