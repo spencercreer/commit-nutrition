@@ -4,6 +4,7 @@ import { Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 // Utils
 import { useGet } from '../../../utils/API'
+import NutrientsRow from '../../../components/NutrientsRow';
 
 const FoodList = () => {
 
@@ -22,23 +23,22 @@ const FoodList = () => {
                             actions={[
                                 <EllipsisOutlined
                                     key='ellipsis'
-                                    // onClick={() => handleOnClick()}
+                                // onClick={() => handleOnClick()}
                                 />,
                                 <EditOutlined
                                     key='edit'
-                                    // onClick={() => handleOnClick(true)}
+                                // onClick={() => handleOnClick(true)}
                                 />,
                                 // <Switch 
-                                    // checked={active}
-                                    // onChange={handleStatusChange}
+                                // checked={active}
+                                // onChange={handleStatusChange}
                                 // />,
                             ]}
                         >
                             <p>{food.serving?.calories} cal, {food.serving?.size} {food.serving?.unit}</p>
-                            <p>Carbs: {food.serving?.carbs} g</p>
-                            <p>Protein: {food.serving?.protein} g</p>
-                            <p>Fat: {food.serving?.fat} g</p>
-                            <p>Sodium: {food.serving?.sodium} mg</p>
+                            <NutrientsRow
+                                nutrients={{ calories: food.serving?.calories, carbs: food.serving?.carbs, protein: food.serving?.protein, fat: food.serving?.fat, sodium: food.serving?.sodium }}
+                            />
                         </Card>
                     ))
             }

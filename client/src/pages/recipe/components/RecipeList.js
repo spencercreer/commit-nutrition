@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import LoadingCards from '../../../components/LoadingCards'
 import IngredientModal from '../../food/components/IngredientModal'
+import NutrientsRow from '../../../components/NutrientsRow';
 // Antd
 import { Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons'
@@ -47,10 +48,9 @@ const RecipeList = () => {
                             ]}
                         >
                             <p>{recipe.serving?.calories} cal, {recipe.serving?.size} {recipe.serving?.unit}</p>
-                            <p>Carbs: {recipe.serving?.carbs} g</p>
-                            <p>Protein: {recipe.serving?.protein} g</p>
-                            <p>Fat: {recipe.serving?.fat} g</p>
-                            <p>Sodium: {recipe.serving?.sodium} mg</p>
+                            <NutrientsRow
+                                nutrients={{ calories: recipe.serving?.calories, carbs: recipe.serving?.carbs, protein: recipe.serving?.protein, fat: recipe.serving?.fat, sodium: recipe.serving?.sodium }}
+                            />
                         </Card>
                     ))
             }

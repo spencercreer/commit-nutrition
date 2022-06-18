@@ -1,6 +1,7 @@
 // React
 import { useState } from 'react'
 import AddMealPlanModal from './components/AddMealPlanModal'
+import NutrientsRow from '../../components/NutrientsRow'
 import LoadingCards from '../../components/LoadingCards'
 import { Link } from 'react-router-dom'
 // Antd
@@ -120,14 +121,9 @@ const MealPage = () => {
                                         ))
                                     }
                                 </div>
-                                <div>
-                                    <h6>Meal Plan Totals</h6>
-                                    <p>Calories: {meal.calories}cal</p>
-                                    <p>Carbs: {meal.carbs}g</p>
-                                    <p>Protein: {meal.protein}g</p>
-                                    <p>Fat: {meal.fat}g</p>
-                                    <p>Sodium: {meal.sodium}g</p>
-                                </div>
+                                <NutrientsRow
+                                    nutrients={{calories: meal.calories, carbs: meal.carbs, protein: meal.protein, fat: meal.fat, sodium: meal.sodium}}
+                                />
                             </Card>
                         ))
                 }
