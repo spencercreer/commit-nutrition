@@ -30,7 +30,12 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       breakfast: {...values.breakfast, ...mealNutrients.breakfast},
       lunch: {...values.lunch, ...mealNutrients.lunch},
       dinner: {...values.dinner, ...mealNutrients.dinner},
-      snacks: {...values.snacks, ...mealNutrients.snacks}
+      snacks: {...values.snacks, ...mealNutrients.snacks},
+      calories: mealNutrients.breakfast.calories + mealNutrients.lunch.calories + mealNutrients.dinner.calories + mealNutrients.snacks.calories,
+      carbs: mealNutrients.breakfast.carbs + mealNutrients.lunch.carbs + mealNutrients.dinner.carbs + mealNutrients.snacks.carbs,
+      protein: mealNutrients.breakfast.protein + mealNutrients.lunch.protein + mealNutrients.dinner.protein + mealNutrients.snacks.protein,
+      fat: mealNutrients.breakfast.fat + mealNutrients.lunch.fat + mealNutrients.dinner.fat + mealNutrients.snacks.fat,
+      sodium: mealNutrients.breakfast.sodium + mealNutrients.lunch.sodium + mealNutrients.dinner.sodium + mealNutrients.snacks.sodium,
     })
       .then(res => {
         message.success(`Meal plan added successfully!`)
@@ -50,13 +55,10 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   };
 
   const handleIngredientChange = (value) => {
-    console.log(value)
-    // let { [value]: { ingredients } } = form.getFieldsValue()
-    let breakfastIngredients = form.getFieldsValue()[value].ingredients || []
-    let breakfastRecipes = form.getFieldsValue()[value].recipes || []
+    let mealIngredients = form.getFieldsValue()[value].ingredients || []
+    let mealRecipes = form.getFieldsValue()[value].recipes || []
 
-    let ingredients = breakfastIngredients.concat(breakfastRecipes)
-    console.log(ingredients)
+    let ingredients = mealIngredients.concat(mealRecipes)
     ingredients = ingredients.map(ingredient => {
       if (ingredient.foodId && ingredient.number_of_servings) {
         const food = foods.find((food) => food._id === ingredient.foodId)
@@ -73,11 +75,12 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       } else if (ingredient.recipeId && ingredient.number_of_servings) {
         const recipe = recipes.find((recipe) => recipe._id === ingredient.recipeId)
         const servings = ingredient.number_of_servings
-        const calories = recipe.calories * servings
-        const carbs = recipe.carbs * servings
-        const protein = recipe.protein * servings
-        const fat = recipe.fat * servings
-        const sodium = recipe.sodium * servings
+        console.log(recipe)
+        const calories = recipe.serving.calories * servings
+        const carbs = recipe.serving.carbs * servings
+        const protein = recipe.serving.protein * servings
+        const fat = recipe.serving.fat * servings
+        const sodium = recipe.serving.sodium * servings
         return { ...recipe, calories, carbs, protein, fat, sodium, number_of_servings: servings }
       } else if (ingredient.recipeId) {
         const recipe = recipes.find((recipe) => recipe._id === ingredient.recipeId)

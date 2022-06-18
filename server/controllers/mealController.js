@@ -17,6 +17,16 @@ const mealController = {
                         }
                     },
                     {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
                         path: 'lunch',
                         populate: {
                             path: 'ingredients',
