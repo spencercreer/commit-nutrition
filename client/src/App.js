@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav'
+import Dashboard from './pages/dashboard/Dashboard'
 import FoodPage from './pages/food/FoodPage'
 import RecipePage from './pages/recipe/RecipePage'
 import MealPage from './pages/meal/MealPage'
@@ -15,7 +16,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<MealPage />}
+            element={<Dashboard />}
           />
           <Route
             path="/foods"

@@ -4,6 +4,36 @@ import { Row, InputNumber } from "antd"
 const NutrientsRow = ({ nutrients }) => {
     return (
         <Row>
+            {/* <input
+                value={nutrients.calories || ''}
+                style={{ width: '100px', backgroundColor: 'lightBlue' }}
+                disabled
+            />
+            <input
+                value={'g'}
+                style={{ width: '100px', backgroundColor: 'lightBlue' }}
+                disabled
+            />
+            <input
+                value={nutrients.calories || ''}
+                style={{ width: '100px', backgroundColor: 'lightGreen' }}
+                disabled
+            />
+            <input
+                value={nutrients.calories || ''}
+                style={{ width: '100px', backgroundColor: 'lightGreen' }}
+                disabled
+            />
+            <input
+                value={nutrients.calories || ''}
+                style={{ width: '100px', backgroundColor: 'lightYellow' }}
+                disabled
+            />
+            <input
+                value={nutrients.calories || ''}
+                style={{ width: '100px', backgroundColor: 'orange' }}
+                disabled
+            /> */}
             <InputNumber
                 style={{ width: '100%' }}
                 addonBefore='Calories'

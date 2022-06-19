@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import AddMealPlanModal from './components/AddMealPlanModal'
 import NutrientsRow from '../../components/NutrientsRow'
+import MealCard from '../../components/MealCard'
 import LoadingCards from '../../components/LoadingCards'
 import { Link } from 'react-router-dom'
 // Antd
@@ -60,71 +61,72 @@ const MealPage = () => {
                         <LoadingCards />
                         :
                         mealData?.map((meal, i) => (
-                            <Card
-                                key={i}
-                                title={<div>Meal Plan: {moment(meal.date).format('dddd, MMMM Do YYYY')}</div>}
-                                actions={[
-                                    <EllipsisOutlined
-                                        key='ellipsis'
-                                    // onClick={() => handleOnClick(false)}
-                                    />,
-                                    <EditOutlined
-                                        key='edit'
-                                    // onClick={() => handleOnClick(true)}
-                                    />,
-                                ]}
-                            >
-                                <div>
-                                    <h6>Breakfast</h6>
-                                    {
-                                        meal.breakfast.ingredients.map((ingredient, i) => (
-                                            <Row key={i}>
-                                                <div>{ingredient.foodId.name}</div>
-                                            </Row>
-                                        ))
-                                    }
-                                    {
-                                        meal.breakfast.recipes.map((ingredient, i) => (
-                                            <Row key={i}>
-                                                <div>{ingredient.recipeId?.name}</div>
-                                            </Row>
-                                        ))
-                                    }
-                                </div>
-                                <div>
-                                    <h6>Lunch</h6>
-                                    {
-                                        meal.lunch.ingredients.map((ingredient, i) => (
-                                            <Row key={i}>
-                                                <div>{ingredient.foodId.name}</div>
-                                            </Row>
-                                        ))
-                                    }
-                                </div>
-                                <div>
-                                    <h6>Dinner</h6>
-                                    {
-                                        meal.dinner.ingredients.map((ingredient, i) => (
-                                            <Row key={i}>
-                                                <div>{ingredient.foodId.name}</div>
-                                            </Row>
-                                        ))
-                                    }
-                                </div>
-                                <div>
-                                    <h6>Snacks</h6>
-                                    {
-                                        meal.snacks.ingredients.map((ingredient, i) => (
-                                            <Row key={i}>
-                                                <div>{ingredient.foodId.name}</div>
-                                            </Row>
-                                        ))
-                                    }
-                                </div>
-                                <NutrientsRow
-                                    nutrients={{calories: meal.calories, carbs: meal.carbs, protein: meal.protein, fat: meal.fat, sodium: meal.sodium}}
-                                />
-                            </Card>
+                            <MealCard key={i} meal={meal} />
+                            // <Card
+                            //     key={i}
+                            //     title={<div>Meal Plan: {moment(meal.date).format('dddd, MMMM Do YYYY')}</div>}
+                            //     actions={[
+                            //         <EllipsisOutlined
+                            //             key='ellipsis'
+                            //         // onClick={() => handleOnClick(false)}
+                            //         />,
+                            //         <EditOutlined
+                            //             key='edit'
+                            //         // onClick={() => handleOnClick(true)}
+                            //         />,
+                            //     ]}
+                            // >
+                            //     <div>
+                            //         <h6>Breakfast</h6>
+                            //         {
+                            //             meal.breakfast.ingredients.map((ingredient, i) => (
+                            //                 <Row key={i}>
+                            //                     <div>{ingredient.foodId.name}</div>
+                            //                 </Row>
+                            //             ))
+                            //         }
+                            //         {
+                            //             meal.breakfast.recipes.map((ingredient, i) => (
+                            //                 <Row key={i}>
+                            //                     <div>{ingredient.recipeId?.name}</div>
+                            //                 </Row>
+                            //             ))
+                            //         }
+                            //     </div>
+                            //     <div>
+                            //         <h6>Lunch</h6>
+                            //         {
+                            //             meal.lunch.ingredients.map((ingredient, i) => (
+                            //                 <Row key={i}>
+                            //                     <div>{ingredient.foodId.name}</div>
+                            //                 </Row>
+                            //             ))
+                            //         }
+                            //     </div>
+                            //     <div>
+                            //         <h6>Dinner</h6>
+                            //         {
+                            //             meal.dinner.ingredients.map((ingredient, i) => (
+                            //                 <Row key={i}>
+                            //                     <div>{ingredient.foodId.name}</div>
+                            //                 </Row>
+                            //             ))
+                            //         }
+                            //     </div>
+                            //     <div>
+                            //         <h6>Snacks</h6>
+                            //         {
+                            //             meal.snacks.ingredients.map((ingredient, i) => (
+                            //                 <Row key={i}>
+                            //                     <div>{ingredient.foodId.name}</div>
+                            //                 </Row>
+                            //             ))
+                            //         }
+                            //     </div>
+                            //     <NutrientsRow
+                            //         nutrients={{calories: meal.calories, carbs: meal.carbs, protein: meal.protein, fat: meal.fat, sodium: meal.sodium}}
+                            //     />
+                            // </Card>
                         ))
                 }
                 <AddMealPlanModal
