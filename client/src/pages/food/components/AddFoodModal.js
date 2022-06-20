@@ -39,6 +39,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 Exit
             </Button>,
             <Button
+                key='submit'
                 type='primary'
                 htmlType='submit'
                 style={{ width: '125px' }}
