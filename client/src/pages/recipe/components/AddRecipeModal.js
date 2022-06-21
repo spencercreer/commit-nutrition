@@ -21,7 +21,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const onFinish = (values) => {
     const servings = values.recipe_servings
     console.log(servings)
-    createRecipe({ ...values, total_calories: recipeNutrients.calories, total_carbs: recipeNutrients.carbs, total_protein: recipeNutrients.protein, total_fat: recipeNutrients.fat, total_sodium: recipeNutrients.sodium, serving: { ...values.serving, calories: (recipeNutrients.calories/servings), carbs: (recipeNutrients.carbs/servings), protein: (recipeNutrients.protein/servings), fat: (recipeNutrients.fat/servings), sodium: (recipeNutrients.sodium/servings) }})
+    createRecipe({ ...values, total_calories: recipeNutrients.calories, total_carbs: recipeNutrients.carbs, total_protein: recipeNutrients.protein, total_fat: recipeNutrients.fat, total_sodium: recipeNutrients.sodium, serving: { ...values.serving, calories: (recipeNutrients.calories/servings).toFixed(2), carbs: (recipeNutrients.carbs/servings).toFixed(2), protein: (recipeNutrients.protein/servings).toFixed(2), fat: (recipeNutrients.fat/servings).toFixed(2), sodium: (recipeNutrients.sodium/servings).toFixed(2) }})
       .then(res => {
         message.success(`${res.name} added successfully!`)
         form.resetFields()
@@ -40,12 +40,12 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
       if (ingredient.foodId && ingredient.number_of_servings) {
         const food = foodData.find((food) => food._id === ingredient.foodId)
         const servings = ingredient.number_of_servings
-        const calories = food.calories * servings
-        const carbs = food.carbs * servings
-        const protein = food.protein * servings
-        const fat = food.fat * servings
-        const sodium = food.sodium * servings
-        return { ...food, calories, carbs, protein, fat, sodium, number_of_servings: servings }
+        const calories = food.serving.calories * servings
+        const carbs = food.serving.carbs * servings
+        const protein = food.serving.protein * servings
+        const fat = food.serving.fat * servings
+        const sodium = food.serving.sodium * servings
+        return { ...food, serving: { ...food.serving, calories, carbs, protein, fat, sodium }, number_of_servings: servings }
       } else if (ingredient.foodId) {
         const food = foodData.find((food) => food._id === ingredient.foodId)
         return food
@@ -57,11 +57,11 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
     let recipeCal = 0, recipeCarbs = 0, recipeProtein = 0, recipeFat = 0, recipeSodium = 0
     ingredients.forEach(ingredient => {
       if (ingredient._id && ingredient.number_of_servings) {
-        recipeCal += ingredient.calories
-        recipeCarbs += ingredient.carbs
-        recipeProtein += ingredient.protein
-        recipeFat += ingredient.fat
-        recipeSodium += ingredient.sodium
+        recipeCal += ingredient.serving.calories
+        recipeCarbs += ingredient.serving.carbs
+        recipeProtein += ingredient.serving.protein
+        recipeFat += ingredient.serving.fat
+        recipeSodium += ingredient.serving.sodium
       }
     })
     setRecipeNutrients({ calories: recipeCal.toFixed(2), carbs: recipeCarbs.toFixed(2), protein: recipeProtein.toFixed(2), fat: recipeFat.toFixed(2), sodium: recipeSodium.toFixed(2) })
@@ -197,7 +197,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                         >
                           <Input
                             placeholder="Serving Size"
-                            value={recipeData[field.key]?.serving_size ? `${recipeData[field.key].serving_size.size} ${recipeData[field.key].serving_size.unit}` : null}
+                            value={recipeData[field.key]?.serving ? `${recipeData[field.key].serving.size} ${recipeData[field.key].serving.unit}` : null}
                             disabled
                           />
                         </Item>

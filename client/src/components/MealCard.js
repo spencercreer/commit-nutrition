@@ -28,7 +28,7 @@ const MealCard = ({ meal }) => {
         {
             meal?.breakfast.ingredients.map((ingredient, i) => (
                 <Row key={i}>
-                    <div>{ingredient.foodId.name}</div>
+                    <div>{ingredient.foodId?.name}</div>
                 </Row>
             ))
         }
@@ -45,7 +45,7 @@ const MealCard = ({ meal }) => {
         {
             meal?.lunch.ingredients.map((ingredient, i) => (
                 <Row key={i}>
-                    <div>{ingredient.foodId.name}</div>
+                    <div>{ingredient.foodId?.name}</div>
                 </Row>
             ))
         }
@@ -55,7 +55,7 @@ const MealCard = ({ meal }) => {
         {
             meal?.dinner.ingredients.map((ingredient, i) => (
                 <Row key={i}>
-                    <div>{ingredient.foodId.name}</div>
+                    <div>{ingredient.foodId?.name}</div>
                 </Row>
             ))
         }
@@ -65,7 +65,7 @@ const MealCard = ({ meal }) => {
         {
             meal?.snacks.ingredients.map((ingredient, i) => (
                 <Row key={i}>
-                    <div>{ingredient.foodId.name}</div>
+                    <div>{ingredient.foodId?.name}</div>
                 </Row>
             ))
         }
