@@ -6,8 +6,7 @@ import { validateMessages } from '../../../utils/form';
 const { Item } = Form
 const { Option } = Select;
 
-const MealForm = ({ handleIngredientChange, meal, foods, recipes }) => {
-  // const [mealData, setMealData] = useState([])
+const MealForm = ({ handleIngredientChange, handleRecipeChange, meal, mealData, foods, recipes }) => {
 
   return (
     <Item label={meal.label}>
@@ -50,7 +49,7 @@ const MealForm = ({ handleIngredientChange, meal, foods, recipes }) => {
                     >
                       <Input
                         placeholder="Serving Size"
-                        // // // value={mealData[field.key]?.serving ? `${mealData[field.key].serving.size} ${mealData[field.key].serving.unit}` : null}
+                        value={mealData.ingredients[field.key]?.serving ? `${mealData.ingredients[field.key].serving.size} ${mealData.ingredients[field.key].serving.unit}` : null}
                         disabled
                       />
                     </Item>
@@ -108,7 +107,7 @@ const MealForm = ({ handleIngredientChange, meal, foods, recipes }) => {
                       <Select
                         showSearch
                         placeholder="Recipe"
-                        onChange={() => handleIngredientChange(meal.value)}
+                        onChange={() => handleRecipeChange(meal.value)}
                         filterOption={(input, option) =>
                           option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         }
@@ -127,7 +126,7 @@ const MealForm = ({ handleIngredientChange, meal, foods, recipes }) => {
                     >
                       <Input
                         placeholder="Serving Size"
-                        // // // value={mealData[field.key]?.serving ? `${mealData[field.key].serving.size} ${mealData[field.key].serving.unit}` : null}
+                        value={mealData.recipes[field.key]?.serving ? `${mealData.recipes[field.key].serving.size} ${mealData.recipes[field.key].serving.unit}` : null}
                         disabled
                       />
                     </Item>
@@ -140,7 +139,7 @@ const MealForm = ({ handleIngredientChange, meal, foods, recipes }) => {
                     >
                       <InputNumber
                         placeholder="Number of Servings"
-                      onChange={() => handleIngredientChange(meal.value)}
+                      onChange={() => handleRecipeChange(meal.value)}
                       />
                     </Item>
                   </Col>
@@ -150,7 +149,7 @@ const MealForm = ({ handleIngredientChange, meal, foods, recipes }) => {
                     >
                       <MinusCircleOutlined onClick={() => {
                         remove(field.name)
-                        handleIngredientChange(meal.value)
+                        handleRecipeChange(meal.value)
                       }} />
                     </Item>
                   </Col>

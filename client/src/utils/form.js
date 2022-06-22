@@ -1,5 +1,13 @@
 import moment from 'moment'
 
+export const defaultMealPlanState = {
+    breakfast: { ingredients: [], recipes: [], calories: null, carbs: null, protein: null, fat: null, sodium: null },
+    lunch: { ingredients: [], recipes: [], calories: null, carbs: null, protein: null, fat: null, sodium: null },
+    dinner: { ingredients: [], recipes: [], calories: null, carbs: null, protein: null, fat: null, sodium: null },
+    snacks: { ingredients: [], recipes: [], calories: null, carbs: null, protein: null, fat: null, sodium: null },
+    calories: null, carbs: null, protein: null, fat: null, sodium: null
+  }
+
 export const servingUnits = [
     {
         value: 'large',

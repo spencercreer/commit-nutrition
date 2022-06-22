@@ -27,9 +27,6 @@ const ProfileForm = () => {
                     <Option key='1' value='Spencer'>
                         Spencer
                     </Option>
-                    <Option key='2' value='Lyndsey'>
-                        Lyndsey
-                    </Option>
                 </Select>
             </Item>
             <Form.Item name="radio-group" label="Gender">
