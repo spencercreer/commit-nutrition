@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Modal, Button, Form, Select, DatePicker, Alert, message } from 'antd';
 // Components
 import NutrientsRow from '../../../components/NutrientsRow';
+import NutrientsChart from '../../../components/NutrientsChart';
 import MealForm from './MealForm'
 // Utils
 import { useGet, usePost } from '../../../utils/API'
@@ -188,17 +189,28 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
             foods={foods}
             recipes={recipeData}
           />
-          <NutrientsRow nutrients={{
+          <NutrientsRow
+            nutrients={{
+              calories: (mealData.breakfast.calories + mealData.lunch.calories + mealData.dinner.calories + mealData.snacks.calories).toFixed(2),
+              carbs: (mealData.breakfast.carbs + mealData.lunch.carbs + mealData.dinner.carbs + mealData.snacks.carbs).toFixed(2),
+              protein: (mealData.breakfast.protein + mealData.lunch.protein + mealData.dinner.protein + mealData.snacks.protein).toFixed(2),
+              fat: (mealData.breakfast.fat + mealData.lunch.fat + mealData.dinner.fat + mealData.snacks.fat).toFixed(2),
+              sodium: (mealData.breakfast.sodium + mealData.lunch.sodium + mealData.dinner.sodium + mealData.snacks.sodium).toFixed(2)
+            }}
+          />
+          {
+            alert && <Alert message={alert} type='error' />
+          }
+        </Form>
+        <NutrientsChart
+          nutrients={{
             calories: (mealData.breakfast.calories + mealData.lunch.calories + mealData.dinner.calories + mealData.snacks.calories).toFixed(2),
             carbs: (mealData.breakfast.carbs + mealData.lunch.carbs + mealData.dinner.carbs + mealData.snacks.carbs).toFixed(2),
             protein: (mealData.breakfast.protein + mealData.lunch.protein + mealData.dinner.protein + mealData.snacks.protein).toFixed(2),
             fat: (mealData.breakfast.fat + mealData.lunch.fat + mealData.dinner.fat + mealData.snacks.fat).toFixed(2),
             sodium: (mealData.breakfast.sodium + mealData.lunch.sodium + mealData.dinner.sodium + mealData.snacks.sodium).toFixed(2)
-          }} />
-          {
-            alert && <Alert message={alert} type='error' />
-          }
-        </Form>
+          }}
+        />
       </>
     </Modal>
   )
