@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import LoadingCards from '../../../components/LoadingCards'
+import FoodModal from './FoodModal';
 // Antd
 import { Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
@@ -7,8 +9,18 @@ import { useGet } from '../../../utils/API'
 import NutrientsRow from '../../../components/NutrientsRow';
 
 const FoodList = () => {
-
+    const [selectedFoodId, setSelectedFoodId] = useState()
+    const [modalVisible, setModalVisible] = useState(false)
     const { data: foodData, loading } = useGet('/api/foods')
+
+    const handleOnClick = (foodId) => {
+        handleToggleModal()
+        setSelectedFoodId(foodId)
+    }
+
+    const handleToggleModal = () => {
+        setModalVisible(!modalVisible)
+    }
 
     return (
         <>
@@ -23,7 +35,7 @@ const FoodList = () => {
                             actions={[
                                 <EllipsisOutlined
                                     key='ellipsis'
-                                // onClick={() => handleOnClick()}
+                                    onClick={() => handleOnClick(food._id)}
                                 />,
                                 <EditOutlined
                                     key='edit'
@@ -41,6 +53,14 @@ const FoodList = () => {
                             />
                         </Card>
                     ))
+            }
+             {
+                selectedFoodId &&
+                <FoodModal
+                    foodId={selectedFoodId}
+                    visible={modalVisible}
+                    handleCloseModal={handleToggleModal}
+                />
             }
         </>
     )

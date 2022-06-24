@@ -3,10 +3,10 @@ import NutrientsChart from '../../../components/NutrientsChart'
 import NutrientsRow from '../../../components/NutrientsRow'
 import { useGet } from '../../../utils/API'
 
-const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
-    const { data: recipeData, loading } = useGet(`/api/recipes/${recipeId}`)
+const FoodModal = ({ foodId, visible, handleCloseModal }) => {
+    const { data: foodData, loading } = useGet(`/api/foods/${foodId}`)
 
-    console.log(recipeData)
+    console.log(foodData)
 
     const footerButtons =
         [
@@ -32,7 +32,7 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
         <>
             {
                 <Modal
-                    title={loading ? <Skeleton loading paragraph={{ rows: 0 }} /> : `${recipeData.name} Details`}
+                    title={loading ? <Skeleton loading paragraph={{ rows: 0 }} /> : `${foodData.name} Details`}
                     visible={visible}
                     onCancel={handleCloseModal}
                     footer={footerButtons}
@@ -41,19 +41,16 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
                         loading ?
                             <Skeleton loading />
                             :
-                            recipeData.ingredients.map((food, i) => (
-                                <div key={i}>{food?.foodId?.serving.size} {food?.foodId?.serving.unit} {food?.foodId?.name}</div>
-                            ))
+                           <div>Done Loading</div>
                     }
-                    {/* make this different when loading */}
-                    <NutrientsChart nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }} />
+                    <NutrientsChart nutrients={{ calories: foodData?.serving.calories, carbs: foodData?.serving.carbs, protein: foodData?.serving.protein, fat: foodData?.serving.fat, sodium: foodData?.serving.sodium }} />
                     <NutrientsRow
-                        nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }}
+                        nutrients={{ calories: foodData?.serving.calories, carbs: foodData?.serving.carbs, protein: foodData?.serving.protein, fat: foodData?.serving.fat, sodium: foodData?.serving.sodium }}
                     />
-                    </Modal>
+                </Modal>
             }
         </>
     )
 }
 
-export default IngredientModal
+export default FoodModal
