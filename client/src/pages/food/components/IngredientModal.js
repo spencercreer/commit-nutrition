@@ -1,4 +1,6 @@
 import { Modal, Form, Input, Skeleton, Select, Button } from 'antd'
+import NutrientsChart from '../../../components/NutrientsChart'
+import NutrientsRow from '../../../components/NutrientsRow'
 import { useGet } from '../../../utils/API'
 
 const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
@@ -29,19 +31,24 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
     return (
         <>
             {
-                    <Modal
-                        title={loading ? <Skeleton loading paragraph={{ rows: 0 }} /> : `${recipeData.name} Details`}
-                        visible={visible}
-                        onCancel={handleCloseModal}
-                        footer={footerButtons}
-                    >
-                        {
-                            loading ?
+                <Modal
+                    title={loading ? <Skeleton loading paragraph={{ rows: 0 }} /> : `${recipeData.name} Details`}
+                    visible={visible}
+                    onCancel={handleCloseModal}
+                    footer={footerButtons}
+                >
+                    {
+                        loading ?
                             <Skeleton loading />
                             :
-                            <div>Heyoo</div>
-                        }
-
+                            recipeData.ingredients.map((food, i) => (
+                                <div key={i}>{food?.foodId?.serving.size} {food?.foodId?.serving.unit} {food?.foodId?.name}</div>
+                            ))
+                    }
+                    <NutrientsChart nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }} />
+                    <NutrientsRow
+                        nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }}
+                    />
                     </Modal>
             }
         </>
