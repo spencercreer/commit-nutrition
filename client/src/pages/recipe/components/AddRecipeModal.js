@@ -27,6 +27,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         form.resetFields()
         setAlert(null)
         setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
+        setRecipeData([])
       })
       .catch(err => {
         setAlert('We were not able to save this recipe. Please try again.')

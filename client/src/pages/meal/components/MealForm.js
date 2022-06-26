@@ -6,7 +6,7 @@ import { validateMessages } from '../../../utils/form';
 const { Item } = Form
 const { Option } = Select;
 
-const MealForm = ({ handleIngredientChange, handleRecipeChange, meal, mealData, foods, recipes }) => {
+const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) => {
 
   return (
     <Item label={meal.label}>
@@ -107,7 +107,7 @@ const MealForm = ({ handleIngredientChange, handleRecipeChange, meal, mealData, 
                       <Select
                         showSearch
                         placeholder="Recipe"
-                        onChange={() => handleRecipeChange(meal.value)}
+                        onChange={() => handleIngredientChange(meal.value)}
                         filterOption={(input, option) =>
                           option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         }
@@ -139,7 +139,7 @@ const MealForm = ({ handleIngredientChange, handleRecipeChange, meal, mealData, 
                     >
                       <InputNumber
                         placeholder="Number of Servings"
-                      onChange={() => handleRecipeChange(meal.value)}
+                      onChange={() => handleIngredientChange(meal.value)}
                       />
                     </Item>
                   </Col>
@@ -149,7 +149,7 @@ const MealForm = ({ handleIngredientChange, handleRecipeChange, meal, mealData, 
                     >
                       <MinusCircleOutlined onClick={() => {
                         remove(field.name)
-                        handleRecipeChange(meal.value)
+                        handleIngredientChange(meal.value)
                       }} />
                     </Item>
                   </Col>
