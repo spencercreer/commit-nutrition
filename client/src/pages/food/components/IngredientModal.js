@@ -42,7 +42,7 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
                             <Skeleton loading />
                             :
                             recipeData.ingredients.map((food, i) => (
-                                <div key={i}>{food?.foodId?.serving.size} {food?.foodId?.serving.unit} {food?.foodId?.name}</div>
+                                <div key={i}>{food?.number_of_servings} {food?.foodId?.serving.unit} {food?.foodId?.name}</div>
                             ))
                     }
                     {/* make this different when loading */}

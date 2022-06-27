@@ -44,6 +44,7 @@ const RecipePage = () => {
             </Sider>
             <Content style={{ margin: '10px 60px' }}>
                 <Button
+                    style={{ marginBottom: '10px' }}
                     type='primary'
                     onClick={() => setModalVisible(true)}
                 >
