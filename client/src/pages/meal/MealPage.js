@@ -63,7 +63,7 @@ const MealPage = () => {
                     loading ?
                         <LoadingCards />
                         :
-                        mealData?.filter((meal) => moment(meal.date).format('L') === moment(Date.now()).format('L')).map((meal, i) => (
+                        mealData?.filter(({ date }) => moment(date).isSame(moment(), 'week')).map((meal, i) => (
                             <MealCard key={i} meal={meal} />
                         ))
                 }
