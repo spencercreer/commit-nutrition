@@ -1,10 +1,29 @@
+import { useState } from 'react'
 import { Modal, Skeleton, Button } from 'antd'
 import NutrientsChart from '../../../components/NutrientsChart'
-import NutrientsRow from '../../../components/NutrientsRow'
+import RecipeDetails from '../../../components/RecipeDetails'
+import ServingDetails from '../../../components/ServingDetails'
 import { useGet } from '../../../utils/API'
+import { Card } from 'antd'
+
+const tabList = [
+    {
+        key: 'recipe',
+        tab: 'Recipe',
+    },
+    {
+        key: 'serving',
+        tab: 'Serving',
+    },
+]
 
 const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
+    const [activeTab, setActiveTab] = useState('recipe')
     const { data: recipeData, loading } = useGet(`/api/recipes/${recipeId}`)
+
+    const onTab1Change = (key) => {
+        setActiveTab(key)
+    }
 
     console.log(recipeData)
 
@@ -15,17 +34,7 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
                 onClick={handleCloseModal}
             >
                 Exit
-            </Button>,
-            <Button
-                key='submit'
-                type='primary'
-                htmlType='submit'
-                style={{ width: '125px' }}
-            // loading={loading}
-            // onClick={() => form.submit()}
-            >
-                Submit
-            </Button>,
+            </Button>
         ]
 
     return (
@@ -41,16 +50,28 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
                         loading ?
                             <Skeleton loading />
                             :
-                            recipeData.ingredients.map((food, i) => (
-                                <div key={i}>{food?.number_of_servings} {food?.foodId?.serving.unit} {food?.foodId?.name}</div>
-                            ))
+                            <Card
+                                style={{
+                                    width: '100%',
+                                }}
+                                bordered={false}
+                                tabList={tabList}
+                                activeTabKey={activeTab}
+                                onTabChange={(key) => {
+                                    onTab1Change(key)
+                                }}
+                            >
+                                {
+                                    activeTab === 'recipe' ?
+                                        <RecipeDetails recipeData={recipeData} />
+                                        :
+                                        <ServingDetails recipeData={recipeData} />
+                                }
+                                {/* make this different when loading */}
+                                <NutrientsChart nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }} />
+                            </Card>
                     }
-                    {/* make this different when loading */}
-                    <NutrientsChart nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }} />
-                    <NutrientsRow
-                        nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }}
-                    />
-                    </Modal>
+                </Modal>
             }
         </>
     )

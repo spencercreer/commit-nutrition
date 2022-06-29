@@ -23,19 +23,19 @@ const recipeSchema = new Schema(
         recipe_servings: {
             type: Number
         },
-        total_calories: {
+        calories: {
             type: Number
         },
-        total_carbs: {
+        carbs: {
             type: Number
         },
-        total_protein: {
+        protein: {
             type: Number
         },
-        total_fat: {
+        fat: {
             type: Number
         },
-        total_sodium: {
+        sodium: {
             type: Number
         },
         recipe_cost: {
