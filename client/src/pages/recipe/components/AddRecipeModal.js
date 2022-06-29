@@ -210,6 +210,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                         // style={{ width: '20%' }}
                         >
                           <InputNumber
+                            min="0"
                             placeholder="Number of Servings"
                             onChange={handleIngredientChange}
                           />

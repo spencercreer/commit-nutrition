@@ -138,8 +138,9 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
                       style={{ width: '100%' }}
                     >
                       <InputNumber
+                        min="0"
                         placeholder="Number of Servings"
-                      onChange={() => handleIngredientChange(meal.value)}
+                        onChange={() => handleIngredientChange(meal.value)}
                       />
                     </Item>
                   </Col>

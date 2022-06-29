@@ -20,6 +20,7 @@ const MealCard = ({ meal }) => {
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)
     }
+    console.log(meal)
 
     return (
         <>
@@ -66,7 +67,7 @@ const MealCard = ({ meal }) => {
                     {
                         meal?.lunch.recipes.map((ingredient, i) => (
                             <Row key={i}>
-                                <div>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</div>
+                                <a onClick={() => handleOnClick(ingredient.recipeId?._id)}>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</a>
                             </Row>
                         ))
                     }
@@ -83,7 +84,7 @@ const MealCard = ({ meal }) => {
                     {
                         meal?.dinner.recipes.map((ingredient, i) => (
                             <Row key={i}>
-                                <div>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</div>
+                                <a onClick={() => handleOnClick(ingredient.recipeId?._id)}>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</a>
                             </Row>
                         ))
                     }
@@ -100,7 +101,7 @@ const MealCard = ({ meal }) => {
                     {
                         meal?.snacks.recipes.map((ingredient, i) => (
                             <Row key={i}>
-                                <div>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</div>
+                                <a onClick={() => handleOnClick(ingredient.recipeId?._id)}>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</a>
                             </Row>
                         ))
                     }

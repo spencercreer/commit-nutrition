@@ -38,7 +38,37 @@ const mealController = {
                         }
                     },
                     {
+                        path: 'lunch',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
                         path: 'dinner',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
                         populate: {
                             path: 'ingredients',
                             populate: {
@@ -50,10 +80,10 @@ const mealController = {
                     {
                         path: 'snacks',
                         populate: {
-                            path: 'ingredients',
+                            path: 'recipes',
                             populate: {
-                                path: 'foodId',
-                                model: 'Food'
+                                path: 'recipeId',
+                                model: 'Recipe'
                             }
                         }
                     }
@@ -107,7 +137,37 @@ const mealController = {
                         }
                     },
                     {
+                        path: 'lunch',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
                         path: 'dinner',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
                         populate: {
                             path: 'ingredients',
                             populate: {
@@ -119,10 +179,10 @@ const mealController = {
                     {
                         path: 'snacks',
                         populate: {
-                            path: 'ingredients',
+                            path: 'recipes',
                             populate: {
-                                path: 'foodId',
-                                model: 'Food'
+                                path: 'recipeId',
+                                model: 'Recipe'
                             }
                         }
                     }
