@@ -100,11 +100,15 @@ const mealController = {
     },
     getMealByDate(req, res) {
         //Need to search for the date only not time
-        console.log(Date.now())
-        Meal.find()
-            .where('date').equals(Date.now())
+        console.log(moment().format(moment().format('L')))
+        const today = moment().startOf('day')
+        Meal.findOne({
+            date: {
+                $gte: today.toDate(),
+                $lte: moment(today).endOf('day').toDate()
+            }
+        })
             .select('-__v')
-            .sort({ date: 1 })
             .populate(
                 [
                     {
@@ -200,11 +204,11 @@ const mealController = {
     },
     createMeal(req, res) {
         const date = moment(req.body.date).format()
-        console.log(date)
+        // can this be updated to like the get above
         Meal.findOne({ date })
             .then((foundMeal) => {
                 console.log(foundMeal)
-                if(foundMeal){
+                if (foundMeal) {
                     res.json({ success: false, message: 'matching meal plan date' });
                 } else {
                     Meal.create(req.body)
