@@ -98,6 +98,102 @@ const mealController = {
                 res.json(500).json(err)
             })
     },
+    getMealById(req, res) {
+        Meal.findOne({ _id: req.params.id })
+            .select('-__v')
+            .populate(
+                [
+                    {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'lunch',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'lunch',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    }
+                ]
+            )
+            .then((dbMealData) => {
+                console.log(dbMealData)
+                res.json(dbMealData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.json(500).json(err)
+            })
+    },
     getMealByDate(req, res) {
         //Need to search for the date only not time
         console.log(moment().format(moment().format('L')))

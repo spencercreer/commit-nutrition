@@ -4,7 +4,8 @@ import NutrientsRow from './NutrientsRow';
 // Antd
 import { Layout, Menu, Row, Card, Button } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
-import IngredientModal from '../pages/food/components/IngredientModal';
+import IngredientModal from '../pages/food/components/IngredientModal'
+import MealPlanModal from '../pages/meal/components/MealPlanModal';
 // Utils
 import moment from 'moment'
 
@@ -30,7 +31,7 @@ const MealCard = ({ meal }) => {
                 actions={[
                     <EllipsisOutlined
                         key='ellipsis'
-                    // onClick={() => handleOnClick(false)}
+                        onClick={() => handleOnClick(meal._id)}
                     />,
                     <EditOutlined
                         key='edit'
@@ -112,7 +113,7 @@ const MealCard = ({ meal }) => {
             </Card>
             {
                 selectedRecipeId &&
-                <IngredientModal
+                <MealPlanModal
                     recipeId={selectedRecipeId}
                     visible={modalVisible}
                     handleCloseModal={handleToggleModal}

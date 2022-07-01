@@ -1,7 +1,8 @@
 import MealCard from "../../components/MealCard"
 import ProfileForm from "./components/ProfileForm"
+import LoadingCards from "../../components/LoadingCards"
 // Antd
-import { Layout } from 'antd'
+import { Layout, Skeleton } from 'antd'
 // Utils
 import { useGet } from '../../utils/API'
 
@@ -14,7 +15,10 @@ const Dashboard = () => {
     <>
       {
         loading ?
-          <div>Loading</div>
+          <>
+            <Skeleton.Input active={true} size={'large'} />
+            <LoadingCards number={12} />
+          </>
           :
           <Content style={{ margin: '10px 60px' }}>
             <h1>Welcome Spencer</h1>

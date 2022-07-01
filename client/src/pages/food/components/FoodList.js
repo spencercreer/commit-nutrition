@@ -26,7 +26,7 @@ const FoodList = () => {
         <>
             {
                 loading ?
-                    <LoadingCards />
+                    <LoadingCards number={12} />
                     :
                     foodData?.map((food, i) => (
                         <Card

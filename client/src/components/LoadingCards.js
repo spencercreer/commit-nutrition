@@ -1,9 +1,9 @@
 import { Skeleton, Card } from 'antd'
 const { Meta } = Card
 
-const LoadingCards = () => {
+const LoadingCards = ({ number }) => {
     return (
-        [...Array(12).keys()].map((i) => (
+        [...Array(number).keys()].map((i) => (
             <Card
                 key={i}
             // style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: 'inline-block' }}
