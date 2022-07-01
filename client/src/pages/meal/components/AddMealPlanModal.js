@@ -9,6 +9,7 @@ import MealForm from './MealForm'
 // Utils
 import { useGet, usePost } from '../../../utils/API'
 import { layout, defaultMealPlanState, disabledDate } from '../../../utils/form';
+import moment from 'moment';
 
 const { Item } = Form
 const { Option } = Select;
@@ -24,16 +25,20 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
 
   const onFinish = (values) => {
     setLoading(true)
-    const date = form.getFieldsValue().date
+    const date = moment(form.getFieldsValue().date).format('L')
     const totalNutrients = getTotalNutrients()
     createMeal({
-      date,
+      date: moment(date).format(),
       ...mealData,
       ...totalNutrients
     })
       .then(res => {
-        message.success(`Meal plan added successfully!`)
-        resetForm()
+        if (!res.success) {
+          setAlert('We found a meal plan with the same date. Edit the existing meal plan or change the date.')
+        } else {
+          message.success(`Meal plan added successfully!`)
+          resetForm()
+        }
         setLoading(false)
       })
       .catch(err => {

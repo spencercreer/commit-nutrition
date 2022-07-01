@@ -1,4 +1,5 @@
 const { Meal } = require('../models')
+const moment = require('moment')
 
 const mealController = {
     getMeals(req, res) {
@@ -198,9 +199,19 @@ const mealController = {
             })
     },
     createMeal(req, res) {
-        Meal.create(req.body)
-            .then((dbMealData) => {
-                res.json(dbMealData)
+        const date = moment(req.body.date).format()
+        console.log(date)
+        Meal.findOne({ date })
+            .then((foundMeal) => {
+                console.log(foundMeal)
+                if(foundMeal){
+                    res.json({ success: false, message: 'matching meal plan date' });
+                } else {
+                    Meal.create(req.body)
+                        .then((dbMealData) => {
+                            res.json({ success: true, ...dbMealData })
+                        })
+                }
             })
             .catch((err) => {
                 console.log(err)

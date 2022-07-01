@@ -6,7 +6,7 @@ const RecipeDetails = ({ recipeData }) => {
     <>
       {
         recipeData.ingredients.map((food, i) => (
-          <div key={i}>{food?.foodId?.serving.size * food?.number_of_servings} {food?.foodId?.serving.unit} {food?.foodId?.name}</div>
+          <div key={i}>{(food?.foodId?.serving.size * food?.number_of_servings).toFixed(3)} {food?.foodId?.serving.unit} {food?.foodId?.name}</div>
         ))
       }
       <div style={{ marginTop: '10px', marginBottom: '5px' }}>
