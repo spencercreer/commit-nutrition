@@ -1,10 +1,10 @@
 // React
 import { useState } from 'react'
 // Antd
-import { Modal, Form, Input, InputNumber, Select, message, Alert, Button } from 'antd'
+import { Modal, Form, Input, InputNumber, Select, AutoComplete, message, Alert, Button } from 'antd'
 // Utils
 import { usePost } from '../../../utils/API'
-import { validateMessages, layout, foodCategories } from '../../../utils/form'
+import { validateMessages, layout, foodCategories, servingUnits } from '../../../utils/form'
 
 const { Item } = Form
 const { Group } = Input
@@ -80,21 +80,26 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                     <Group compact>
                         <Item
                             name={['serving', 'size']}
-                            style={{ width: '200px', margin: '0px' }}
+                            noStyle
                             rules={validateMessages('Serving Size')}
                         >
                             <InputNumber
-                                style={{ width: '100%' }}
+                                style={{ width: '50%' }}
                                 min="0"
                                 placeholder='Serving Size'
                             />
                         </Item>
                         <Item
                             name={['serving', 'unit']}
-                            style={{ width: '100px', margin: '0px' }}
+                            noStyle
                         >
-                            <Input
+                            <AutoComplete
+                                style={{ width: '50%' }}
                                 placeholder='Unit'
+                                options={servingUnits}
+                                filterOption={(inputValue, option) =>
+                                    option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                }
                             />
                         </Item>
                     </Group>
@@ -102,7 +107,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 <Item
                     name={['serving', 'calories']}
                     rules={validateMessages('Calories')}
-                    >
+                >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"
@@ -114,7 +119,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 <Item
                     name={['serving', 'carbs']}
                     rules={validateMessages('Carbs')}
-                    >
+                >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"
@@ -126,7 +131,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 <Item
                     name={['serving', 'protein']}
                     rules={validateMessages('Serving Size')}
-                    >
+                >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"
@@ -138,7 +143,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 <Item
                     name={['serving', 'fat']}
                     rules={validateMessages('Calories')}
-                    >
+                >
                     <InputNumber
                         style={{ width: '100%' }}
                         min="0"

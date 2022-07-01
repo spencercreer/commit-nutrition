@@ -1,10 +1,13 @@
+// React
 import { useState } from 'react'
-import { Modal, Row, Col, Button, Form, Input, InputNumber, Select, Space, Alert, message } from 'antd';
+// Antd
+import { Modal, Row, Col, Button, Form, Input, InputNumber, AutoComplete, Select, Space, Alert, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+// Components
+import NutrientsRow from '../../../components/NutrientsRow';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
-import { validateMessages, recipeCategories } from '../../../utils/form';
-import NutrientsRow from '../../../components/NutrientsRow';
+import { validateMessages, recipeCategories, servingUnits } from '../../../utils/form';
 
 const { Item } = Form
 const { Group } = Input
@@ -21,7 +24,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const onFinish = (values) => {
     const servings = values.recipe_servings
     console.log(servings)
-    createRecipe({ ...values, calories: recipeNutrients.calories, carbs: recipeNutrients.carbs, protein: recipeNutrients.protein, fat: recipeNutrients.fat, sodium: recipeNutrients.sodium, serving: { ...values.serving, calories: (recipeNutrients.calories/servings).toFixed(2), carbs: (recipeNutrients.carbs/servings).toFixed(2), protein: (recipeNutrients.protein/servings).toFixed(2), fat: (recipeNutrients.fat/servings).toFixed(2), sodium: (recipeNutrients.sodium/servings).toFixed(2) }})
+    createRecipe({ ...values, calories: recipeNutrients.calories, carbs: recipeNutrients.carbs, protein: recipeNutrients.protein, fat: recipeNutrients.fat, sodium: recipeNutrients.sodium, serving: { ...values.serving, calories: (recipeNutrients.calories / servings).toFixed(2), carbs: (recipeNutrients.carbs / servings).toFixed(2), protein: (recipeNutrients.protein / servings).toFixed(2), fat: (recipeNutrients.fat / servings).toFixed(2), sodium: (recipeNutrients.sodium / servings).toFixed(2) } })
       .then(res => {
         message.success(`${res.name} added successfully!`)
         form.resetFields()
@@ -108,7 +111,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
           <Item
             name='name'
             rules={validateMessages('Title')}
-            >
+          >
             <Input
               placeholder='Title'
             />
@@ -149,9 +152,13 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                 name={['serving', 'unit']}
                 noStyle
               >
-                <Input
+                <AutoComplete
                   style={{ width: '50%' }}
                   placeholder='Unit'
+                  options={servingUnits}
+                  filterOption={(inputValue, option) =>
+                    option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                  }
                 />
               </Item>
             </Group>

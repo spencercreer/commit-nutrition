@@ -10,25 +10,16 @@ export const defaultMealPlanState = {
 
 export const servingUnits = [
     {
-        value: 'large',
-    },
-    {
-        value: 'medium',
-    },
-    {
-        value: 'small',
-    },
-    {
-        value: 'gallon',
-    },
-    {
-        value: 'quart',
+        value: 'cup',
     },
     {
         value: 'pint',
     },
     {
-        value: 'cup',
+        value: 'quart',
+    },
+    {
+        value: 'gallon',
     },
     {
         value: 'fl oz',
@@ -56,6 +47,15 @@ export const servingUnits = [
     },
     {
         value: 'oz',
+    },
+    {
+        value: 'large',
+    },
+    {
+        value: 'medium',
+    },
+    {
+        value: 'small',
     },
 ]
 

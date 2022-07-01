@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import NutrientsRow from './NutrientsRow';
 // Antd
-import { Layout, Menu, Row, Card, Button } from 'antd'
+import { Row, Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
-import IngredientModal from '../pages/food/components/IngredientModal'
+// Components
 import MealPlanModal from '../pages/meal/components/MealPlanModal';
 // Utils
 import moment from 'moment'
