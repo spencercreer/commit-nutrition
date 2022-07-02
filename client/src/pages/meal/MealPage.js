@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 // Antd
 import { Layout, Menu, Row, Card, Button } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
-
 // Utils
 import { useGet } from '../../utils/API'
 import moment from 'moment'
