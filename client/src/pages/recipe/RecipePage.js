@@ -4,18 +4,32 @@ import { useState } from 'react'
 import RecipeList from './components/RecipeList'
 import AddRecipeModal from './components/AddRecipeModal'
 // Antd
-import { Layout, Menu, Button } from 'antd'
+import { Layout, Menu, Button, Input } from 'antd'
 // Utils
 import { recipeCategories } from '../../utils/form'
+import { useFilterGet } from '../../utils/API'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
 
 const RecipePage = () => {
+    const [search, setSearch] = useState('')
+    const [filter, setFilter] = useState('all')
     const [modalVisible, setModalVisible] = useState(false)
+    const [{ data: recipeData, loading }, filterRecipes] = useFilterGet('/api/recipes')
 
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)
+    }
+
+    const handleSearch = (event) => {
+        setSearch(event.target.value)
+        filterRecipes(filter, event.target.value)
+    }
+
+    const handleFilterChange = (event) => {
+        setFilter(event.key)
+        filterRecipes(event.key, search)
     }
 
     return (
@@ -29,14 +43,24 @@ const RecipePage = () => {
                 <Menu
                     mode='inline'
                     style={{ height: '100%', borderRight: 0 }}
-                    defaultSelectedKeys={['0']}
+                    defaultSelectedKeys={[filter]}
                     defaultOpenKeys={['sub1']}
                 >
                     <SubMenu key='sub1' title='Recipes'>
-                        <Item key={0}>All</Item>
+                        <Item
+                            key={'all'}
+                            onClick={handleFilterChange}
+                        >
+                            All
+                        </Item>
                         {
-                            recipeCategories.map((recipeCategory, i) => (
-                                <Item key={i + 1}>{recipeCategory.label}</Item>
+                            recipeCategories.map((recipeCategory) => (
+                                <Item
+                                    key={recipeCategory.value}
+                                    onClick={handleFilterChange}
+                                >
+                                    {recipeCategory.label}
+                                </Item>
                             ))
                         }
                     </SubMenu>
@@ -50,7 +74,15 @@ const RecipePage = () => {
                 >
                     Add Recipe
                 </Button>
-                <RecipeList />
+                <Input
+                    style={{ marginBottom: '10px' }}
+                    placeholder='Search Recipes'
+                    onChange={handleSearch}
+                />
+                <RecipeList
+                    loading={loading}
+                    recipeData={recipeData}
+                />
                 <AddRecipeModal
                     visible={modalVisible}
                     handleCloseModal={handleToggleModal}

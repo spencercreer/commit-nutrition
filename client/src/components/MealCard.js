@@ -1,11 +1,11 @@
 // React
 import { useState } from 'react';
 import NutrientsRow from './NutrientsRow';
+// Components
+import MealPlanModal from '../pages/meal/components/MealPlanModal';
 // Antd
 import { Row, Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
-// Components
-import MealPlanModal from '../pages/meal/components/MealPlanModal';
 // Utils
 import moment from 'moment'
 
@@ -21,7 +21,6 @@ const MealCard = ({ meal }) => {
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)
     }
-    console.log(meal)
 
     return (
         <>

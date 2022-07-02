@@ -58,14 +58,19 @@ export const useFilterGet = (url) => {
             })
     }, [url, setState, setFilteredState])
 
-    const filterState = useCallback((filter) => {
-        console.log(state)
+    const filterState = useCallback((filter, search) => {
+
         const filteredList = state.filter(item => {
-            const regex = new RegExp(filter, "gi")
+            const regex = new RegExp(search, "gi")
             const name = item.name
-            const found = regex.test(name)
-            return found
+            const searched = regex.test(name)
+            if (filter != 'all') {
+                return item.category === filter && searched
+            } else {
+                return searched
+            }
         });
+
         setFilteredState({ data: filteredList, loading: false })
     })
 
