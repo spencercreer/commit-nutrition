@@ -25,20 +25,7 @@ const FoodList = () => {
     const handleOnChange = (event) => {
         const filter = event.target.value;
         filterFoods(filter)
-        // const filteredList = this.state.devCards.filter(item => {
-        //   let found = false
-        //   const regex = new RegExp(filter, "gi")
-    
-        //   const title = item.title
-        //   const technologies = item.tags.join('')
-    
-        //   found = regex.test(title) || regex.test(technologies)
-    
-        //   return found
-        // });
-        // this.setState({ filteredCards: filteredList })
-        // console.log(this.state.filteredCards)
-      }
+    }
 
     return (
         <>
@@ -48,7 +35,7 @@ const FoodList = () => {
                     :
                     <>
                         <Input
-                           onChange={handleOnChange}
+                            onChange={handleOnChange}
                         />
                         {
                             foodData?.map((food, i) => (
