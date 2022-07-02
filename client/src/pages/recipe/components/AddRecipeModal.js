@@ -40,7 +40,6 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
 
   const handleIngredientChange = () => {
     let { ingredients } = form.getFieldsValue()
-    console.log(ingredients)
     ingredients = ingredients.map(ingredient => {
       if (ingredient.foodId && ingredient.number_of_servings) {
         const food = foodData.find((food) => food._id === ingredient.foodId)
