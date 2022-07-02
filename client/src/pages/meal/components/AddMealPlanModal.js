@@ -118,7 +118,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
 
     let mealCal = 0, mealCarbs = 0, mealProtein = 0, mealFat = 0, mealSodium = 0
     ingredients?.forEach(ingredient => {
-      if (ingredient._id && ingredient.number_of_servings) {
+      if (ingredient?._id && ingredient?.number_of_servings) {
         mealCal += ingredient.calories
         mealCarbs += ingredient.carbs
         mealProtein += ingredient.protein
@@ -127,7 +127,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       }
     })
     recipes?.forEach(recipe => {
-      if (recipe._id && recipe.number_of_servings) {
+      if (recipe?._id && recipe?.number_of_servings) {
         mealCal += recipe.calories
         mealCarbs += recipe.carbs
         mealProtein += recipe.protein

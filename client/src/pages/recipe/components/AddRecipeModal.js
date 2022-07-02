@@ -40,6 +40,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
 
   const handleIngredientChange = () => {
     let { ingredients } = form.getFieldsValue()
+    console.log(ingredients)
     ingredients = ingredients.map(ingredient => {
       if (ingredient.foodId && ingredient.number_of_servings) {
         const food = foodData.find((food) => food._id === ingredient.foodId)
@@ -53,14 +54,16 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
       } else if (ingredient.foodId) {
         const food = foodData.find((food) => food._id === ingredient.foodId)
         return food
-      } else {
+      } else if (ingredient.number_of_servings) {
         return ingredient
+      } else {
+        return null
       }
-    })
+    }).filter(Boolean)
 
     let recipeCal = 0, recipeCarbs = 0, recipeProtein = 0, recipeFat = 0, recipeSodium = 0
     ingredients.forEach(ingredient => {
-      if (ingredient._id && ingredient.number_of_servings) {
+      if (ingredient?._id && ingredient?.number_of_servings) {
         recipeCal += ingredient.serving.calories
         recipeCarbs += ingredient.serving.carbs
         recipeProtein += ingredient.serving.protein
