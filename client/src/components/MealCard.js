@@ -24,6 +24,10 @@ const MealCard = ({ meal }) => {
         setModalVisible(!modalVisible)
     }
 
+    const toggleCalendarModal = () => {
+        setCalendarModalVisible(!calendarModalVisible)
+    }
+
     return (
         <>
             <Card
@@ -124,6 +128,8 @@ const MealCard = ({ meal }) => {
             }
             <CalendarModal
                 visible={calendarModalVisible}
+                mealData={meal}
+                handleCloseModal={toggleCalendarModal}
             />
         </>
     )
