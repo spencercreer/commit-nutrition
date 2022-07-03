@@ -15,7 +15,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
       >
         {(fields, { add, remove }) => (
           <>
-            {fields.map((field) => (
+            {fields.map((field, i) => (
               <Space
                 key={field.key}
               >
@@ -49,7 +49,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
                     >
                       <Input
                         placeholder="Serving Size"
-                        value={mealData.ingredients[field.key]?.serving ? `${mealData.ingredients[field.key].serving.size} ${mealData.ingredients[field.key].serving.unit}` : null}
+                        value={mealData.ingredients[i]?.serving ? `${mealData.ingredients[i].serving.size} ${mealData.ingredients[i].serving.unit}` : null}
                         disabled
                       />
                     </Item>
@@ -92,7 +92,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
       >
         {(fields, { add, remove }) => (
           <>
-            {fields.map((field) => (
+            {fields.map((field, i) => (
               <Space
                 key={field.key}
               >
@@ -126,7 +126,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
                     >
                       <Input
                         placeholder="Serving Size"
-                        value={mealData.recipes[field.key]?.serving ? `${mealData.recipes[field.key].serving.size} ${mealData.recipes[field.key].serving.unit}` : null}
+                        value={mealData.recipes[i]?.serving ? `${mealData.recipes[i].serving.size} ${mealData.recipes[i].serving.unit}` : null}
                         disabled
                       />
                     </Item>

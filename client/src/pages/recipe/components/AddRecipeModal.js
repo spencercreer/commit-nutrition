@@ -175,7 +175,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
           >
             {(fields, { add, remove }) => (
               <>
-                {fields.map((field) => (
+                {fields.map((field, i) => (
                   <Space key={field.key}>
                     <Row>
                       <Col md={10}>
@@ -207,7 +207,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                         >
                           <Input
                             placeholder="Serving Size"
-                            value={recipeData[field.key]?.serving ? `${recipeData[field.key].serving.size} ${recipeData[field.key].serving.unit}` : null}
+                            value={recipeData[i]?.serving ? `${recipeData[i].serving.size} ${recipeData[i].serving.unit}` : null}
                             disabled
                           />
                         </Item>
