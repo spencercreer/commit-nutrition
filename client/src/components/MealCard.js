@@ -2,16 +2,18 @@
 import { useState } from 'react';
 import NutrientsRow from './NutrientsRow';
 // Components
-import MealPlanModal from '../pages/meal/components/MealPlanModal';
+import MealPlanModal from '../pages/meal/components/MealPlanModal'
+import CalendarModal from './CalendarModal';
 // Antd
 import { Row, Card } from 'antd'
-import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { CalendarOutlined, EllipsisOutlined } from '@ant-design/icons';
 // Utils
 import moment from 'moment'
 
 const MealCard = ({ meal }) => {
     const [selectedRecipeId, setSelectedRecipeId] = useState()
     const [modalVisible, setModalVisible] = useState(false)
+    const [calendarModalVisible, setCalendarModalVisible] = useState(false)
 
     const handleOnClick = (recipeId) => {
         handleToggleModal()
@@ -26,15 +28,15 @@ const MealCard = ({ meal }) => {
         <>
             <Card
                 // key={i}
-                title={<div>{moment(meal?.date).format('dddd, MMMM Do YYYY')}</div>}
+                // title={<div>{moment(meal?.date).format('dddd, MMMM Do YYYY')}</div>}
                 actions={[
                     <EllipsisOutlined
                         key='ellipsis'
                         onClick={() => handleOnClick(meal._id)}
                     />,
-                    <EditOutlined
+                    <CalendarOutlined
                         key='edit'
-                    // onClick={() => handleOnClick(true)}
+                        onClick={() => setCalendarModalVisible(true)}
                     />,
                 ]}
             >
@@ -112,12 +114,17 @@ const MealCard = ({ meal }) => {
             </Card>
             {
                 selectedRecipeId &&
-                <MealPlanModal
-                    recipeId={selectedRecipeId}
-                    visible={modalVisible}
-                    handleCloseModal={handleToggleModal}
-                />
+                <>
+                    <MealPlanModal
+                        recipeId={selectedRecipeId}
+                        visible={modalVisible}
+                        handleCloseModal={handleToggleModal}
+                    />
+                </>
             }
+            <CalendarModal
+                visible={calendarModalVisible}
+            />
         </>
     )
 }
