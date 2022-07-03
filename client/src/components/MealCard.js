@@ -32,7 +32,7 @@ const MealCard = ({ meal }) => {
         <>
             <Card
                 // key={i}
-                // title={<div>{moment(meal?.date).format('dddd, MMMM Do YYYY')}</div>}
+                title={<div>{moment(meal?.date).format('dddd, MMMM Do YYYY')}</div>}
                 actions={[
                     <EllipsisOutlined
                         key='ellipsis'
