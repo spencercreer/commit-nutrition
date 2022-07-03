@@ -61,8 +61,8 @@ export const servingUnits = [
 
 export const foodCategories = [
     {
-        label: 'Vegtables',
-        value: 'vegtables',
+        label: 'Vegetables',
+        value: 'vegetables',
     },
     {
         label: 'Fruits',
