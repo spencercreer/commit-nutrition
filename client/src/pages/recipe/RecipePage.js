@@ -4,13 +4,14 @@ import { useState } from 'react'
 import RecipeList from './components/RecipeList'
 import AddRecipeModal from './components/AddRecipeModal'
 // Antd
-import { Layout, Menu, Button, Input } from 'antd'
+import { Layout, Row, Col, Menu, Button, Input, Select } from 'antd'
 // Utils
 import { recipeCategories } from '../../utils/form'
 import { useFilterGet } from '../../utils/API'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
+const { Option } = Select
 
 const RecipePage = () => {
     const [search, setSearch] = useState('')
@@ -27,18 +28,18 @@ const RecipePage = () => {
         filterRecipes(filter, event.target.value)
     }
 
-    const handleFilterChange = (event) => {
-        setFilter(event.key)
-        filterRecipes(event.key, search)
+    const handleFilterChange = (value) => {
+        setFilter(value)
+        filterRecipes(value, search)
     }
 
     return (
         <>
             <Sider
                 width={200}
-                className='site-layout-background'
                 breakpoint='md'
                 collapsedWidth='0'
+                trigger={null}
             >
                 <Menu
                     mode='inline'
@@ -48,8 +49,8 @@ const RecipePage = () => {
                 >
                     <SubMenu key='sub1' title='Recipes'>
                         <Item
-                            key={'all'}
-                            onClick={handleFilterChange}
+                            key='all'
+                            onClick={(event) => handleFilterChange(event.key)}
                         >
                             All
                         </Item>
@@ -57,7 +58,7 @@ const RecipePage = () => {
                             recipeCategories.map((recipeCategory) => (
                                 <Item
                                     key={recipeCategory.value}
-                                    onClick={handleFilterChange}
+                                    onClick={(event) => handleFilterChange(event.key)}
                                 >
                                     {recipeCategory.label}
                                 </Item>
@@ -67,18 +68,48 @@ const RecipePage = () => {
                 </Menu>
             </Sider>
             <Content style={{ margin: '10px 60px' }}>
-                <Button
-                    style={{ marginBottom: '10px' }}
-                    type='primary'
-                    onClick={() => setModalVisible(true)}
-                >
-                    Add Recipe
-                </Button>
-                <Input
-                    style={{ marginBottom: '10px' }}
-                    placeholder='Search Recipes'
-                    onChange={handleSearch}
-                />
+                <Row>
+                    <Col xs={24} md={4} >
+                        <Button
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            type='primary'
+                            onClick={() => setModalVisible(true)}
+                        >
+                            Add Recipe
+                        </Button>
+                    </Col>
+                    <Col xs={24} md={12}>
+                        <Input
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            placeholder='Search Recipes'
+                            onChange={handleSearch}
+                        />
+                    </Col>
+                    <Col xs={24} md={0} >
+                        <Select
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            placeholder='Filter Recipes'
+                            onChange={(event) => handleFilterChange(event)}
+                        >
+                            <Option
+                                key='all'
+                                value='all'
+                            >
+                                All
+                            </Option>
+                            {
+                                recipeCategories.map((recipeCategory) => (
+                                    <Option
+                                        key={recipeCategory.value}
+                                        value={recipeCategory.value}
+                                    >
+                                        {recipeCategory.label}
+                                    </Option>
+                                ))
+                            }
+                        </Select>
+                    </Col>
+                </Row>
                 <RecipeList
                     loading={loading}
                     recipeData={recipeData}

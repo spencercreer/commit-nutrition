@@ -4,13 +4,14 @@ import { useState } from 'react'
 import FoodList from './components/FoodList'
 import AddFoodModal from './components/AddFoodModal'
 // Antd
-import { Layout, Menu, Button, Input } from 'antd'
+import { Layout, Row, Col, Menu, Button, Input, Select } from 'antd'
 // Utils
 import { foodCategories } from '../../utils/form'
 import { useFilterGet } from '../../utils/API'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
+const { Option } = Select
 
 const FoodPage = () => {
     const [search, setSearch] = useState('')
@@ -27,18 +28,18 @@ const FoodPage = () => {
         filterFoods(filter, event.target.value)
     }
 
-    const handleFilterChange = (event) => {
-        setFilter(event.key)
-        filterFoods(event.key, search)
+    const handleFilterChange = (value) => {
+        setFilter(value)
+        filterFoods(value, search)
     }
 
     return (
         <>
             <Sider
                 width={200}
-                className='site-layout-background'
                 breakpoint='md'
                 collapsedWidth='0'
+                trigger={null}
             >
                 <Menu
                     mode='inline'
@@ -48,8 +49,8 @@ const FoodPage = () => {
                 >
                     <SubMenu key='sub1' title='Foods'>
                         <Item
-                            key={'all'}
-                            onClick={handleFilterChange}
+                            key='all'
+                            onClick={(event) => handleFilterChange(event.key)}
                         >
                             All
                         </Item>
@@ -57,7 +58,7 @@ const FoodPage = () => {
                             foodCategories.map((foodCategory) => (
                                 <Item
                                     key={foodCategory.value}
-                                    onClick={handleFilterChange}
+                                    onClick={(event) => handleFilterChange(event.key)}
                                 >
                                     {foodCategory.label}
                                 </Item>
@@ -67,18 +68,48 @@ const FoodPage = () => {
                 </Menu>
             </Sider>
             <Content style={{ margin: '10px 60px' }}>
-                <Button
-                    style={{ marginBottom: '10px' }}
-                    type='primary'
-                    onClick={() => setModalVisible(true)}
-                >
-                    Add Food
-                </Button>
-                <Input
-                    style={{ marginBottom: '10px' }}
-                    placeholder='Search Foods'
-                    onChange={handleSearch}
-                />
+                <Row>
+                    <Col xs={24} md={4} >
+                        <Button
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            type='primary'
+                            onClick={() => setModalVisible(true)}
+                        >
+                            Add Food
+                        </Button>
+                    </Col>
+                    <Col xs={24} md={12}>
+                        <Input
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            placeholder='Search Foods'
+                            onChange={handleSearch}
+                        />
+                    </Col>
+                    <Col xs={24} md={0} >
+                        <Select
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            placeholder='Filter Foods'
+                            onChange={(event) => handleFilterChange(event)}
+                        >
+                            <Option
+                                key='all'
+                                value='all'
+                            >
+                                All
+                            </Option>
+                            {
+                                foodCategories.map((foodCategory, i) => (
+                                    <Option
+                                        key={foodCategory.value}
+                                        value={foodCategory.value}
+                                    >
+                                        {foodCategory.label}
+                                    </Option>
+                                ))
+                            }
+                        </Select>
+                    </Col>
+                </Row>
                 <FoodList
                     loading={loading}
                     foodData={foodData}
