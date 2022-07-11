@@ -186,7 +186,6 @@ const mealController = {
                 ]
             )
             .then((dbMealData) => {
-                console.log(dbMealData)
                 res.json(dbMealData)
             })
             .catch((err) => {
@@ -194,9 +193,7 @@ const mealController = {
                 res.json(500).json(err)
             })
     },
-    getMealByDate(req, res) {
-        //Need to search for the date only not time
-        console.log(moment().format(moment().format('L')))
+    getTodaysMeal(req, res) {
         const today = moment().startOf('day')
         Meal.findOne({
             date: {
@@ -290,7 +287,209 @@ const mealController = {
                 ]
             )
             .then((dbMealData) => {
-                console.log(dbMealData)
+                res.json(dbMealData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.json(500).json(err)
+            })
+    },
+    getWeeksMeals(req, res) {
+        const weekStart = moment().startOf('week')
+        Meal.find({
+            date: {
+                $gte: weekStart.toDate(),
+                $lte: moment(weekStart).endOf('week').toDate()
+            }
+        })
+            .select('-__v')
+            .populate(
+                [
+                    {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'lunch',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'lunch',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    }
+                ]
+            )
+            .then((dbMealData) => {
+                res.json(dbMealData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.json(500).json(err)
+            })
+    },
+    getTodaysMeal(req, res) {
+        //Need to search for the date only not time
+        const today = moment().startOf('day')
+        Meal.findOne({
+            date: {
+                $gte: today.toDate(),
+                $lte: moment(today).endOf('day').toDate()
+            }
+        })
+            .select('-__v')
+            .populate(
+                [
+                    {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'breakfast',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'lunch',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'lunch',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'dinner',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
+                        populate: {
+                            path: 'ingredients',
+                            populate: {
+                                path: 'foodId',
+                                model: 'Food'
+                            }
+                        }
+                    },
+                    {
+                        path: 'snacks',
+                        populate: {
+                            path: 'recipes',
+                            populate: {
+                                path: 'recipeId',
+                                model: 'Recipe'
+                            }
+                        }
+                    }
+                ]
+            )
+            .then((dbMealData) => {
                 res.json(dbMealData)
             })
             .catch((err) => {
@@ -303,7 +502,6 @@ const mealController = {
         // can this be updated to like the get above
         Meal.findOne({ date })
             .then((foundMeal) => {
-                console.log(foundMeal)
                 if (foundMeal) {
                     res.json({ success: false, message: 'matching meal plan date' });
                 } else {

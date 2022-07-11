@@ -12,6 +12,7 @@ const ServingDetails = ({ recipeData }) => {
             <div style={{ marginTop: '10px', marginBottom: '5px' }}>
                 <div>Serving Size: {`${recipeData.serving?.size} ${recipeData.serving?.unit}`}</div>
                 <div>Number of Servings: {recipeData.recipe_servings}</div>
+                <div>Notes: {recipeData.notes}</div>
             </div>
             <NutrientsRow
                 nutrients={{ calories: recipeData?.serving?.calories, carbs: recipeData?.serving?.carbs, protein: recipeData?.serving?.protein, fat: recipeData?.serving?.fat, sodium: recipeData?.serving?.sodium }}

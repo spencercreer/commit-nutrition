@@ -4,6 +4,7 @@ import Dashboard from './pages/dashboard/Dashboard'
 import FoodPage from './pages/food/FoodPage'
 import RecipePage from './pages/recipe/RecipePage'
 import MealPage from './pages/meal/MealPage'
+import GroceryPage from './pages/grocery/GroceryPage'
 
 import { Layout } from 'antd'
 import './App.css';
@@ -29,6 +30,10 @@ function App() {
           <Route
             path="/meals"
             element={<MealPage />}
+          />
+          <Route
+            path="/grocery"
+            element={<GroceryPage />}
           />
         </Routes>
       </Layout>

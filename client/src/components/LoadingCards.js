@@ -1,14 +1,14 @@
 import { Skeleton, Card } from 'antd'
 const { Meta } = Card
 
-const LoadingCards = ({ number }) => {
+const LoadingCards = ({ number, rows, height }) => {
     return (
         [...Array(number).keys()].map((i) => (
             <Card
                 key={i}
-            // style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: 'inline-block' }}
+                style={{ height }}
             >
-                <Skeleton loading={true} active>
+                <Skeleton loading={true} paragraph={{ rows }} active>
                     <Meta />
                 </Skeleton>
             </Card>

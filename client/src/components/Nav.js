@@ -15,7 +15,7 @@ const Nav = () => {
             <Item key='/foods'><Link to={'/foods'}><FontAwesomeIcon icon={faCarrot} size='lg' /></Link></Item>
             <Item key='/recipes'><Link to={'/recipes'} ><FontAwesomeIcon icon={faBowlFood} size='lg' /></Link></Item>
             <Item key='/meals'><Link to={'/meals'}><FontAwesomeIcon icon={faUtensils} size='lg' /></Link></Item>
-            <Item key='/list'><Link to={'/list'}><FontAwesomeIcon icon={faCartShopping} size='lg' /></Link></Item>
+            <Item key='/grocery'><Link to={'/grocery'}><FontAwesomeIcon icon={faCartShopping} size='lg' /></Link></Item>
         </Menu>
     </Header>
   )

@@ -1,4 +1,5 @@
 import Chart from 'react-google-charts'
+import LoadingCards from './LoadingCards'
 
 const NutrientsChart = ({ nutrients }) => {
     return (
@@ -6,7 +7,7 @@ const NutrientsChart = ({ nutrients }) => {
             width={'100%'}
             height={'100%'}
             chartType="PieChart"
-            loader={<div>Loading Chart</div>}
+            loader={<LoadingCards number={1} rows={10} />}
             data={[
                 ['Calories', '%'],
                 ['Carbs', nutrients.carbs * 4],

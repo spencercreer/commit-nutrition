@@ -41,6 +41,9 @@ const recipeSchema = new Schema(
         recipe_cost: {
             type: Number
         },
+        notes: {
+            type: String
+        },
         ingredients: [ingredientSchema]
     }
 )

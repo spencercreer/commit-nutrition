@@ -18,7 +18,7 @@ const Dashboard = () => {
     <>
       {
         loading ?
-          <Content>
+          <Content style={{ margin: '10px 60px' }}>
             <Row style={{ padding: '5px' }}>
               <Col xs={24}>
                 <Card>
@@ -28,10 +28,10 @@ const Dashboard = () => {
             </Row>
             <Row>
               <Col xs={24} md={14} style={{ padding: '5px' }}>
-                <LoadingCards number={1} />
+                <LoadingCards number={1} rows={10} />
               </Col>
               <Col xs={24} md={10} style={{ padding: '5px' }}>
-                <LoadingCards number={1} />
+                <LoadingCards number={1} rows={10} />
               </Col>
             </Row>
           </Content>

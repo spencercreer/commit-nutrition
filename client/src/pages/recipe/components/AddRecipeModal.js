@@ -10,7 +10,7 @@ import { useGet, usePost } from '../../../utils/API'
 import { validateMessages, recipeCategories, servingUnits } from '../../../utils/form';
 
 const { Item } = Form
-const { Group } = Input
+const { Group, TextArea } = Input
 const { Option } = Select;
 
 const AddRecipeModal = ({ visible, handleCloseModal }) => {
@@ -170,6 +170,12 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
               placeholder='Number of Servings'
             />
           </Item>
+          <Item name='notes'>
+            <TextArea
+              placeholder='Notes'
+              rows={2}
+            />
+          </Item>
           <Form.List
             name="ingredients"
           >
@@ -236,7 +242,6 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                     </Row>
                   </Space>
                 ))}
-
                 <Item>
                   <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                     Add ingredient
