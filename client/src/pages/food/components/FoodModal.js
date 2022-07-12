@@ -15,17 +15,7 @@ const FoodModal = ({ foodId, visible, handleCloseModal }) => {
                 onClick={handleCloseModal}
             >
                 Exit
-            </Button>,
-            <Button
-                key='submit'
-                type='primary'
-                htmlType='submit'
-                style={{ width: '125px' }}
-            // loading={loading}
-            // onClick={() => form.submit()}
-            >
-                Submit
-            </Button>,
+            </Button>
         ]
 
     return (
@@ -41,9 +31,8 @@ const FoodModal = ({ foodId, visible, handleCloseModal }) => {
                         loading ?
                             <Skeleton loading />
                             :
-                           <div>Done Loading</div>
+                            <NutrientsChart nutrients={{ calories: foodData?.serving.calories, carbs: foodData?.serving.carbs, protein: foodData?.serving.protein, fat: foodData?.serving.fat, sodium: foodData?.serving.sodium }} />
                     }
-                    <NutrientsChart nutrients={{ calories: foodData?.serving.calories, carbs: foodData?.serving.carbs, protein: foodData?.serving.protein, fat: foodData?.serving.fat, sodium: foodData?.serving.sodium }} />
                     <NutrientsRow
                         nutrients={{ calories: foodData?.serving.calories, carbs: foodData?.serving.carbs, protein: foodData?.serving.protein, fat: foodData?.serving.fat, sodium: foodData?.serving.sodium }}
                     />

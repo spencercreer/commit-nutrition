@@ -3,6 +3,7 @@ import { useState } from 'react';
 // Components
 import LoadingCards from '../../../components/LoadingCards'
 import FoodModal from './FoodModal';
+import EditFoodModal from './EditFoodModal';
 import NutrientsRow from '../../../components/NutrientsRow';
 // Antd
 import { Card } from 'antd'
@@ -11,14 +12,24 @@ import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 const FoodList = ({ loading, foodData }) => {
     const [selectedFoodId, setSelectedFoodId] = useState()
     const [modalVisible, setModalVisible] = useState(false)
+    const [editModalVisible, setEditModalVisible] = useState(false)
 
     const handleOnClick = (foodId) => {
-        handleToggleModal()
+        toggleModal()
         setSelectedFoodId(foodId)
     }
 
-    const handleToggleModal = () => {
+    const toggleModal = () => {
         setModalVisible(!modalVisible)
+    }
+
+    const handleEditClick = (foodId) => {
+        toggleEditModal()
+        setSelectedFoodId(foodId)
+    }
+
+    const toggleEditModal = () => {
+        setEditModalVisible(!editModalVisible)
     }
 
     return (
@@ -38,6 +49,7 @@ const FoodList = ({ loading, foodData }) => {
                                 />,
                                 <EditOutlined
                                     key='edit'
+                                    onClick={() => handleEditClick(food._id)}
                                 />
                             ]}
                         >
@@ -50,11 +62,19 @@ const FoodList = ({ loading, foodData }) => {
             }
             {
                 selectedFoodId &&
-                <FoodModal
-                    foodId={selectedFoodId}
-                    visible={modalVisible}
-                    handleCloseModal={handleToggleModal}
-                />
+                <>
+                    {/* Combine add, update, and food modals into one */}
+                    <FoodModal
+                        foodId={selectedFoodId}
+                        visible={modalVisible}
+                        handleCloseModal={toggleModal}
+                    />
+                    <EditFoodModal
+                        foodId={selectedFoodId}
+                        visible={editModalVisible}
+                        handleCloseModal={toggleEditModal}
+                    />
+                </>
             }
         </>
     )

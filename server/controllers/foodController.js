@@ -35,7 +35,7 @@ const foodController = {
     },
 
     updateFood(req, res) {
-        Food.findOneAndUpdate({ _id: req.params.foodId }, { $set: req.body })
+        Food.findOneAndUpdate({ _id: req.body._id }, { $set: req.body })
             .then((dbFoodData) => {
                 if (!dbFoodData) {
                     return res.status(404).json({ message: 'No food with this id.' })

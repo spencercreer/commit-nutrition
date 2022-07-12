@@ -18,8 +18,6 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
     const onFinish = async (values) => {
         createFood(values)
             .then(res => {
-                console.log(res)
-
                 message.success(`${res.name} added successfully!`)
                 form.resetFields()
                 setAlert(null)

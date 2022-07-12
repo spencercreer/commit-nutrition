@@ -114,6 +114,7 @@ const FoodPage = () => {
                     loading={loading}
                     foodData={foodData}
                 />
+                {/* Combine add, update, and food modals into one */}
                 <AddFoodModal
                     visible={modalVisible}
                     handleCloseModal={handleToggleModal}
