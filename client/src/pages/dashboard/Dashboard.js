@@ -18,9 +18,9 @@ const Dashboard = () => {
     <>
       {
         loading ?
-          <Content style={{ margin: '10px 60px' }}>
-            <Row style={{ padding: '5px' }}>
-              <Col xs={24}>
+          <Content>
+            <Row>
+              <Col xs={24} style={{ padding: '5px' }}>
                 <Card>
                   <Skeleton.Input active={true} size={'large'} />
                 </Card>
@@ -36,9 +36,9 @@ const Dashboard = () => {
             </Row>
           </Content>
           :
-          <Content style={{ margin: '10px 60px' }}>
-            <Row style={{ padding: '5px' }}>
-              <Col xs={24}>
+          <Content style={{ margin: '15px' }}>
+            <Row>
+              <Col xs={24} style={{ padding: '5px' }}>
                 <Card>
                   <h1>Welcome Spencer</h1>
                 </Card>
@@ -55,7 +55,16 @@ const Dashboard = () => {
                 />
               </Col>
             </Row>
-            <ProfileForm />
+            <Row>
+              <Col xs={24} md={10} style={{ padding: '5px' }}>
+                <Card title='Estimates' />
+              </Col>
+              <Col xs={24} md={14} style={{ padding: '5px' }}>
+                <Card>
+                  <ProfileForm />
+                </Card>
+              </Col>
+            </Row>
           </Content>
       }
     </>

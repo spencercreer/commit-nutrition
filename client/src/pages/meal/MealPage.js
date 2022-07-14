@@ -48,7 +48,7 @@ const MealPage = () => {
                     </SubMenu>
                 </Menu>
             </Sider>
-            <Content style={{ margin: '10px 60px' }}>
+            <Content style={{ margin: '15px' }}>
                 <Button
                     style={{ marginBottom: '10px' }}
                     type='primary'

@@ -67,7 +67,7 @@ const FoodPage = () => {
                     </SubMenu>
                 </Menu>
             </Sider>
-            <Content style={{ margin: '10px 60px' }}>
+            <Content style={{ margin: '15px' }}>
                 <Row>
                     <Col xs={24} md={4} >
                         <Button
