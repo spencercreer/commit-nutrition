@@ -19,9 +19,9 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   const [mealData, setMealData] = useState(defaultMealPlanState)
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState()
-  const { data: foodData } = useGet('/api/foods')
-  const { data: recipeData } = useGet('/api/recipes')
-  const [createMeal] = usePost('/api/meals')
+  const { data: foodData } = useGet('/api/food')
+  const { data: recipeData } = useGet('/api/recipe')
+  const [createMeal] = usePost('/api/meal')
 
   const onFinish = (values) => {
     setLoading(true)

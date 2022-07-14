@@ -13,7 +13,7 @@ const { Option } = Select
 const AddFoodModal = ({ visible, handleCloseModal }) => {
     const [form] = Form.useForm()
     const [alert, setAlert] = useState()
-    const [createFood] = usePost('/api/foods')
+    const [createFood] = usePost('/api/food')
 
     const onFinish = async (values) => {
         createFood(values)
@@ -45,7 +45,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 onClick={() => form.submit()}
             >
                 Submit
-            </Button>,
+            </Button>
         ]
 
     return (

@@ -17,7 +17,7 @@ const RecipePage = () => {
     const [search, setSearch] = useState('')
     const [filter, setFilter] = useState('all')
     const [modalVisible, setModalVisible] = useState(false)
-    const [{ data: recipeData, loading }, filterRecipes] = useFilterGet('/api/recipes')
+    const [{ data: recipeData, loading }, filterRecipes] = useFilterGet('/api/recipe')
 
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)

@@ -17,7 +17,7 @@ import NutrientsChart from '../../../components/NutrientsChart'
 
 const MealPlanModal = ({ recipeId, visible, handleCloseModal }) => {
     const [activeTab, setActiveTab] = useState('recipe')
-    const { data: mealData, loading } = useGet(`/api/meals/${recipeId}`)
+    const { data: mealData, loading } = useGet(`/api/meal/${recipeId}`)
 
     // const onTab1Change = (key) => {
     //     setActiveTab(key)

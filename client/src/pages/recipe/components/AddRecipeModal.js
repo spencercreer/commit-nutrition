@@ -17,8 +17,8 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const [recipeData, setRecipeData] = useState([])
   const [form] = Form.useForm()
   const [recipeNutrients, setRecipeNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
-  const { data: foodData } = useGet('/api/foods')
-  const [createRecipe] = usePost('/api/recipes')
+  const { data: foodData } = useGet('/api/food')
+  const [createRecipe] = usePost('/api/recipe')
   const [alert, setAlert] = useState()
 
   const onFinish = (values) => {

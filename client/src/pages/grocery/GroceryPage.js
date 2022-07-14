@@ -1,7 +1,7 @@
 import { useGet } from "../../utils/API"
 
 const GroceryPage = () => {
-  const { data: mealData, loading } = useGet('/api/meals/week')
+  const { data: mealData, loading } = useGet('/api/meal/week')
   console.log(mealData)
 
   return (

@@ -11,7 +11,7 @@ import { useGet } from '../../utils/API'
 const { Content } = Layout
 
 const Dashboard = () => {
-  const { data: mealData, loading } = useGet('/api/meals/today')
+  const { data: mealData, loading } = useGet('/api/meal/today')
   // console.log(mealData)
   // loading = true
   return (

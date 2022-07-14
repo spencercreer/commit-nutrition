@@ -22,7 +22,7 @@ const MealPage = () => {
         setModalVisible(!modalVisible)
     }
 
-    const { data: mealData, loading } = useGet('/api/meals')
+    const { data: mealData, loading } = useGet('/api/meal')
     // mealData.forEach(element => {
     //     console.log(moment(element?.date).format('L'), moment(Date.now()).format('L'))
     // });

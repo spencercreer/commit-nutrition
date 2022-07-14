@@ -19,7 +19,7 @@ const tabList = [
 
 const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
     const [activeTab, setActiveTab] = useState('recipe')
-    const { data: recipeData, loading } = useGet(`/api/recipes/${recipeId}`)
+    const { data: recipeData, loading } = useGet(`/api/recipe/${recipeId}`)
 
     const onTab1Change = (key) => {
         setActiveTab(key)

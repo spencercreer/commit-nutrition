@@ -17,7 +17,7 @@ const FoodPage = () => {
     const [search, setSearch] = useState('')
     const [filter, setFilter] = useState('all')
     const [modalVisible, setModalVisible] = useState(false)
-    const [{ data: foodData, loading }, filterFoods] = useFilterGet('/api/foods')
+    const [{ data: foodData, loading }, filterFoods] = useFilterGet('/api/food')
 
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)
@@ -114,7 +114,7 @@ const FoodPage = () => {
                     loading={loading}
                     foodData={foodData}
                 />
-                {/* Combine add, update, and food modals into one */}
+                {/* Make add, and update a page, and food info only modal */}
                 <AddFoodModal
                     visible={modalVisible}
                     handleCloseModal={handleToggleModal}

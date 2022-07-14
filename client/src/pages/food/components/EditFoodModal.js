@@ -13,8 +13,8 @@ const { Option } = Select
 const EditFoodModal = ({ foodId, visible, handleCloseModal }) => {
     const [form] = Form.useForm()
     const [alert, setAlert] = useState()
-    const { data: foodData, loading } = useGet(`/api/foods/${foodId}`)
-    const [updateFood] = usePost('/api/foods/update')
+    const { data: foodData, loading } = useGet(`/api/food/${foodId}`)
+    const [updateFood] = usePost('/api/food/update')
 
     console.log(foodData)
 

@@ -8,7 +8,7 @@ import { useGet } from '../utils/API'
 const MealForm = () => {
     const [mealFormData, setMealFormData] = useState([])
 
-    const { data: foodData }  = useGet('/api/foods')
+    const { data: foodData }  = useGet('/api/food')
 
     return (
         <>

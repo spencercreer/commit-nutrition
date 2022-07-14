@@ -1,40 +1,37 @@
 // React
 import { useState } from 'react'
-import { Modal, Calendar, Skeleton, Button } from 'antd'
-import { Card } from 'antd'
+// Antd
+import { Modal, Card, Calendar, Button, Alert, message } from 'antd'
+// Utils
 import { usePost } from '../utils/API'
+import moment from 'moment'
 
 const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
     const [newDate, setNewDate] = useState()
-    const [createMeal] = usePost('/api/meals')
+    const [loading, setLoading] = useState(false)
+    const [alert, setAlert] = useState()
+    const [createMeal] = usePost('/api/meal')
 
-    const loading = false
     const onChange = (value) => {
-        console.log(value)
         setNewDate(value)
     }
 
     const handleSubmit = () => {
-        console.log({
-            ...mealData,
-            _id: null,
-            date: newDate,
-        })
+        setLoading(true)
         createMeal({
             ...mealData,
             _id: null,
-            date: newDate,
+            date: moment(newDate).format('L'),
         })
             .then(res => {
                 console.log(res)
                 if (!res.success) {
-                    //   setAlert('We found a meal plan with the same date. Edit the existing meal plan or change the date.')
+                    setAlert('We found a meal plan with the same date. Edit the existing meal plan or change the date.')
                 } else {
                     console.log('meal added')
-                    //   message.success(`Meal plan added successfully!`)
-                    //   resetForm()
+                    message.success(`Meal plan added successfully!`)
                 }
-                // setLoading(false)
+                setLoading(false)
             })
     }
 
@@ -51,11 +48,11 @@ const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
                 type='primary'
                 htmlType='submit'
                 style={{ width: '125px' }}
-                // loading={loading}
+                loading={loading}
                 onClick={handleSubmit}
             >
                 Submit
-            </Button>,
+            </Button>
         ]
 
     return (
@@ -65,22 +62,20 @@ const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
             onCancel={handleCloseModal}
             footer={footerButtons}
         >
+            <Card
+                style={{
+                    width: '100%',
+                }}
+                bordered={false}
+            >
+                <Calendar
+                    fullscreen={false}
+                    onPanelChange={onChange}
+                    onChange={onChange}
+                />
+            </Card>
             {
-                loading ?
-                    <Skeleton loading />
-                    :
-                    <Card
-                        style={{
-                            width: '100%',
-                        }}
-                        bordered={false}
-                    >
-                        <Calendar
-                            fullscreen={false}
-                            onPanelChange={onChange}
-                            onChange={onChange}
-                        />
-                    </Card>
+                alert && <Alert message={alert} type='error' />
             }
         </Modal>
     )
