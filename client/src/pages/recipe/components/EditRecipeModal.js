@@ -13,15 +13,13 @@ const { Item } = Form
 const { Group, TextArea } = Input
 const { Option } = Select;
 
-const AddRecipeModal = ({ visible, handleCloseModal }) => {
-  const [form] = Form.useForm()
+const EditRecipeModal = ({ visible, handleCloseModal }) => {
   const [recipeData, setRecipeData] = useState([])
+  const [form] = Form.useForm()
   const [recipeNutrients, setRecipeNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
-  const [loading, setLoading] = useState(false)
-  const [alert, setAlert] = useState()
-  
   const { data: foodData } = useGet('/api/food')
   const [createRecipe] = usePost('/api/recipe')
+  const [alert, setAlert] = useState()
 
   const onFinish = (values) => {
     const servings = values.recipe_servings
@@ -33,12 +31,10 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         setAlert(null)
         setRecipeNutrients({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
         setRecipeData([])
-        setLoading(false)
       })
       .catch(err => {
         setAlert('We were not able to save this recipe. Please try again.')
         console.log(err)
-        setLoading(false)
       })
   };
 
@@ -91,7 +87,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         type='primary'
         htmlType='submit'
         style={{ width: '125px' }}
-        loading={loading}
+        // loading={loading}
         onClick={() => form.submit()}
       >
         Submit
@@ -264,4 +260,4 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
   )
 }
 
-export default AddRecipeModal
+export default EditRecipeModal

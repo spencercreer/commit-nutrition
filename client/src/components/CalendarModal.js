@@ -24,13 +24,16 @@ const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
             date: moment(newDate).format('L'),
         })
             .then(res => {
-                console.log(res)
                 if (!res.success) {
                     setAlert('We found a meal plan with the same date. Edit the existing meal plan or change the date.')
                 } else {
-                    console.log('meal added')
                     message.success(`Meal plan added successfully!`)
                 }
+                setLoading(false)
+            })
+            .catch(err => {
+                setAlert('We were not able to save this meal plan. Please try again.')
+                console.log(err)
                 setLoading(false)
             })
     }

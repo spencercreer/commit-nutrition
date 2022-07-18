@@ -44,6 +44,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       .catch(err => {
         setAlert('We were not able to save this meal. Please try again.')
         console.log(err)
+        setLoading(false)
       })
   };
 

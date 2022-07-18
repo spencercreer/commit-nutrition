@@ -12,19 +12,24 @@ const { Option } = Select
 
 const AddFoodModal = ({ visible, handleCloseModal }) => {
     const [form] = Form.useForm()
+    const [loading, setLoading] = useState(false)
     const [alert, setAlert] = useState()
+    
     const [createFood] = usePost('/api/food')
 
     const onFinish = async (values) => {
+        setLoading(true)
         createFood(values)
             .then(res => {
                 message.success(`${res.name} added successfully!`)
                 form.resetFields()
                 setAlert(null)
+                setLoading(false)
             })
             .catch(err => {
                 setAlert('We were not able to save this food. Please try again.')
                 console.log(err)
+                setLoading(false)
             })
     }
 
@@ -41,7 +46,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 type='primary'
                 htmlType='submit'
                 style={{ width: '125px' }}
-                // loading={loading}
+                loading={loading}
                 onClick={() => form.submit()}
             >
                 Submit
