@@ -1,16 +1,14 @@
 // React
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+// Components
 import AddMealPlanModal from './components/AddMealPlanModal'
-import NutrientsRow from '../../components/NutrientsRow'
 import MealCard from '../../components/MealCard'
 import LoadingCards from '../../components/LoadingCards'
-import { Link } from 'react-router-dom'
 // Antd
-import { Layout, Menu, Row, Card, Button } from 'antd'
-import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { Layout, Menu, Button } from 'antd'
 // Utils
 import { useGet } from '../../utils/API'
-import moment from 'moment'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu

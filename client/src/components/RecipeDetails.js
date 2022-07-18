@@ -1,5 +1,6 @@
+// Components
 import NutrientsRow from "./NutrientsRow"
-import NutrientsChart from "./NutrientsChart"
+// Utils
 import Fraction from "fraction.js"
 
 const RecipeDetails = ({ recipeData }) => {
