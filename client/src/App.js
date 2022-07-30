@@ -5,6 +5,7 @@ import FoodPage from './pages/food/FoodPage'
 import RecipePage from './pages/recipe/RecipePage'
 import MealPage from './pages/meal/MealPage'
 import GroceryPage from './pages/grocery/GroceryPage'
+import LoginPage from './pages/login/LoginPage'
 
 import { Layout } from 'antd'
 import './App.css';
@@ -18,6 +19,14 @@ function App() {
           <Route
             path="/"
             element={<Dashboard />}
+          />
+          <Route
+            path="/login"
+            element={<LoginPage form={'login'} />}
+          />
+          <Route
+            path="/signup"
+            element={<LoginPage form={'signup'} />}
           />
           <Route
             path="/foods"
