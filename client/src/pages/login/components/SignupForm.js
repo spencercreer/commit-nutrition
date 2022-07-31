@@ -1,15 +1,29 @@
+// React
 import { Link } from 'react-router-dom'
 // Antd
 import { Button, Form, Input } from 'antd'
+// Utils
+import { usePost } from '../../../utils/API'
 
 const { Item } = Form
 const { Password } = Input
 
 const SignupForm = () => {
+    const [createUser] = usePost('/api/user')
 
     const onFinish = (values) => {
-        console.log('Success:', values)
-        window.location.replace('/')
+        console.log(values)
+        createUser(values)
+        .then(res => {
+            if (!res.success) {
+                alert('We experienced an error with your signup. Please try again.')
+            } else {
+                window.location.replace('/')
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
     }
 
     const onFinishFailed = (errorInfo) => {

@@ -18,7 +18,7 @@ const userController = {
     createUser(req, res) {
         User.create(req.body)
             .then((dbUserData) => {
-                res.json(dbUserData)
+                res.json({ success: true, ...dbUserData})
             })
             .catch((err) => {
                 res.status(500).json(err)
