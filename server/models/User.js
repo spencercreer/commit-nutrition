@@ -3,14 +3,17 @@ const mealSchema = require('./Meal')
 
 const userSchema = new Schema(
     {
-        name: {
+        username: {
+            type: String
+        },
+        email: {
             type: String
         },
         password: {
             type: String
         },
         meals: {
-            type: [mealSchema]
+            type: [Schema.Types.ObjectId]
         }
     }
 )
