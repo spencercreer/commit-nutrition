@@ -36,7 +36,7 @@ const MealCard = ({ meal }) => {
                         {moment(meal?.date).format('dddd, MMMM Do YYYY')}
                         <div>
                             {
-                                meal.status === "starred"
+                                meal?.status === "starred"
                                     ?
                                     <StarTwoTone />
                                     :
