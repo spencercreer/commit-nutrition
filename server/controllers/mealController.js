@@ -130,7 +130,7 @@ const mealController = {
             })
     },
     filterMeals(req, res) {
-        let sort = -1
+        let sort = req.body.sort === "asc" ? 1 : -1
         const filter = req.body.filter
         let where
         switch (filter) {
@@ -152,9 +152,6 @@ const mealController = {
                 where = {
                     status: "archived"
                 }
-                break;
-            case 'asc':
-                sort = 1
                 break;
             default:
                 where = {}

@@ -14,6 +14,7 @@ const MealCard = ({ meal }) => {
     const [selectedRecipeId, setSelectedRecipeId] = useState()
     const [modalVisible, setModalVisible] = useState(false)
     const [calendarModalVisible, setCalendarModalVisible] = useState(false)
+    const [starred, setStarred] = useState(meal?.status === "starred")
 
     const handleOnClick = (recipeId) => {
         handleToggleModal()
@@ -28,6 +29,10 @@ const MealCard = ({ meal }) => {
         setCalendarModalVisible(!calendarModalVisible)
     }
 
+    const handleStarClick = () => {
+        setStarred(!starred)
+    }
+
     return (
         <>
             <Card
@@ -36,11 +41,15 @@ const MealCard = ({ meal }) => {
                         {moment(meal?.date).format('dddd, MMMM Do YYYY')}
                         <div>
                             {
-                                meal?.status === "starred"
+                                starred
                                     ?
-                                    <StarTwoTone />
+                                    <StarTwoTone
+                                        onClick={handleStarClick}
+                                    />
                                     :
-                                    <StarOutlined />
+                                    <StarOutlined
+                                        onClick={handleStarClick}
+                                    />
                             }
                         </div>
                     </div>
@@ -57,11 +66,11 @@ const MealCard = ({ meal }) => {
                 ]}
             >
                 <div>
-                    <h6>Breakfast</h6>
+                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Breakfast</h6>
                     {
                         meal?.breakfast.ingredients.map((ingredient, i) => (
                             <Row key={i}>
-                                <div>{ingredient.foodId?.name} {ingredient.foodId?.number_of_servings} {ingredient.foodId?.serving?.size} {ingredient.foodId?.serving?.unit}</div>
+                                <div>{ingredient.foodId?.number_of_servings} {ingredient.foodId?.serving?.size} {ingredient.foodId?.serving?.unit} {ingredient.foodId?.name}</div>
                             </Row>
                         ))
                     }
@@ -74,7 +83,7 @@ const MealCard = ({ meal }) => {
                     }
                 </div>
                 <div>
-                    <h6>Lunch</h6>
+                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Lunch</h6>
                     {
                         meal?.lunch.ingredients.map((ingredient, i) => (
                             <Row key={i}>
@@ -91,7 +100,7 @@ const MealCard = ({ meal }) => {
                     }
                 </div>
                 <div>
-                    <h6>Dinner</h6>
+                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Dinner</h6>
                     {
                         meal?.dinner.ingredients.map((ingredient, i) => (
                             <Row key={i}>
@@ -108,7 +117,7 @@ const MealCard = ({ meal }) => {
                     }
                 </div>
                 <div>
-                    <h6>Snacks</h6>
+                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Snacks</h6>
                     {
                         meal?.snacks.ingredients.map((ingredient, i) => (
                             <Row key={i}>

@@ -15,36 +15,27 @@ const { Option } = Select
 
 const MealPage = () => {
     const [modalVisible, setModalVisible] = useState(false)
+    const [sort, setSort] = useState('desc')
+    const [filter, setFilter] = useState('week')
     const [mealData, setMealData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [filterMeals] = usePost('/api/meal/filter')
-    //pull out asc, desc from filter and make it its on select
 
     useEffect(() => {
         setLoading(true)
-        filterMeals()
-            .then(data => {
-                console.log(data)
-                setMealData(data)
-                setLoading(false)
-            })
-    }, [])
-
-    const handleToggleModal = () => {
-        setModalVisible(!modalVisible)
-    }
-
-    const handleFilterChange = (value) => {
-        console.log(value)
-        setLoading(true)
         filterMeals({
-            filter: value
+            sort,
+            filter
         })
             .then(data => {
                 console.log(data)
                 setMealData(data)
                 setLoading(false)
             })
+    }, [sort, filter])
+
+    const handleToggleModal = () => {
+        setModalVisible(!modalVisible)
     }
 
     // mealData.forEach(element => {
@@ -62,37 +53,25 @@ const MealPage = () => {
                 <Menu
                     mode='inline'
                     style={{ height: '100%', borderRight: 0 }}
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={[filter]}
                     defaultOpenKeys={['sub1']}
                 >
                     <SubMenu key='sub1' title='Meal Plans'>
                         <Item
                             key='week'
-                            onClick={(event) => handleFilterChange(event.key)}
+                            onClick={(event) => setFilter(event.key)}
                         >
                             This Week
                         </Item>
                         <Item
-                            key='desc'
-                            onClick={(event) => handleFilterChange(event.key)}
-                        >
-                            Newest to Oldest
-                        </Item>
-                        <Item
-                            key='asc'
-                            onClick={(event) => handleFilterChange(event.key)}
-                        >
-                            Oldest to Newest
-                        </Item>
-                        <Item
                             key='starred'
-                            onClick={(event) => handleFilterChange(event.key)}
+                            onClick={(event) => setFilter(event.key)}
                         >
                             Starred
                         </Item>
                         <Item
                             key='archived'
-                            onClick={(event) => handleFilterChange(event.key)}
+                            onClick={(event) => setFilter(event.key)}
                         >
                             Archived
                         </Item>
@@ -101,7 +80,7 @@ const MealPage = () => {
             </Sider>
             <Content style={{ margin: '15px' }}>
                 <Row>
-                    <Col xs={24} md={4} >
+                    <Col xs={24} sm={6} md={4} >
                         <Button
                             style={{ width: '100%', marginBottom: '10px' }}
                             type='primary'
@@ -110,38 +89,46 @@ const MealPage = () => {
                             Add Meal Plan
                         </Button>
                     </Col>
-                    <Col xs={24} md={0} >
+                    <Col xs={24} md={12} >
                         <Select
                             style={{ width: '100%', marginBottom: '10px' }}
-                            placeholder='Filter Meal Plans'
-                            onChange={(event) => handleFilterChange(event)}
+                            defaultValue={'desc'}
+                            onChange={(event) => setSort(event)}
                         >
                             <Option
-                                key='0'
-                                value='week'
-                            >
-                                This Week
-                            </Option>
-                            <Option
-                                key='1'
+                                key='desc'
                                 value='desc'
                             >
                                 Newest to Oldest
                             </Option>
                             <Option
-                                key='2'
+                                key='asc'
                                 value='asc'
                             >
                                 Oldest to Newest
                             </Option>
+                        </Select>
+                    </Col>
+                    <Col xs={24} md={0} >
+                        <Select
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            placeholder='Filter Meal Plans'
+                            onChange={(event) => setFilter(event)}
+                        >
                             <Option
-                                key='3'
+                                key='select_week'
+                                value='week'
+                            >
+                                This Week
+                            </Option>
+                            <Option
+                                key='select_starred'
                                 value='starred'
                             >
                                 Starred
                             </Option>
                             <Option
-                                key='4'
+                                key='select_archived'
                                 value='archived'
                             >
                                 Archived
