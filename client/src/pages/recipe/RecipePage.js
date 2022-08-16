@@ -2,16 +2,16 @@
 import { useState } from 'react'
 // Components
 import PageSider from '../components/PageSider'
+import FilterSelect from '../components/FilterSelect'
 import RecipeList from './components/RecipeList'
 import AddRecipeModal from './components/AddRecipeModal'
 // Antd
-import { Layout, Row, Col, Button, Input, Select } from 'antd'
+import { Layout, Row, Col, Button, Input } from 'antd'
 // Utils
 import { recipeCategories } from '../../utils/form'
 import { useFilterGet } from '../../utils/API'
 
 const { Content } = Layout
-const { Option } = Select
 
 const RecipePage = () => {
     const [search, setSearch] = useState('')
@@ -60,22 +60,11 @@ const RecipePage = () => {
                         />
                     </Col>
                     <Col xs={24} md={0} >
-                        <Select
-                            style={{ width: '100%', marginBottom: '10px' }}
-                            placeholder='Filter Recipes'
-                            onChange={(event) => handleFilterChange(event)}
-                        >
-                            {
-                                recipeCategories.map((recipeCategory) => (
-                                    <Option
-                                        key={recipeCategory.value}
-                                        value={recipeCategory.value}
-                                    >
-                                        {recipeCategory.label}
-                                    </Option>
-                                ))
-                            }
-                        </Select>
+                        <FilterSelect
+                            defaultValue='all'
+                            handleFilterChange={handleFilterChange}
+                            categories={recipeCategories}
+                        />
                     </Col>
                 </Row>
                 <RecipeList

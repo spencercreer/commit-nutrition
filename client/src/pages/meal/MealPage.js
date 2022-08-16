@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 // Components
 import PageSider from '../components/PageSider'
+import FilterSelect from '../components/FilterSelect'
 import AddMealPlanModal from './components/AddMealPlanModal'
 import MealCard from '../../components/MealCard'
 import LoadingCards from '../../components/LoadingCards'
@@ -70,7 +71,7 @@ const MealPage = () => {
                     </Col>
                     <Col xs={24} md={12} >
                         <Select
-                            className='control'
+                            style={{ width: '100%', marginBottom: '10px' }}
                             defaultValue='desc'
                             onChange={(event) => setSort(event)}
                         >
@@ -89,30 +90,11 @@ const MealPage = () => {
                         </Select>
                     </Col>
                     <Col xs={24} md={0} >
-                        <Select
-                            className='control'
+                        <FilterSelect
                             defaultValue='week'
-                            onChange={(event) => setFilter(event)}
-                        >
-                            <Option
-                                key='select_week'
-                                value='week'
-                            >
-                                This Week
-                            </Option>
-                            <Option
-                                key='select_starred'
-                                value='starred'
-                            >
-                                Starred
-                            </Option>
-                            <Option
-                                key='select_archived'
-                                value='archived'
-                            >
-                                Archived
-                            </Option>
-                        </Select>
+                            handleFilterChange={handleFilterChange}
+                            categories={mealCategories}
+                        />
                     </Col>
                 </Row>
                 {/* <MealForm /> */}

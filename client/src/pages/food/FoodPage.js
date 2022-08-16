@@ -2,16 +2,16 @@
 import { useState } from 'react'
 // Components
 import PageSider from '../components/PageSider'
+import FilterSelect from '../components/FilterSelect'
 import FoodList from './components/FoodList'
 import AddFoodModal from './components/AddFoodModal'
 // Antd
-import { Layout, Row, Col, Button, Input, Select } from 'antd'
+import { Layout, Row, Col, Button, Input } from 'antd'
 // Utils
 import { foodCategories } from '../../utils/form'
 import { useFilterGet } from '../../utils/API'
 
 const { Content } = Layout
-const { Option } = Select
 
 const FoodPage = () => {
     const [search, setSearch] = useState('')
@@ -60,22 +60,11 @@ const FoodPage = () => {
                         />
                     </Col>
                     <Col xs={24} md={0} >
-                        <Select
-                            style={{ width: '100%', marginBottom: '10px' }}
-                            placeholder='Filter Foods'
-                            onChange={(event) => handleFilterChange(event)}
-                        >
-                            {
-                                foodCategories.map((foodCategory, i) => (
-                                    <Option
-                                        key={foodCategory.value}
-                                        value={foodCategory.value}
-                                    >
-                                        {foodCategory.label}
-                                    </Option>
-                                ))
-                            }
-                        </Select>
+                        <FilterSelect
+                            defaultValue='all'
+                            handleFilterChange={handleFilterChange}
+                            categories={foodCategories}
+                        />
                     </Col>
                 </Row>
                 <FoodList
