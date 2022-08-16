@@ -1,26 +1,51 @@
 // React
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 // Components
 import AddMealPlanModal from './components/AddMealPlanModal'
 import MealCard from '../../components/MealCard'
 import LoadingCards from '../../components/LoadingCards'
 // Antd
-import { Layout, Menu, Button } from 'antd'
+import { Layout, Row, Col, Menu, Button, Select } from 'antd'
 // Utils
-import { useGet } from '../../utils/API'
+import { usePost } from '../../utils/API'
 
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
+const { Option } = Select
 
 const MealPage = () => {
     const [modalVisible, setModalVisible] = useState(false)
+    const [mealData, setMealData] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [filterMeals] = usePost('/api/meal/filter')
+
+    useEffect(() => {
+        setLoading(true)
+        filterMeals()
+            .then(data => {
+                console.log(data)
+                setMealData(data)
+                setLoading(false)
+            })
+    }, [])
 
     const handleToggleModal = () => {
         setModalVisible(!modalVisible)
     }
 
-    const { data: mealData, loading } = useGet('/api/meal')
+    const handleFilterChange = (value) => {
+        console.log(value)
+        setLoading(true)
+        filterMeals({
+            filter: value
+        })
+            .then(data => {
+                console.log(data)
+                setMealData(data)
+                setLoading(false)
+            })
+    }
+
     // mealData.forEach(element => {
     //     console.log(moment(element?.date).format('L'), moment(Date.now()).format('L'))
     // });
@@ -29,9 +54,9 @@ const MealPage = () => {
         <>
             <Sider
                 width={200}
-                className='site-layout-background'
                 breakpoint='md'
                 collapsedWidth='0'
+                trigger={null}
             >
                 <Menu
                     mode='inline'
@@ -39,21 +64,90 @@ const MealPage = () => {
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={['sub1']}
                 >
-                    <SubMenu key='sub1' title='COMMIT Nutrition'>
-                        <Item key='1'><Link to={'/foods'} >Foods</Link></Item>
-                        <Item key='2'><Link to={'/recipes'} >Recipes</Link></Item>
-                        <Item key='3'><Link to={'/meals'} >Meals</Link></Item>
+                    <SubMenu key='sub1' title='Meal Plans'>
+                        <Item
+                            key='week'
+                            onClick={(event) => handleFilterChange(event.key)}
+                        >
+                            This Week
+                        </Item>
+                        <Item
+                            key='desc'
+                            onClick={(event) => handleFilterChange(event.key)}
+                        >
+                            Newest to Oldest
+                        </Item>
+                        <Item
+                            key='asc'
+                            onClick={(event) => handleFilterChange(event.key)}
+                        >
+                            Oldest to Newest
+                        </Item>
+                        <Item
+                            key='starred'
+                            onClick={(event) => handleFilterChange(event.key)}
+                        >
+                            Starred
+                        </Item>
+                        <Item
+                            key='archived'
+                            onClick={(event) => handleFilterChange(event.key)}
+                        >
+                            Archived
+                        </Item>
                     </SubMenu>
                 </Menu>
             </Sider>
             <Content style={{ margin: '15px' }}>
-                <Button
-                    style={{ marginBottom: '10px' }}
-                    type='primary'
-                    onClick={() => setModalVisible(true)}
-                >
-                    Add Meal Plan
-                </Button>
+                <Row>
+                    <Col xs={24} md={4} >
+                        <Button
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            type='primary'
+                            onClick={() => setModalVisible(true)}
+                        >
+                            Add Meal Plan
+                        </Button>
+                    </Col>
+                    <Col xs={24} md={0} >
+                        <Select
+                            style={{ width: '100%', marginBottom: '10px' }}
+                            placeholder='Filter Meal Plans'
+                            onChange={(event) => handleFilterChange(event)}
+                        >
+                            <Option
+                                key='0'
+                                value='week'
+                            >
+                                This Week
+                            </Option>
+                            <Option
+                                key='1'
+                                value='desc'
+                            >
+                                Newest to Oldest
+                            </Option>
+                            <Option
+                                key='2'
+                                value='asc'
+                            >
+                                Oldest to Newest
+                            </Option>
+                            <Option
+                                key='3'
+                                value='starred'
+                            >
+                                Starred
+                            </Option>
+                            <Option
+                                key='4'
+                                value='archived'
+                            >
+                                Archived
+                            </Option>
+                        </Select>
+                    </Col>
+                </Row>
                 {/* <MealForm /> */}
                 {/* Below will be moved to meal list */}
                 {
@@ -61,10 +155,10 @@ const MealPage = () => {
                         <LoadingCards number={12} />
                         :
                         mealData
-                        // ?.filter(({ date }) => moment(date).isSame(moment(), 'week'))
-                        .map((meal, i) => (
-                            <MealCard key={i} meal={meal} />
-                        ))
+                            // ?.filter(({ date }) => moment(date).isSame(moment(), 'week'))
+                            .map((meal, i) => (
+                                <MealCard key={i} meal={meal} />
+                            ))
                 }
                 <AddMealPlanModal
                     visible={modalVisible}

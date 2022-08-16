@@ -1,95 +1,96 @@
 const { Meal } = require('../models')
 const moment = require('moment')
 
+const populate = [
+    {
+        path: 'breakfast',
+        populate: {
+            path: 'ingredients',
+            populate: {
+                path: 'foodId',
+                model: 'Food'
+            }
+        }
+    },
+    {
+        path: 'breakfast',
+        populate: {
+            path: 'recipes',
+            populate: {
+                path: 'recipeId',
+                model: 'Recipe'
+            }
+        }
+    },
+    {
+        path: 'lunch',
+        populate: {
+            path: 'ingredients',
+            populate: {
+                path: 'foodId',
+                model: 'Food'
+            }
+        }
+    },
+    {
+        path: 'lunch',
+        populate: {
+            path: 'recipes',
+            populate: {
+                path: 'recipeId',
+                model: 'Recipe'
+            }
+        }
+    },
+    {
+        path: 'dinner',
+        populate: {
+            path: 'ingredients',
+            populate: {
+                path: 'foodId',
+                model: 'Food'
+            }
+        }
+    },
+    {
+        path: 'dinner',
+        populate: {
+            path: 'recipes',
+            populate: {
+                path: 'recipeId',
+                model: 'Recipe'
+            }
+        }
+    },
+    {
+        path: 'snacks',
+        populate: {
+            path: 'ingredients',
+            populate: {
+                path: 'foodId',
+                model: 'Food'
+            }
+        }
+    },
+    {
+        path: 'snacks',
+        populate: {
+            path: 'recipes',
+            populate: {
+                path: 'recipeId',
+                model: 'Recipe'
+            }
+        }
+    }
+]
+
 const mealController = {
     getMeals(req, res) {
+        const sort = -1
         Meal.find()
             .select('-__v')
-            .sort({ date: 1 })
-            .populate(
-                [
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    }
-                ]
-            )
+            .sort({ date: sort })
+            .populate(populate)
             .then((dbMealData) => {
                 res.json(dbMealData)
             })
@@ -101,90 +102,7 @@ const mealController = {
     getMealById(req, res) {
         Meal.findOne({ _id: req.params.id })
             .select('-__v')
-            .populate(
-                [
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    }
-                ]
-            )
+            .populate(populate)
             .then((dbMealData) => {
                 res.json(dbMealData)
             })
@@ -202,90 +120,7 @@ const mealController = {
             }
         })
             .select('-__v')
-            .populate(
-                [
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    }
-                ]
-            )
+            .populate(populate)
             .then((dbMealData) => {
                 res.json(dbMealData)
             })
@@ -293,6 +128,50 @@ const mealController = {
                 console.log(err)
                 res.json(500).json(err)
             })
+    },
+    filterMeals(req, res) {
+        let sort = -1
+        const filter = req.body.filter
+        let where
+        switch (filter) {
+            case 'week':
+                const weekStart = moment().startOf('week')
+                where = {
+                    date: {
+                        $gte: weekStart.toDate(),
+                        $lte: moment(weekStart).endOf('week').toDate()
+                    }
+                }
+                break;
+            case 'starred':
+                where = {
+                    status: "starred"
+                }
+                break;
+            case 'archived':
+                where = {
+                    status: "archived"
+                }
+                break;
+            case 'asc':
+                sort = 1
+                break;
+            default:
+                where = {}
+                break;
+        }
+        Meal.find(where)
+            .select('-__v')
+            .populate(populate)
+            .sort({ date: sort })
+            .then((dbMealData) => {
+                res.json(dbMealData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.json(500).json(err)
+            })
+
     },
     getWeeksMeals(req, res) {
         const weekStart = moment().startOf('week')
@@ -303,90 +182,7 @@ const mealController = {
             }
         })
             .select('-__v')
-            .populate(
-                [
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    }
-                ]
-            )
+            .populate(populate)
             .then((dbMealData) => {
                 res.json(dbMealData)
             })
@@ -405,90 +201,7 @@ const mealController = {
             }
         })
             .select('-__v')
-            .populate(
-                [
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'breakfast',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'lunch',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'dinner',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'ingredients',
-                            populate: {
-                                path: 'foodId',
-                                model: 'Food'
-                            }
-                        }
-                    },
-                    {
-                        path: 'snacks',
-                        populate: {
-                            path: 'recipes',
-                            populate: {
-                                path: 'recipeId',
-                                model: 'Recipe'
-                            }
-                        }
-                    }
-                ]
-            )
+            .populate(populate)
             .then((dbMealData) => {
                 res.json(dbMealData)
             })

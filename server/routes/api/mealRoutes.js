@@ -4,10 +4,13 @@ const {
     getMealById,
     getTodaysMeal,
     getWeeksMeals,
-    createMeal
+    createMeal,
+    filterMeals
 } = require('../../controllers/mealController')
 
 router.route('/').get(getMeals).post(createMeal)
+
+router.route('/filter').post(filterMeals)
 
 router.route('/today').get(getTodaysMeal)
 

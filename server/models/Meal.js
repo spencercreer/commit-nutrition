@@ -4,8 +4,15 @@ const recipeIngredientSchema = require('./RecipeIngredient')
 
 const mealSchema = new Schema(
     {
+        name: {
+            type: String
+        },
         date: {
             type: Date
+        },
+        status: {
+            // active, archived, starred
+            type: String
         },
         breakfast: {
             ingredients: [ingredientSchema],

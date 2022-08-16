@@ -21,12 +21,12 @@ function App() {
             element={<Dashboard />}
           />
           <Route
-            path="/login"
-            element={<LoginPage form={'login'} />}
-          />
-          <Route
             path="/signup"
             element={<LoginPage form={'signup'} />}
+          />
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
           />
           <Route
             path="/foods"

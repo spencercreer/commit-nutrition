@@ -6,7 +6,7 @@ import MealPlanModal from '../pages/meal/components/MealPlanModal'
 import CalendarModal from './CalendarModal';
 // Antd
 import { Row, Card } from 'antd'
-import { CalendarOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { CalendarOutlined, EllipsisOutlined, StarOutlined, StarTwoTone } from '@ant-design/icons';
 // Utils
 import moment from 'moment'
 
@@ -31,8 +31,20 @@ const MealCard = ({ meal }) => {
     return (
         <>
             <Card
-                // key={i}
-                title={<div>{moment(meal?.date).format('dddd, MMMM Do YYYY')}</div>}
+                title={
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        {moment(meal?.date).format('dddd, MMMM Do YYYY')}
+                        <div>
+                            {
+                                meal.status === "starred"
+                                    ?
+                                    <StarTwoTone />
+                                    :
+                                    <StarOutlined />
+                            }
+                        </div>
+                    </div>
+                }
                 actions={[
                     <EllipsisOutlined
                         key='ellipsis'

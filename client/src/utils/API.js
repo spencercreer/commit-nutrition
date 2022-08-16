@@ -64,7 +64,7 @@ export const useFilterGet = (url) => {
             const regex = new RegExp(search, "gi")
             const name = item.name
             const searched = regex.test(name)
-            if (filter != 'all') {
+            if (filter !== 'all') {
                 return item.category === filter && searched
             } else {
                 return searched
