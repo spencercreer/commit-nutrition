@@ -61,6 +61,10 @@ export const servingUnits = [
 
 export const foodCategories = [
     {
+        label: 'All',
+        value: 'all',
+    },
+    {
         label: 'Vegetables',
         value: 'vegetables',
     },
@@ -108,6 +112,10 @@ export const foodCategories = [
 
 export const recipeCategories = [
     {
+        label: 'All',
+        value: 'all',
+    },
+    {
         label: 'Breakfast',
         value: 'breakfast',
     },
@@ -126,6 +134,21 @@ export const recipeCategories = [
     {
         label: 'Dessert',
         value: 'dessert'
+    }
+]
+
+export const mealCategories = [
+    {
+        label: 'This Week',
+        value: 'week'
+    },
+    {
+        label: 'Starred',
+        value: 'starred'
+    },
+    {
+        label: 'Archived',
+        value: 'archived'
     }
 ]
 

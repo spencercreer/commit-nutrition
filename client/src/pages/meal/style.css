@@ -1,0 +1,14 @@
+.menu {
+    height: 100%;
+    border-right: 0;
+}
+
+.content {
+    margin: 15px;
+}
+
+.control {
+    width: 100%;
+    margin-bottom: 10px;
+
+}

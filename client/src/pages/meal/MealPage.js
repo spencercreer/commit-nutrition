@@ -1,16 +1,19 @@
 // React
 import { useState, useEffect } from 'react'
 // Components
+import PageSider from '../components/PageSider'
 import AddMealPlanModal from './components/AddMealPlanModal'
 import MealCard from '../../components/MealCard'
 import LoadingCards from '../../components/LoadingCards'
 // Antd
-import { Layout, Row, Col, Menu, Button, Select } from 'antd'
+import { Layout, Row, Col, Button, Select } from 'antd'
 // Utils
 import { usePost } from '../../utils/API'
+import { mealCategories } from '../../utils/form'
+// Styles
+import './style.css'
 
-const { Content, Sider } = Layout
-const { SubMenu, Item } = Menu
+const { Content } = Layout
 const { Option } = Select
 
 const MealPage = () => {
@@ -38,51 +41,27 @@ const MealPage = () => {
         setModalVisible(!modalVisible)
     }
 
+    const handleFilterChange = (value) => {
+        setFilter(value)
+    }
+
     // mealData.forEach(element => {
     //     console.log(moment(element?.date).format('L'), moment(Date.now()).format('L'))
     // });
 
     return (
         <>
-            <Sider
-                width={200}
-                breakpoint='md'
-                collapsedWidth='0'
-                trigger={null}
-            >
-                <Menu
-                    mode='inline'
-                    style={{ height: '100%', borderRight: 0 }}
-                    defaultSelectedKeys={[filter]}
-                    defaultOpenKeys={['sub1']}
-                >
-                    <SubMenu key='sub1' title='Meal Plans'>
-                        <Item
-                            key='week'
-                            onClick={(event) => setFilter(event.key)}
-                        >
-                            This Week
-                        </Item>
-                        <Item
-                            key='starred'
-                            onClick={(event) => setFilter(event.key)}
-                        >
-                            Starred
-                        </Item>
-                        <Item
-                            key='archived'
-                            onClick={(event) => setFilter(event.key)}
-                        >
-                            Archived
-                        </Item>
-                    </SubMenu>
-                </Menu>
-            </Sider>
-            <Content style={{ margin: '15px' }}>
+            <PageSider
+                title='Meal Plans'
+                filter={filter}
+                handleFilterChange={handleFilterChange}
+                categories={mealCategories}
+            />
+            <Content className='content'>
                 <Row>
-                    <Col xs={24} sm={6} md={4} >
+                    <Col xs={24} md={6} >
                         <Button
-                            style={{ width: '100%', marginBottom: '10px' }}
+                            className='control'
                             type='primary'
                             onClick={() => setModalVisible(true)}
                         >
@@ -91,8 +70,8 @@ const MealPage = () => {
                     </Col>
                     <Col xs={24} md={12} >
                         <Select
-                            style={{ width: '100%', marginBottom: '10px' }}
-                            defaultValue={'desc'}
+                            className='control'
+                            defaultValue='desc'
                             onChange={(event) => setSort(event)}
                         >
                             <Option
@@ -111,8 +90,8 @@ const MealPage = () => {
                     </Col>
                     <Col xs={24} md={0} >
                         <Select
-                            style={{ width: '100%', marginBottom: '10px' }}
-                            placeholder='Filter Meal Plans'
+                            className='control'
+                            defaultValue='week'
                             onChange={(event) => setFilter(event)}
                         >
                             <Option
