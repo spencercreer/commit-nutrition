@@ -11,8 +11,11 @@ const mealSchema = new Schema(
             type: Date
         },
         status: {
-            // active, archived, starred
+            // active, archived
             type: String
+        },
+        starred: {
+            type: Boolean
         },
         breakfast: {
             ingredients: [ingredientSchema],

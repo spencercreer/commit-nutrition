@@ -145,7 +145,10 @@ const MealPage = () => {
                         mealData
                             // ?.filter(({ date }) => moment(date).isSame(moment(), 'week'))
                             .map((meal, i) => (
-                                <MealCard key={i} meal={meal} />
+                                <MealCard
+                                    key={i}
+                                    meal={meal}
+                                />
                             ))
                 }
                 <AddMealPlanModal

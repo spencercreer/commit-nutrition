@@ -145,7 +145,7 @@ const mealController = {
                 break;
             case 'starred':
                 where = {
-                    status: "starred"
+                    starred: true
                 }
                 break;
             case 'archived':
@@ -169,24 +169,6 @@ const mealController = {
                 res.json(500).json(err)
             })
 
-    },
-    getWeeksMeals(req, res) {
-        const weekStart = moment().startOf('week')
-        Meal.find({
-            date: {
-                $gte: weekStart.toDate(),
-                $lte: moment(weekStart).endOf('week').toDate()
-            }
-        })
-            .select('-__v')
-            .populate(populate)
-            .then((dbMealData) => {
-                res.json(dbMealData)
-            })
-            .catch((err) => {
-                console.log(err)
-                res.json(500).json(err)
-            })
     },
     getTodaysMeal(req, res) {
         //Need to search for the date only not time
@@ -220,6 +202,18 @@ const mealController = {
                             res.json({ success: true, ...dbMealData })
                         })
                 }
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
+    },
+    updateMealStar(req, res) {
+        _id = req.body.mealId
+        starred = req.body.starred
+        Meal.updateOne({ _id }, { starred })
+            .then((updatedMeal) => {
+                res.json({ success: true, ...updatedMeal })
             })
             .catch((err) => {
                 console.log(err)

@@ -1,20 +1,22 @@
 // React
-import { useState } from 'react';
-import NutrientsRow from './NutrientsRow';
+import { useState } from 'react'
+import NutrientsRow from './NutrientsRow'
 // Components
 import MealPlanModal from '../pages/meal/components/MealPlanModal'
-import CalendarModal from './CalendarModal';
+import CalendarModal from './CalendarModal'
 // Antd
 import { Row, Card } from 'antd'
-import { CalendarOutlined, EllipsisOutlined, StarOutlined, StarTwoTone } from '@ant-design/icons';
+import { CalendarOutlined, EllipsisOutlined, StarOutlined, StarTwoTone } from '@ant-design/icons'
 // Utils
+import { usePost } from '../utils/API'
 import moment from 'moment'
 
 const MealCard = ({ meal }) => {
     const [selectedRecipeId, setSelectedRecipeId] = useState()
     const [modalVisible, setModalVisible] = useState(false)
     const [calendarModalVisible, setCalendarModalVisible] = useState(false)
-    const [starred, setStarred] = useState(meal?.status === "starred")
+    const [starred, setStarred] = useState(meal?.starred)
+    const [updateMeal] = usePost('api/meal/updateStar')
 
     const handleOnClick = (recipeId) => {
         handleToggleModal()
@@ -30,6 +32,13 @@ const MealCard = ({ meal }) => {
     }
 
     const handleStarClick = () => {
+        updateMeal({ 
+            mealId: meal._id,
+            starred: !starred
+        })
+        .then(res => {
+            console.log(res)
+        })
         setStarred(!starred)
     }
 
