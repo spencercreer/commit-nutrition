@@ -32,7 +32,6 @@ const MealPage = () => {
             filter
         })
             .then(data => {
-                console.log(data)
                 setMealData(data)
                 setLoading(false)
             })

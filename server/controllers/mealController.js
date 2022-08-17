@@ -111,29 +111,20 @@ const mealController = {
                 res.json(500).json(err)
             })
     },
-    getTodaysMeal(req, res) {
-        const today = moment().startOf('day')
-        Meal.findOne({
-            date: {
-                $gte: today.toDate(),
-                $lte: moment(today).endOf('day').toDate()
-            }
-        })
-            .select('-__v')
-            .populate(populate)
-            .then((dbMealData) => {
-                res.json(dbMealData)
-            })
-            .catch((err) => {
-                console.log(err)
-                res.json(500).json(err)
-            })
-    },
     filterMeals(req, res) {
         let sort = req.body.sort === "asc" ? 1 : -1
         const filter = req.body.filter
         let where
         switch (filter) {
+            case 'today':
+                const today = moment().startOf('day')
+                where = {
+                    date: {
+                        $gte: today.toDate(),
+                        $lte: moment(today).endOf('day').toDate()
+                    }
+                }
+                break;
             case 'week':
                 const weekStart = moment().startOf('week')
                 where = {

@@ -1,19 +1,39 @@
+// React
+import { useState, useEffect } from 'react'
 // Components
-import MealCard from "../../components/MealCard"
-import ProfileForm from "./components/ProfileForm"
-import NutrientsChart from "../../components/NutrientsChart"
-import LoadingCards from "../../components/LoadingCards"
+import MealCard from '../../components/MealCard'
+import ProfileForm from './components/ProfileForm'
+import NutrientsChart from '../../components/NutrientsChart'
+import LoadingCards from '../../components/LoadingCards'
 // Antd
 import { Layout, Row, Col, Card, Skeleton } from 'antd'
 // Utils
+import { usePost } from '../../utils/API'
 import { useGet } from '../../utils/API'
 
 const { Content } = Layout
 
 const Dashboard = () => {
-  const { data: mealData, loading } = useGet('/api/meal/today')
-  // console.log(mealData)
-  // loading = true
+  const [mealData, setMealData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [filterMeals] = usePost('/api/meal/filter')
+
+  useEffect(() => {
+    setLoading(true)
+    filterMeals({
+      filter: 'today'
+    })
+      .then(data => {
+        if (data.length > 0) {
+          setMealData(data[0])
+          setLoading(false)
+        } else {
+          setMealData({})
+          setLoading(false)
+        }        
+      })
+  }, [])
+
   return (
     <>
       {

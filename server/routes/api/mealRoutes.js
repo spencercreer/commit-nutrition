@@ -2,7 +2,6 @@ const router = require('express').Router()
 const {
     getMeals,
     getMealById,
-    getTodaysMeal,
     createMeal,
     filterMeals,
     updateMealStar
@@ -11,8 +10,6 @@ const {
 router.route('/').get(getMeals).post(createMeal)
 
 router.route('/filter').post(filterMeals)
-
-router.route('/today').get(getTodaysMeal)
 
 router.route('/:id').get(getMealById)
 
