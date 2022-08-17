@@ -24,13 +24,8 @@ const Dashboard = () => {
       filter: 'today'
     })
       .then(data => {
-        if (data.length > 0) {
-          setMealData(data[0])
-          setLoading(false)
-        } else {
-          setMealData({})
-          setLoading(false)
-        }        
+        setMealData(data[0] || {})
+        setLoading(false)
       })
   }, [])
 
