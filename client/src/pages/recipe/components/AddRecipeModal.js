@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Modal, Row, Col, Button, Form, Input, InputNumber, AutoComplete, Select, Space, Alert, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // Components
-import NutrientsRow from '../../../components/NutrientsRow';
+import NutrientsRow from '../../components/NutrientsRow';
 // Utils
 import { useGet, usePost } from '../../../utils/API'
 import { validateMessages, recipeCategories, servingUnits } from '../../../utils/form';

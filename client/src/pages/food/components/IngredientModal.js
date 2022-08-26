@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Modal, Skeleton, Button } from 'antd'
-import NutrientsChart from '../../../components/NutrientsChart'
-import RecipeDetails from '../../../components/RecipeDetails'
-import ServingDetails from '../../../components/ServingDetails'
+import NutrientsChart from '../../components/NutrientsChart'
+import RecipeDetails from '../../components/RecipeDetails'
+import ServingDetails from '../../components/ServingDetails'
 import { useGet } from '../../../utils/API'
 import { Card } from 'antd'
 

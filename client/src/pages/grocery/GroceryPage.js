@@ -24,7 +24,7 @@ const GroceryPage = () => {
 
   return (
     <Content style={{ margin: '15px' }}>
-      {
+      {/* {
         loading ?
           <div>Loading</div>
           :
@@ -37,14 +37,14 @@ const GroceryPage = () => {
                   <h3>{moment(meal.date).format('MMMM Do YYYY')}</h3>
                   <>
                     {
-                      meal.breakfast.ingredients?.map((ingredient, j) => (
+                      meal.breakfast?.ingredients?.map((ingredient, j) => (
                         <div key={`breakfast_ing_${i}_${j}`}>{calculateAmount(ingredient)} {ingredient.foodId?.serving.unit} {ingredient.foodId?.name}</div>
                       ))
                     }
                   </>
                   <>
                     {
-                      meal.breakfast.recipes?.map((recipe, j) => (
+                      meal.breakfast?.recipes?.map((recipe, j) => (
                         <div key={`breakfast_rec_${i}_${j}`}>
                           <h6>{recipe.recipeId?.name}</h6>
                           {
@@ -58,14 +58,14 @@ const GroceryPage = () => {
                   </>
                   <>
                     {
-                      meal.lunch.ingredients?.map((ingredient, j) => (
+                      meal.lunch?.ingredients?.map((ingredient, j) => (
                         <div key={`lunch_ing_${i}_${j}`}>{calculateAmount(ingredient)} {ingredient.foodId?.serving.unit} {ingredient.foodId?.name}</div>
                       ))
                     }
                   </>
                   <>
                     {
-                      meal.lunch.recipes?.map((recipe, j) => (
+                      meal.lunch?.recipes?.map((recipe, j) => (
                         <div key={`lunch_rec_${i}_${j}`}>
                           <h6>{recipe.recipeId?.name}</h6>
                         </div>
@@ -74,14 +74,14 @@ const GroceryPage = () => {
                   </>
                   <>
                     {
-                      meal.dinner.ingredients?.map((ingredient, j) => (
+                      meal.dinner?.ingredients?.map((ingredient, j) => (
                         <div key={`dinner_ing_${i}_${j}`}>{calculateAmount(ingredient)} {ingredient.foodId?.serving.unit} {ingredient.foodId?.name}</div>
                       ))
                     }
                   </>
                   <>
                     {
-                      meal.dinner.recipes?.map((recipe, j) => (
+                      meal.dinner?.recipes?.map((recipe, j) => (
                         <div key={`dinner_rec_${i}_${j}`}>
                           <h6>{recipe.recipeId?.name}</h6>
                         </div>
@@ -90,14 +90,14 @@ const GroceryPage = () => {
                   </>
                   <>
                     {
-                      meal.snacks.ingredients?.map((ingredient, j) => (
+                      meal.snacks?.ingredients?.map((ingredient, j) => (
                         <div key={`snacks_ing_${i}_${j}`}>{calculateAmount(ingredient)} {ingredient.foodId?.serving.unit} {ingredient.foodId?.name}</div>
                       ))
                     }
                   </>
                   <>
                     {
-                      meal.snacks.recipes?.map((recipe, j) => (
+                      meal.snacks?.recipes?.map((recipe, j) => (
                         <div key={`snacks_rec_${i}_${j}`}>
                           <h6>{recipe.recipeId?.name}</h6>
                         </div>
@@ -108,7 +108,7 @@ const GroceryPage = () => {
               ))
             }
           </>
-      }
+      } */}
     </Content>
   )
 }

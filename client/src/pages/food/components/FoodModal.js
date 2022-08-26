@@ -1,6 +1,6 @@
 import { Modal, Skeleton, Button } from 'antd'
-import NutrientsChart from '../../../components/NutrientsChart'
-import NutrientsRow from '../../../components/NutrientsRow'
+import NutrientsChart from '../../components/NutrientsChart'
+import NutrientsRow from '../../components/NutrientsRow'
 import { useGet } from '../../../utils/API'
 
 const FoodModal = ({ foodId, visible, handleCloseModal }) => {

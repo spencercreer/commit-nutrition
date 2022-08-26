@@ -1,10 +1,10 @@
 // React
 import { useState } from 'react';
 // Components
-import LoadingCards from '../../../components/LoadingCards'
+import LoadingCards from '../../components/LoadingCards'
 import FoodModal from './FoodModal';
 import EditFoodModal from './EditFoodModal';
-import NutrientsRow from '../../../components/NutrientsRow';
+import NutrientsRow from '../../components/NutrientsRow';
 // Antd
 import { Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';

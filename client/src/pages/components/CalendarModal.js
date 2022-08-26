@@ -3,7 +3,7 @@ import { useState } from 'react'
 // Antd
 import { Modal, Card, Calendar, Button, Alert, message } from 'antd'
 // Utils
-import { usePost } from '../utils/API'
+import { usePost } from '../../utils/API'
 import moment from 'moment'
 
 const CalendarModal = ({ mealData, visible, handleCloseModal }) => {

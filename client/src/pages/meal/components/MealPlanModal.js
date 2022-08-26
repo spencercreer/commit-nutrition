@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Modal, Skeleton, Button } from 'antd'
 import { useGet } from '../../../utils/API'
 import { Card } from 'antd'
-import NutrientsChart from '../../../components/NutrientsChart'
+import NutrientsChart from '../../components/NutrientsChart'
 
 // const tabList = [
 //     {

@@ -2,13 +2,13 @@
 import { useState } from 'react'
 import NutrientsRow from './NutrientsRow'
 // Components
-import MealPlanModal from '../pages/meal/components/MealPlanModal'
+import MealPlanModal from '../meal/components/MealPlanModal'
 import CalendarModal from './CalendarModal'
 // Antd
 import { Row, Card } from 'antd'
 import { CalendarOutlined, EllipsisOutlined, StarOutlined, StarTwoTone } from '@ant-design/icons'
 // Utils
-import { usePost } from '../utils/API'
+import { usePost } from '../../utils/API'
 import moment from 'moment'
 
 const MealCard = ({ meal }) => {
@@ -77,14 +77,14 @@ const MealCard = ({ meal }) => {
                 <div>
                     <h6 style={{ margin: "10px 0px 5px 0px" }}>Breakfast</h6>
                     {
-                        meal?.breakfast.ingredients.map((ingredient, i) => (
+                        meal?.breakfast?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
                                 <div>{ingredient.foodId?.number_of_servings} {ingredient.foodId?.serving?.size} {ingredient.foodId?.serving?.unit} {ingredient.foodId?.name}</div>
                             </Row>
                         ))
                     }
                     {
-                        meal?.breakfast.recipes.map((ingredient, i) => (
+                        meal?.breakfast?.recipes.map((ingredient, i) => (
                             <Row key={i}>
                                 <a onClick={() => handleOnClick(ingredient.recipeId?._id)}>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</a>
                             </Row>
@@ -94,14 +94,14 @@ const MealCard = ({ meal }) => {
                 <div>
                     <h6 style={{ margin: "10px 0px 5px 0px" }}>Lunch</h6>
                     {
-                        meal?.lunch.ingredients.map((ingredient, i) => (
+                        meal?.lunch?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
                                 <div>{ingredient.foodId?.name} {ingredient.foodId?.number_of_servings} {ingredient.foodId?.serving?.size} {ingredient.foodId?.serving?.unit}</div>
                             </Row>
                         ))
                     }
                     {
-                        meal?.lunch.recipes.map((ingredient, i) => (
+                        meal?.lunch?.recipes.map((ingredient, i) => (
                             <Row key={i}>
                                 <a onClick={() => handleOnClick(ingredient.recipeId?._id)}>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</a>
                             </Row>
@@ -111,14 +111,14 @@ const MealCard = ({ meal }) => {
                 <div>
                     <h6 style={{ margin: "10px 0px 5px 0px" }}>Dinner</h6>
                     {
-                        meal?.dinner.ingredients.map((ingredient, i) => (
+                        meal?.dinner?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
                                 <div>{ingredient.foodId?.name} {ingredient.foodId?.number_of_servings} {ingredient.foodId?.serving?.size} {ingredient.foodId?.serving?.unit}</div>
                             </Row>
                         ))
                     }
                     {
-                        meal?.dinner.recipes.map((ingredient, i) => (
+                        meal?.dinner?.recipes.map((ingredient, i) => (
                             <Row key={i}>
                                 <a onClick={() => handleOnClick(ingredient.recipeId?._id)}>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</a>
                             </Row>
@@ -128,14 +128,14 @@ const MealCard = ({ meal }) => {
                 <div>
                     <h6 style={{ margin: "10px 0px 5px 0px" }}>Snacks</h6>
                     {
-                        meal?.snacks.ingredients.map((ingredient, i) => (
+                        meal?.snacks?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
                                 <div>{ingredient.foodId?.name} {ingredient.foodId?.number_of_servings} {ingredient.foodId?.serving?.size} {ingredient.foodId?.serving?.unit}</div>
                             </Row>
                         ))
                     }
                     {
-                        meal?.snacks.recipes.map((ingredient, i) => (
+                        meal?.snacks?.recipes.map((ingredient, i) => (
                             <Row key={i}>
                                 <a onClick={() => handleOnClick(ingredient.recipeId?._id)}>{ingredient.recipeId?.name} {ingredient.recipeId?.number_of_servings} {ingredient.recipeId?.serving?.size} {ingredient.recipeId?.serving?.unit}</a>
                             </Row>

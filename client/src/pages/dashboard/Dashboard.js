@@ -1,15 +1,14 @@
 // React
 import { useState, useEffect } from 'react'
 // Components
-import MealCard from '../../components/MealCard'
+import MealCard from '../components/MealCard'
 import ProfileForm from './components/ProfileForm'
-import NutrientsChart from '../../components/NutrientsChart'
-import LoadingCards from '../../components/LoadingCards'
+import NutrientsChart from '../components/NutrientsChart'
+import LoadingCards from '../components/LoadingCards'
 // Antd
 import { Layout, Row, Col, Card, Skeleton } from 'antd'
 // Utils
 import { usePost } from '../../utils/API'
-import { useGet } from '../../utils/API'
 
 const { Content } = Layout
 

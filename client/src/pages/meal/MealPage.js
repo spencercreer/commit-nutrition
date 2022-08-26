@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 import PageSider from '../components/PageSider'
 import FilterSelect from '../components/FilterSelect'
 import AddMealPlanModal from './components/AddMealPlanModal'
-import MealCard from '../../components/MealCard'
-import LoadingCards from '../../components/LoadingCards'
+import MealCard from '../components/MealCard'
+import LoadingCards from '../components/LoadingCards'
 // Antd
 import { Layout, Row, Col, Button, Select } from 'antd'
 // Utils

@@ -1,8 +1,8 @@
 // React
 import { useState } from 'react'
 // Components
-import NutrientsRow from '../../../components/NutrientsRow';
-import NutrientsChart from '../../../components/NutrientsChart';
+import NutrientsRow from '../../components/NutrientsRow';
+import NutrientsChart from '../../components/NutrientsChart';
 import MealForm from './MealForm'
 // Antd
 import { Modal, Button, Form, Select, DatePicker, Alert, message } from 'antd';
