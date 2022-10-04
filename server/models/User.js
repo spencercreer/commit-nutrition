@@ -12,6 +12,21 @@ const userSchema = new Schema(
         password: {
             type: String
         },
+        birthdate: {
+            type: Date
+        },
+        gender: {
+            type: String
+        },
+        weight: {
+            type: Number
+        },
+        height: {
+            type: Number
+        },
+        recipes: {
+            type: [Schema.Types.ObjectId]
+        },
         meals: {
             type: [Schema.Types.ObjectId]
         }
