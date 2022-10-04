@@ -1,33 +1,32 @@
 // React
-import { useState } from 'react';
+import React, { useState } from 'react'
 // Components
 import LoadingCards from '../../components/LoadingCards'
 import IngredientModal from '../../food/components/IngredientModal'
-import NutrientsRow from '../../components/NutrientsRow';
+import NutrientsRow from '../../components/NutrientsRow'
 // Antd
 import { Card } from 'antd'
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons'
 
 const RecipeList = ({ loading, recipeData }) => {
-    const [selectedRecipeId, setSelectedRecipeId] = useState()
-    const [modalVisible, setModalVisible] = useState(false)
+  const [selectedRecipeId, setSelectedRecipeId] = useState()
+  const [modalVisible, setModalVisible] = useState(false)
 
-    const handleOnClick = (recipeId) => {
-        handleToggleModal()
-        setSelectedRecipeId(recipeId)
-    }
+  const handleOnClick = (recipeId) => {
+    handleToggleModal()
+    setSelectedRecipeId(recipeId)
+  }
 
-    const handleToggleModal = () => {
-        setModalVisible(!modalVisible)
-    }
+  const handleToggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
 
-    return (
+  return (
         <>
             {
-                loading ?
-                    <LoadingCards number={12} />
-                    :
-                    recipeData?.map((recipe, i) => (
+                loading
+                  ? <LoadingCards number={12} />
+                  : recipeData?.map((recipe, i) => (
                         <Card
                             key={i}
                             title={<div>{recipe.name}</div>}
@@ -46,7 +45,7 @@ const RecipeList = ({ loading, recipeData }) => {
                                 nutrients={{ calories: recipe.serving?.calories, carbs: recipe.serving?.carbs, protein: recipe.serving?.protein, fat: recipe.serving?.fat, sodium: recipe.serving?.sodium }}
                             />
                         </Card>
-                    ))
+                  ))
             }
             {
                 selectedRecipeId &&
@@ -57,7 +56,7 @@ const RecipeList = ({ loading, recipeData }) => {
                 />
             }
         </>
-    )
+  )
 }
 
 export default RecipeList

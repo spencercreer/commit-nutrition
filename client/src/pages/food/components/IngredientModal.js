@@ -1,33 +1,32 @@
-import { useState } from 'react'
-import { Modal, Skeleton, Button } from 'antd'
+import React, { useState } from 'react'
+import { Modal, Skeleton, Button, Card } from 'antd'
 import NutrientsChart from '../../components/NutrientsChart'
 import RecipeDetails from '../../components/RecipeDetails'
 import ServingDetails from '../../components/ServingDetails'
 import { useGet } from '../../../utils/API'
-import { Card } from 'antd'
 
 const tabList = [
-    {
-        key: 'recipe',
-        tab: 'Recipe',
-    },
-    {
-        key: 'serving',
-        tab: 'Serving',
-    },
+  {
+    key: 'recipe',
+    tab: 'Recipe'
+  },
+  {
+    key: 'serving',
+    tab: 'Serving'
+  }
 ]
 
 const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
-    const [activeTab, setActiveTab] = useState('recipe')
-    const { data: recipeData, loading } = useGet(`/api/recipe/${recipeId}`)
+  const [activeTab, setActiveTab] = useState('recipe')
+  const { data: recipeData, loading } = useGet(`/api/recipe/${recipeId}`)
 
-    const onTab1Change = (key) => {
-        setActiveTab(key)
-    }
+  const onTab1Change = (key) => {
+    setActiveTab(key)
+  }
 
-    console.log(recipeData)
+  console.log(recipeData)
 
-    const footerButtons =
+  const footerButtons =
         [
             <Button
                 key='back'
@@ -37,7 +36,7 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
             </Button>
         ]
 
-    return (
+  return (
         <>
             {
                 <Modal
@@ -47,25 +46,23 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
                     footer={footerButtons}
                 >
                     {
-                        loading ?
-                            <Skeleton loading />
-                            :
-                            <Card
+                        loading
+                          ? <Skeleton loading />
+                          : <Card
                                 style={{
-                                    width: '100%',
+                                  width: '100%'
                                 }}
                                 bordered={false}
                                 tabList={tabList}
                                 activeTabKey={activeTab}
                                 onTabChange={(key) => {
-                                    onTab1Change(key)
+                                  onTab1Change(key)
                                 }}
                             >
                                 {
-                                    activeTab === 'recipe' ?
-                                        <RecipeDetails recipeData={recipeData} />
-                                        :
-                                        <ServingDetails recipeData={recipeData} />
+                                    activeTab === 'recipe'
+                                      ? <RecipeDetails recipeData={recipeData} />
+                                      : <ServingDetails recipeData={recipeData} />
                                 }
                                 {/* make this different when loading */}
                                 <NutrientsChart nutrients={{ calories: recipeData?.calories, carbs: recipeData?.carbs, protein: recipeData?.protein, fat: recipeData?.fat, sodium: recipeData?.sodium }} />
@@ -74,7 +71,7 @@ const IngredientModal = ({ recipeId, visible, handleCloseModal }) => {
                 </Modal>
             }
         </>
-    )
+  )
 }
 
 export default IngredientModal

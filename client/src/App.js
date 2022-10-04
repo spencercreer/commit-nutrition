@@ -1,3 +1,4 @@
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav'
 import Dashboard from './pages/dashboard/Dashboard'
@@ -6,11 +7,12 @@ import RecipePage from './pages/recipe/RecipePage'
 import MealPage from './pages/meal/MealPage'
 import GroceryPage from './pages/grocery/GroceryPage'
 import LoginPage from './pages/login/LoginPage'
+import UserInfoPage from './pages/userInfo/UserInfoPage'
 
 import { Layout } from 'antd'
-import './App.css';
+import './App.css'
 
-function App() {
+function App () {
   return (
     <Router>
       <Nav />
@@ -23,6 +25,10 @@ function App() {
           <Route
             path="/signup"
             element={<LoginPage form={'signup'} />}
+          />
+          <Route
+            path="/user"
+            element={<UserInfoPage />}
           />
           <Route
             path="/dashboard"
@@ -47,7 +53,7 @@ function App() {
         </Routes>
       </Layout>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

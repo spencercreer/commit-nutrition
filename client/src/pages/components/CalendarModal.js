@@ -7,38 +7,38 @@ import { usePost } from '../../utils/API'
 import moment from 'moment'
 
 const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
-    const [newDate, setNewDate] = useState()
-    const [loading, setLoading] = useState(false)
-    const [alert, setAlert] = useState()
-    const [createMeal] = usePost('/api/meal')
+  const [newDate, setNewDate] = useState()
+  const [loading, setLoading] = useState(false)
+  const [alert, setAlert] = useState()
+  const [createMeal] = usePost('/api/meal')
 
-    const onChange = (value) => {
-        setNewDate(value)
-    }
+  const onChange = (value) => {
+    setNewDate(value)
+  }
 
-    const handleSubmit = () => {
-        setLoading(true)
-        createMeal({
-            ...mealData,
-            _id: null,
-            date: moment(newDate).format('L'),
-        })
-            .then(res => {
-                if (!res.success) {
-                    setAlert('We found a meal plan with the same date. Edit the existing meal plan or change the date.')
-                } else {
-                    message.success(`Meal plan added successfully!`)
-                }
-                setLoading(false)
-            })
-            .catch(err => {
-                setAlert('We were not able to save this meal plan. Please try again.')
-                console.log(err)
-                setLoading(false)
-            })
-    }
+  const handleSubmit = () => {
+    setLoading(true)
+    createMeal({
+      ...mealData,
+      _id: null,
+      date: moment(newDate).format('L')
+    })
+      .then(res => {
+        if (!res.success) {
+          setAlert('We found a meal plan with the same date. Edit the existing meal plan or change the date.')
+        } else {
+          message.success('Meal plan added successfully!')
+        }
+        setLoading(false)
+      })
+      .catch(err => {
+        setAlert('We were not able to save this meal plan. Please try again.')
+        console.log(err)
+        setLoading(false)
+      })
+  }
 
-    const footerButtons =
+  const footerButtons =
         [
             <Button
                 key='back'
@@ -58,7 +58,7 @@ const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
             </Button>
         ]
 
-    return (
+  return (
         <Modal
             // title={loading ? <Skeleton loading paragraph={{ rows: 0 }} /> : `${mealData.name} Details`}
             visible={visible}
@@ -67,7 +67,7 @@ const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
         >
             <Card
                 style={{
-                    width: '100%',
+                  width: '100%'
                 }}
                 bordered={false}
             >
@@ -81,7 +81,7 @@ const CalendarModal = ({ mealData, visible, handleCloseModal }) => {
                 alert && <Alert message={alert} type='error' />
             }
         </Modal>
-    )
+  )
 }
 
 export default CalendarModal

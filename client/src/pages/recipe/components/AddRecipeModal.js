@@ -1,17 +1,17 @@
 // React
-import { useState } from 'react'
+import React, { useState } from 'react'
 // Antd
-import { Modal, Row, Col, Button, Form, Input, InputNumber, AutoComplete, Select, Space, Alert, message } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Modal, Row, Col, Button, Form, Input, InputNumber, AutoComplete, Select, Space, Alert, message } from 'antd'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 // Components
-import NutrientsRow from '../../components/NutrientsRow';
+import NutrientsRow from '../../components/NutrientsRow'
 // Utils
 import { useGet, usePost } from '../../../utils/API'
-import { validateMessages, recipeCategories, servingUnits } from '../../../utils/form';
+import { validateMessages, recipeCategories, servingUnits } from '../../../utils/form'
 
 const { Item } = Form
 const { Group, TextArea } = Input
-const { Option } = Select;
+const { Option } = Select
 
 const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const [form] = Form.useForm()
@@ -19,7 +19,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
   const [recipeNutrients, setRecipeNutrients] = useState({ calories: null, carbs: null, protein: null, fat: null, sodium: null })
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState()
-  
+
   const { data: foodData } = useGet('/api/food')
   const [createRecipe] = usePost('/api/recipe')
 
@@ -40,7 +40,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         console.log(err)
         setLoading(false)
       })
-  };
+  }
 
   const handleIngredientChange = () => {
     let { ingredients } = form.getFieldsValue()
@@ -64,7 +64,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
       }
     }).filter(Boolean)
 
-    let recipeCal = 0, recipeCarbs = 0, recipeProtein = 0, recipeFat = 0, recipeSodium = 0
+    let recipeCal = 0; let recipeCarbs = 0; let recipeProtein = 0; let recipeFat = 0; let recipeSodium = 0
     ingredients.forEach(ingredient => {
       if (ingredient?._id && ingredient?.number_of_servings) {
         recipeCal += ingredient.serving.calories
@@ -95,7 +95,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
         onClick={() => form.submit()}
       >
         Submit
-      </Button>,
+      </Button>
     ]
 
   return (
@@ -193,7 +193,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                           key='food'
                           name={[field.name, 'foodId']}
                           rules={validateMessages('Food')}
-                          style={{ width: 200, }}
+                          style={{ width: 200 }}
                         >
                           <Select
                             showSearch
@@ -213,7 +213,7 @@ const AddRecipeModal = ({ visible, handleCloseModal }) => {
                       </Col>
                       <Col md={6}>
                         <Item
-                          style={{ width: '100%', }}
+                          style={{ width: '100%' }}
                         >
                           <Input
                             placeholder="Serving Size"

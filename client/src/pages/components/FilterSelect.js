@@ -4,7 +4,7 @@ import { Select } from 'antd'
 const { Option } = Select
 
 const FilterSelect = ({ defaultValue, handleFilterChange, categories }) => {
-    return (
+  return (
         <Select
             style={{ width: '100%', marginBottom: '10px' }}
             defaultValue={defaultValue}
@@ -21,7 +21,7 @@ const FilterSelect = ({ defaultValue, handleFilterChange, categories }) => {
                 ))
             }
         </Select>
-    )
+  )
 }
 
 export default FilterSelect

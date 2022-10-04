@@ -1,17 +1,16 @@
-import { Row, Col, Button, Form, Input, InputNumber, Select, Space } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Row, Col, Button, Form, Input, InputNumber, Select, Space } from 'antd'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 // Utils
-import { validateMessages } from '../../../utils/form';
+import { validateMessages } from '../../../utils/form'
 
 const { Item } = Form
-const { Option } = Select;
+const { Option } = Select
 
 const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) => {
-
   return (
     <Item label={meal.label}>
       <Form.List
-        name={[meal.value, "ingredients"]}
+        name={[meal.value, 'ingredients']}
       >
         {(fields, { add, remove }) => (
           <>
@@ -25,7 +24,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
                       key='food'
                       name={[field.name, 'foodId']}
                       rules={validateMessages('Food')}
-                      style={{ width: 200, }}
+                      style={{ width: 200 }}
                     >
                       <Select
                         showSearch
@@ -45,7 +44,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
                   </Col>
                   <Col md={6}>
                     <Item
-                      style={{ width: '100%', }}
+                      style={{ width: '100%' }}
                     >
                       <Input
                         placeholder="Serving Size"
@@ -88,7 +87,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
         )}
       </Form.List>
       <Form.List
-        name={[meal.value, "recipes"]}
+        name={[meal.value, 'recipes']}
       >
         {(fields, { add, remove }) => (
           <>
@@ -102,7 +101,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
                       key='recipe'
                       name={[field.name, 'recipeId']}
                       rules={validateMessages('Recipe')}
-                      style={{ width: 200, }}
+                      style={{ width: 200 }}
                     >
                       <Select
                         showSearch
@@ -122,7 +121,7 @@ const MealForm = ({ handleIngredientChange, meal, mealData, foods, recipes }) =>
                   </Col>
                   <Col md={6}>
                     <Item
-                      style={{ width: '100%', }}
+                      style={{ width: '100%' }}
                     >
                       <Input
                         placeholder="Serving Size"

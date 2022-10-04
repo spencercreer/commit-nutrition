@@ -1,8 +1,9 @@
+import React from 'react'
 // Antd
-import { Row, InputNumber } from "antd"
+import { Row, InputNumber } from 'antd'
 
 const NutrientsRow = ({ nutrients }) => {
-    return (
+  return (
         <Row>
             {/* <input
                 value={nutrients.calories || ''}
@@ -70,7 +71,7 @@ const NutrientsRow = ({ nutrients }) => {
                 disabled
             />
         </Row>
-    )
+  )
 }
 
 export default NutrientsRow

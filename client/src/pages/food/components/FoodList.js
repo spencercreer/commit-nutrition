@@ -1,44 +1,43 @@
 // React
-import { useState } from 'react';
+import React, { useState } from 'react'
 // Components
 import LoadingCards from '../../components/LoadingCards'
-import FoodModal from './FoodModal';
-import EditFoodModal from './EditFoodModal';
-import NutrientsRow from '../../components/NutrientsRow';
+import FoodModal from './FoodModal'
+import EditFoodModal from './EditFoodModal'
+import NutrientsRow from '../../components/NutrientsRow'
 // Antd
 import { Card } from 'antd'
-import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { EditOutlined, EllipsisOutlined } from '@ant-design/icons'
 
 const FoodList = ({ loading, foodData }) => {
-    const [selectedFoodId, setSelectedFoodId] = useState()
-    const [modalVisible, setModalVisible] = useState(false)
-    const [editModalVisible, setEditModalVisible] = useState(false)
+  const [selectedFoodId, setSelectedFoodId] = useState()
+  const [modalVisible, setModalVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
 
-    const handleOnClick = (foodId) => {
-        toggleModal()
-        setSelectedFoodId(foodId)
-    }
+  const handleOnClick = (foodId) => {
+    toggleModal()
+    setSelectedFoodId(foodId)
+  }
 
-    const toggleModal = () => {
-        setModalVisible(!modalVisible)
-    }
+  const toggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
 
-    const handleEditClick = (foodId) => {
-        toggleEditModal()
-        setSelectedFoodId(foodId)
-    }
+  const handleEditClick = (foodId) => {
+    toggleEditModal()
+    setSelectedFoodId(foodId)
+  }
 
-    const toggleEditModal = () => {
-        setEditModalVisible(!editModalVisible)
-    }
+  const toggleEditModal = () => {
+    setEditModalVisible(!editModalVisible)
+  }
 
-    return (
+  return (
         <>
             {
-                loading ?
-                    <LoadingCards number={12} />
-                    :
-                    foodData?.map((food, i) => (
+                loading
+                  ? <LoadingCards number={12} />
+                  : foodData?.map((food, i) => (
                         <Card
                             key={i}
                             title={<div>{food.name}</div>}
@@ -58,7 +57,7 @@ const FoodList = ({ loading, foodData }) => {
                                 nutrients={{ calories: food.serving?.calories, carbs: food.serving?.carbs, protein: food.serving?.protein, fat: food.serving?.fat, sodium: food.serving?.sodium }}
                             />
                         </Card>
-                    ))
+                  ))
             }
             {
                 selectedFoodId &&
@@ -77,7 +76,7 @@ const FoodList = ({ loading, foodData }) => {
                 </>
             }
         </>
-    )
+  )
 }
 
 export default FoodList

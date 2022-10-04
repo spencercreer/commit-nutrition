@@ -1,9 +1,9 @@
-import { Skeleton, Card } from 'antd'
+import React, { Skeleton, Card } from 'antd'
 const { Meta } = Card
 
 const LoadingCards = ({ number, rows, height }) => {
-    return (
-        [...Array(number).keys()].map((i) => (
+  return (
+    [...Array(number).keys()].map((i) => (
             <Card
                 key={i}
                 style={{ height }}
@@ -12,8 +12,8 @@ const LoadingCards = ({ number, rows, height }) => {
                     <Meta />
                 </Skeleton>
             </Card>
-        ))
-    )
+    ))
+  )
 }
 
 export default LoadingCards

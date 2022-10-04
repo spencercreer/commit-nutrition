@@ -1,18 +1,18 @@
 // React
 import { useState } from 'react'
 // Components
-import NutrientsRow from '../../components/NutrientsRow';
-import NutrientsChart from '../../components/NutrientsChart';
+import NutrientsRow from '../../components/NutrientsRow'
+import NutrientsChart from '../../components/NutrientsChart'
 import MealForm from './MealForm'
 // Antd
-import { Modal, Button, Form, Select, DatePicker, Alert, message } from 'antd';
+import { Modal, Button, Form, Select, DatePicker, Alert, message } from 'antd'
 // Utils
 import { useGet, usePost } from '../../../utils/API'
-import { layout, defaultMealPlanState, disabledDate } from '../../../utils/form';
-import moment from 'moment';
+import { layout, defaultMealPlanState, disabledDate } from '../../../utils/form'
+import moment from 'moment'
 
 const { Item } = Form
-const { Option } = Select;
+const { Option } = Select
 
 const AddMealPlanModal = ({ visible, handleCloseModal }) => {
   const [form] = Form.useForm()
@@ -36,7 +36,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         if (!res.success) {
           setAlert('We found a meal plan with the same date. Edit the existing meal plan or change the date.')
         } else {
-          message.success(`Meal plan added successfully!`)
+          message.success('Meal plan added successfully!')
           resetForm()
         }
         setLoading(false)
@@ -46,7 +46,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         console.log(err)
         setLoading(false)
       })
-  };
+  }
 
   // //This may make it too ambiguous to replace handleIngredientChange mappings with one function
   // const mapMealPlanLines = (mealArray, data) => {
@@ -91,8 +91,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         return food
       } else if (ingredient.number_of_servings) {
         return ingredient
-      }
-      else {
+      } else {
         return null
       }
     }).filter(Boolean)
@@ -117,7 +116,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
       }
     }).filter(Boolean)
 
-    let mealCal = 0, mealCarbs = 0, mealProtein = 0, mealFat = 0, mealSodium = 0
+    let mealCal = 0; let mealCarbs = 0; let mealProtein = 0; let mealFat = 0; let mealSodium = 0
     ingredients?.forEach(ingredient => {
       if (ingredient?._id && ingredient?.number_of_servings) {
         mealCal += ingredient.calories
@@ -177,7 +176,7 @@ const AddMealPlanModal = ({ visible, handleCloseModal }) => {
         onClick={() => form.submit()}
       >
         Submit
-      </Button>,
+      </Button>
     ]
 
   return (

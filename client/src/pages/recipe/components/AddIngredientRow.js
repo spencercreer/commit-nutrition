@@ -4,43 +4,43 @@ import { PlusOutlined } from '@ant-design/icons'
 const { Option } = Select
 
 const AddIngredientRow = ({ foods, setMealFormData }) => {
-    const [food, setFood] = useState()
-    const [servings, setServings] = useState()
-    const [error, setError] = useState()
+  const [food, setFood] = useState()
+  const [servings, setServings] = useState()
+  const [error, setError] = useState()
 
-    function onFoodChange(value) {
-        setFood(foods[parseInt(value.key)])
+  function onFoodChange (value) {
+    setFood(foods[parseInt(value.key)])
+  }
+
+  function onServingChange (value) {
+    setServings(value)
+  }
+
+  function addRow () {
+    const errorMessages = []
+    if (!food) {
+      errorMessages.push('Food is required')
+      setError(errorMessages)
+    }
+    if (!servings) {
+      errorMessages.push('Number of servings is required')
+      setError(errorMessages)
+    }
+    if (errorMessages.length > 0) {
+      console.log('hello')
+      setError(null)
+      return
     }
 
-    function onServingChange(value) {
-        setServings(value)
+    const newRow = {
+      ...food, servings
     }
+    setMealFormData(data => [...data, newRow])
+    setFood(null)
+    setServings(null)
+  }
 
-    function addRow() {
-        const errorMessages = []
-        if (!food) {
-            errorMessages.push('Food is required')
-            setError(errorMessages)
-        }
-        if (!servings) {
-            errorMessages.push('Number of servings is required')
-            setError(errorMessages)
-        }
-        if(errorMessages.length > 0) {
-            console.log('hello')
-            setError(null)
-            return
-        }
-
-        const newRow = {
-            ...food, servings
-        }
-        setMealFormData(data => [...data, newRow])
-        setFood(null)
-        setServings(null)
-    }
-
-    return (
+  return (
         <Row>
             <Col sm={14}>
                 <Select
@@ -52,7 +52,7 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
                     value={food?.name}
                     onChange={onFoodChange}
                     filterOption={(input, option) =>
-                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
                 >
                     {
@@ -120,7 +120,7 @@ const AddIngredientRow = ({ foods, setMealFormData }) => {
                 </Row>
             </Col>
         </Row>
-    )
+  )
 }
 
 export default AddIngredientRow
