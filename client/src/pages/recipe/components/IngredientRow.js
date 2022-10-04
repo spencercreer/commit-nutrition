@@ -5,19 +5,19 @@ import { Select, InputNumber, Row, Col, Input } from 'antd'
 const { Option } = Select
 
 const IngredientRow = ({ foods, index, edit, recipeFormData, setRecipeFormData }) => {
-    const [food, setFood] = useState(recipeFormData[index])
-    const [servings, setServings] = useState(food.servings)
+  const [food, setFood] = useState(recipeFormData[index])
+  const [servings, setServings] = useState(food.servings)
 
-    function onFoodChange(value) {
-        setFood(foods[parseInt(value.key)])
-        setRecipeFormData((data) => [...data.slice(0, index), { ...foods[parseInt(value.key)]}, ...data.slice(index + 1)])
-    }
+  function onFoodChange (value) {
+    setFood(foods[parseInt(value.key)])
+    setRecipeFormData((data) => [...data.slice(0, index), { ...foods[parseInt(value.key)] }, ...data.slice(index + 1)])
+  }
 
-    function onServingChange(value) {
-        setServings(value)
-    }
+  function onServingChange (value) {
+    setServings(value)
+  }
 
-    return (
+  return (
         <Row>
             <Col xs={14}>
                 <Select
@@ -30,7 +30,7 @@ const IngredientRow = ({ foods, index, edit, recipeFormData, setRecipeFormData }
                     disabled={!edit}
                     onChange={onFoodChange}
                     filterOption={(input, option) =>
-                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
                 >
                     {
@@ -93,7 +93,7 @@ const IngredientRow = ({ foods, index, edit, recipeFormData, setRecipeFormData }
                 </Row>
             </Col>
         </Row>
-    )
+  )
 }
 
 export default IngredientRow

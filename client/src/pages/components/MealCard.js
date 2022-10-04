@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import React, { useState } from 'react'
 import NutrientsRow from './NutrientsRow'
 // Components
 import MealPlanModal from '../meal/components/MealPlanModal'
@@ -12,37 +12,37 @@ import { usePost } from '../../utils/API'
 import moment from 'moment'
 
 const MealCard = ({ meal }) => {
-    const [selectedRecipeId, setSelectedRecipeId] = useState()
-    const [modalVisible, setModalVisible] = useState(false)
-    const [calendarModalVisible, setCalendarModalVisible] = useState(false)
-    const [starred, setStarred] = useState(meal?.starred)
-    const [updateMeal] = usePost('api/meal/updateStar')
+  const [selectedRecipeId, setSelectedRecipeId] = useState()
+  const [modalVisible, setModalVisible] = useState(false)
+  const [calendarModalVisible, setCalendarModalVisible] = useState(false)
+  const [starred, setStarred] = useState(meal?.starred)
+  const [updateMeal] = usePost('api/meal/updateStar')
 
-    const handleOnClick = (recipeId) => {
-        handleToggleModal()
-        setSelectedRecipeId(recipeId)
-    }
+  const handleOnClick = (recipeId) => {
+    handleToggleModal()
+    setSelectedRecipeId(recipeId)
+  }
 
-    const handleToggleModal = () => {
-        setModalVisible(!modalVisible)
-    }
+  const handleToggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
 
-    const toggleCalendarModal = () => {
-        setCalendarModalVisible(!calendarModalVisible)
-    }
+  const toggleCalendarModal = () => {
+    setCalendarModalVisible(!calendarModalVisible)
+  }
 
-    const handleStarClick = () => {
-        updateMeal({ 
-            mealId: meal._id,
-            starred: !starred
-        })
-        .then(res => {
-            console.log(res)
-        })
-        setStarred(!starred)
-    }
+  const handleStarClick = () => {
+    updateMeal({
+      mealId: meal._id,
+      starred: !starred
+    })
+      .then(res => {
+        console.log(res)
+      })
+    setStarred(!starred)
+  }
 
-    return (
+  return (
         <>
             <Card
                 title={
@@ -51,12 +51,10 @@ const MealCard = ({ meal }) => {
                         <div>
                             {
                                 starred
-                                    ?
-                                    <StarTwoTone
+                                  ? <StarTwoTone
                                         onClick={handleStarClick}
                                     />
-                                    :
-                                    <StarOutlined
+                                  : <StarOutlined
                                         onClick={handleStarClick}
                                     />
                             }
@@ -71,11 +69,11 @@ const MealCard = ({ meal }) => {
                     <CalendarOutlined
                         key='edit'
                         onClick={() => setCalendarModalVisible(true)}
-                    />,
+                    />
                 ]}
             >
                 <div>
-                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Breakfast</h6>
+                    <h6 style={{ margin: '10px 0px 5px 0px' }}>Breakfast</h6>
                     {
                         meal?.breakfast?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
@@ -92,7 +90,7 @@ const MealCard = ({ meal }) => {
                     }
                 </div>
                 <div>
-                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Lunch</h6>
+                    <h6 style={{ margin: '10px 0px 5px 0px' }}>Lunch</h6>
                     {
                         meal?.lunch?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
@@ -109,7 +107,7 @@ const MealCard = ({ meal }) => {
                     }
                 </div>
                 <div>
-                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Dinner</h6>
+                    <h6 style={{ margin: '10px 0px 5px 0px' }}>Dinner</h6>
                     {
                         meal?.dinner?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
@@ -126,7 +124,7 @@ const MealCard = ({ meal }) => {
                     }
                 </div>
                 <div>
-                    <h6 style={{ margin: "10px 0px 5px 0px" }}>Snacks</h6>
+                    <h6 style={{ margin: '10px 0px 5px 0px' }}>Snacks</h6>
                     {
                         meal?.snacks?.ingredients.map((ingredient, i) => (
                             <Row key={i}>
@@ -162,7 +160,7 @@ const MealCard = ({ meal }) => {
                 handleCloseModal={toggleCalendarModal}
             />
         </>
-    )
+  )
 }
 
 export default MealCard

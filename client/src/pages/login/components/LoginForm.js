@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 // Antd
 import { Button, Form, Input } from 'antd'
@@ -6,27 +7,26 @@ const { Item } = Form
 const { Password } = Input
 
 const LoginForm = () => {
+  const onFinish = (values) => {
+    console.log('Success:', values)
+    window.location.replace('/')
+  }
 
-    const onFinish = (values) => {
-        console.log('Success:', values)
-        window.location.replace('/')
-    }
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo)
+  }
 
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo)
-    }
-
-    return (
+  return (
         <Form
             name='login'
             labelCol={{
-                span: 4,
+              span: 4
             }}
             wrapperCol={{
-                span: 16,
+              span: 16
             }}
             initialValues={{
-                remember: true,
+              remember: true
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -36,10 +36,10 @@ const LoginForm = () => {
                 label='Username'
                 name='username'
                 rules={[
-                    {
-                        required: true,
-                        message: 'Please input your username!',
-                    },
+                  {
+                    required: true,
+                    message: 'Please input your username!'
+                  }
                 ]}
             >
                 <Input />
@@ -48,29 +48,29 @@ const LoginForm = () => {
                 label='Password'
                 name='password'
                 rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
+                  {
+                    required: true,
+                    message: 'Please input your password!'
+                  }
                 ]}
             >
                 <Password />
             </Item>
             <Item
                 wrapperCol={{
-                    offset: 4,
-                    span: 16,
+                  offset: 4,
+                  span: 16
                 }}
             >
                 <Button type='primary' htmlType='submit'>
                     Log In
                 </Button>
-                <Link to={'/signup'} style={{marginLeft: '10px'}}>
+                <Link to={'/signup'} style={{ marginLeft: '10px' }}>
                     Sign Up
                 </Link>
             </Item>
         </Form>
-    )
+  )
 }
 
 export default LoginForm

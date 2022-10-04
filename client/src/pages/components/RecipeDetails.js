@@ -1,10 +1,10 @@
+import React from 'react'
 // Components
-import NutrientsRow from "./NutrientsRow"
+import NutrientsRow from './NutrientsRow'
 // Utils
-import Fraction from "fraction.js"
+import Fraction from 'fraction.js'
 
 const RecipeDetails = ({ recipeData }) => {
-
   const calculateAmount = (food) => {
     const amount = new Fraction(food?.foodId?.serving.size * food?.number_of_servings)
     return amount.toFraction()

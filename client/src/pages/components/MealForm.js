@@ -6,11 +6,11 @@ import IngredientRow from '../pages/recipe/components/IngredientRow'
 import { useGet } from '../utils/API'
 
 const MealForm = () => {
-    const [mealFormData, setMealFormData] = useState([])
+  const [mealFormData, setMealFormData] = useState([])
 
-    const { data: foodData }  = useGet('/api/food')
+  const { data: foodData } = useGet('/api/food')
 
-    return (
+  return (
         <>
             <div style={{ margin: '10px' }}>
                 <AddIngredientRow
@@ -76,7 +76,7 @@ const MealForm = () => {
                 </Row>
             </div>
         </>
-    )
+  )
 }
 
 export default MealForm

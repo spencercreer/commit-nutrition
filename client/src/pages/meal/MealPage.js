@@ -1,5 +1,5 @@
 // React
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 // Components
 import PageSider from '../components/PageSider'
 import FilterSelect from '../components/FilterSelect'
@@ -18,38 +18,38 @@ const { Content } = Layout
 const { Option } = Select
 
 const MealPage = () => {
-    const [modalVisible, setModalVisible] = useState(false)
-    const [sort, setSort] = useState('desc')
-    const [filter, setFilter] = useState('week')
-    const [mealData, setMealData] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [filterMeals] = usePost('/api/meal/filter')
+  const [modalVisible, setModalVisible] = useState(false)
+  const [sort, setSort] = useState('desc')
+  const [filter, setFilter] = useState('week')
+  const [mealData, setMealData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [filterMeals] = usePost('/api/meal/filter')
 
-    useEffect(() => {
-        setLoading(true)
-        filterMeals({
-            sort,
-            filter
-        })
-            .then(data => {
-                setMealData(data)
-                setLoading(false)
-            })
-    }, [sort, filter])
+  useEffect(() => {
+    setLoading(true)
+    filterMeals({
+      sort,
+      filter
+    })
+      .then(data => {
+        setMealData(data)
+        setLoading(false)
+      })
+  }, [sort, filter])
 
-    const handleToggleModal = () => {
-        setModalVisible(!modalVisible)
-    }
+  const handleToggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
 
-    const handleFilterChange = (value) => {
-        setFilter(value)
-    }
+  const handleFilterChange = (value) => {
+    setFilter(value)
+  }
 
-    // mealData.forEach(element => {
-    //     console.log(moment(element?.date).format('L'), moment(Date.now()).format('L'))
-    // });
+  // mealData.forEach(element => {
+  //     console.log(moment(element?.date).format('L'), moment(Date.now()).format('L'))
+  // });
 
-    return (
+  return (
         <>
             <PageSider
                 title='Meal Plans'
@@ -99,17 +99,16 @@ const MealPage = () => {
                 {/* <MealForm /> */}
                 {/* Below will be moved to meal list */}
                 {
-                    loading ?
-                        <LoadingCards number={12} />
-                        :
-                        mealData
-                            // ?.filter(({ date }) => moment(date).isSame(moment(), 'week'))
-                            .map((meal, i) => (
+                    loading
+                      ? <LoadingCards number={12} />
+                      : mealData
+                      // ?.filter(({ date }) => moment(date).isSame(moment(), 'week'))
+                        .map((meal, i) => (
                                 <MealCard
                                     key={i}
                                     meal={meal}
                                 />
-                            ))
+                        ))
                 }
                 <AddMealPlanModal
                     visible={modalVisible}
@@ -117,7 +116,7 @@ const MealPage = () => {
                 />
             </Content>
         </>
-    )
+  )
 }
 
 export default MealPage

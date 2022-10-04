@@ -1,17 +1,17 @@
 // React
 import { useState } from 'react'
 // Antd
-import { Modal, Row, Col, Button, Form, Input, InputNumber, AutoComplete, Select, Space, Alert, message } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Modal, Row, Col, Button, Form, Input, InputNumber, AutoComplete, Select, Space, Alert, message } from 'antd'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 // Components
-import NutrientsRow from '../../../components/NutrientsRow';
+import NutrientsRow from '../../../components/NutrientsRow'
 // Utils
 import { useGet, usePost } from '../../../utils/API'
-import { validateMessages, recipeCategories, servingUnits } from '../../../utils/form';
+import { validateMessages, recipeCategories, servingUnits } from '../../../utils/form'
 
 const { Item } = Form
 const { Group, TextArea } = Input
-const { Option } = Select;
+const { Option } = Select
 
 const EditRecipeModal = ({ visible, handleCloseModal }) => {
   const [recipeData, setRecipeData] = useState([])
@@ -36,7 +36,7 @@ const EditRecipeModal = ({ visible, handleCloseModal }) => {
         setAlert('We were not able to save this recipe. Please try again.')
         console.log(err)
       })
-  };
+  }
 
   const handleIngredientChange = () => {
     let { ingredients } = form.getFieldsValue()
@@ -60,7 +60,7 @@ const EditRecipeModal = ({ visible, handleCloseModal }) => {
       }
     }).filter(Boolean)
 
-    let recipeCal = 0, recipeCarbs = 0, recipeProtein = 0, recipeFat = 0, recipeSodium = 0
+    let recipeCal = 0; let recipeCarbs = 0; let recipeProtein = 0; let recipeFat = 0; let recipeSodium = 0
     ingredients.forEach(ingredient => {
       if (ingredient?._id && ingredient?.number_of_servings) {
         recipeCal += ingredient.serving.calories
@@ -91,7 +91,7 @@ const EditRecipeModal = ({ visible, handleCloseModal }) => {
         onClick={() => form.submit()}
       >
         Submit
-      </Button>,
+      </Button>
     ]
 
   return (
@@ -189,7 +189,7 @@ const EditRecipeModal = ({ visible, handleCloseModal }) => {
                           key='food'
                           name={[field.name, 'foodId']}
                           rules={validateMessages('Food')}
-                          style={{ width: 200, }}
+                          style={{ width: 200 }}
                         >
                           <Select
                             showSearch
@@ -209,7 +209,7 @@ const EditRecipeModal = ({ visible, handleCloseModal }) => {
                       </Col>
                       <Col md={6}>
                         <Item
-                          style={{ width: '100%', }}
+                          style={{ width: '100%' }}
                         >
                           <Input
                             placeholder="Serving Size"

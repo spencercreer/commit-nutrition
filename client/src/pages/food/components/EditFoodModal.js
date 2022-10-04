@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import React, { useState } from 'react'
 // Antd
 import { Modal, Form, Input, InputNumber, Select, AutoComplete, Skeleton, message, Alert, Button } from 'antd'
 // Utils
@@ -11,27 +11,27 @@ const { Group } = Input
 const { Option } = Select
 
 const EditFoodModal = ({ foodId, visible, handleCloseModal }) => {
-    const [form] = Form.useForm()
-    const [alert, setAlert] = useState()
-    const { data: foodData, loading } = useGet(`/api/food/${foodId}`)
-    const [updateFood] = usePost('/api/food/update')
+  const [form] = Form.useForm()
+  const [alert, setAlert] = useState()
+  const { data: foodData, loading } = useGet(`/api/food/${foodId}`)
+  const [updateFood] = usePost('/api/food/update')
 
-    console.log(foodData)
+  console.log(foodData)
 
-    const onFinish = async (values) => {
-        form.setFieldsValue()
-        updateFood({ _id: foodId, ...values })
-            .then(res => {
-                message.success(`${res.name} updated successfully!`)
-                setAlert(null)
-            })
-            .catch(err => {
-                setAlert('We were not able to save this food. Please try again.')
-                console.log(err)
-            })
-    }
+  const onFinish = async (values) => {
+    form.setFieldsValue()
+    updateFood({ _id: foodId, ...values })
+      .then(res => {
+        message.success(`${res.name} updated successfully!`)
+        setAlert(null)
+      })
+      .catch(err => {
+        setAlert('We were not able to save this food. Please try again.')
+        console.log(err)
+      })
+  }
 
-    const footerButtons =
+  const footerButtons =
         [
             <Button
                 key='back'
@@ -51,7 +51,7 @@ const EditFoodModal = ({ foodId, visible, handleCloseModal }) => {
             </Button>
         ]
 
-    return (
+  return (
         <Modal
             title={loading ? <Skeleton loading paragraph={{ rows: 0 }} /> : `Update ${foodData.name}`}
             visible={visible}
@@ -59,10 +59,9 @@ const EditFoodModal = ({ foodId, visible, handleCloseModal }) => {
             footer={footerButtons}
         >
             {
-                loading ?
-                    <Skeleton loading />
-                    :
-                    <Form
+                loading
+                  ? <Skeleton loading />
+                  : <Form
                         {...layout}
                         form={form}
                         name='update-food'
@@ -104,7 +103,7 @@ const EditFoodModal = ({ foodId, visible, handleCloseModal }) => {
                                         placeholder='Unit'
                                         options={servingUnits}
                                         filterOption={(inputValue, option) =>
-                                            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                          option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                         }
                                     />
                                 </Item>
@@ -174,7 +173,7 @@ const EditFoodModal = ({ foodId, visible, handleCloseModal }) => {
                                 showSearch
                                 placeholder='Category'
                                 filterOption={(input, option) =>
-                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                 }
                             >
                                 {
@@ -195,7 +194,7 @@ const EditFoodModal = ({ foodId, visible, handleCloseModal }) => {
                     </Form>
             }
         </Modal>
-    )
+  )
 }
 
 export default EditFoodModal

@@ -9,7 +9,6 @@ import { useGet } from '../../utils/API'
 import Fraction from 'fraction.js'
 import moment from 'moment'
 
-
 const { Content, Sider } = Layout
 const { SubMenu, Item } = Menu
 

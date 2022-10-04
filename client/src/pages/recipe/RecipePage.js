@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import React, { useState } from 'react'
 // Components
 import PageSider from '../components/PageSider'
 import FilterSelect from '../components/FilterSelect'
@@ -14,26 +14,26 @@ import { useFilterGet } from '../../utils/API'
 const { Content } = Layout
 
 const RecipePage = () => {
-    const [search, setSearch] = useState('')
-    const [filter, setFilter] = useState('all')
-    const [modalVisible, setModalVisible] = useState(false)
-    const [{ data: recipeData, loading }, filterRecipes] = useFilterGet('/api/recipe')
+  const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState('all')
+  const [modalVisible, setModalVisible] = useState(false)
+  const [{ data: recipeData, loading }, filterRecipes] = useFilterGet('/api/recipe')
 
-    const handleToggleModal = () => {
-        setModalVisible(!modalVisible)
-    }
+  const handleToggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
 
-    const handleSearch = (event) => {
-        setSearch(event.target.value)
-        filterRecipes(filter, event.target.value)
-    }
+  const handleSearch = (event) => {
+    setSearch(event.target.value)
+    filterRecipes(filter, event.target.value)
+  }
 
-    const handleFilterChange = (value) => {
-        setFilter(value)
-        filterRecipes(value, search)
-    }
+  const handleFilterChange = (value) => {
+    setFilter(value)
+    filterRecipes(value, search)
+  }
 
-    return (
+  return (
         <>
             <PageSider
                 title='Recipes'
@@ -77,7 +77,7 @@ const RecipePage = () => {
                 />
             </Content>
         </>
-    )
+  )
 }
 
 export default RecipePage

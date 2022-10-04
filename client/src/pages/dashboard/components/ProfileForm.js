@@ -1,17 +1,18 @@
-import { Form, Input, Select, Radio, Button } from 'antd';
+import React from 'react'
+import { Form, Input, Select, Radio, Button } from 'antd'
 // Utils
-import { validateMessages } from '../../../utils/form';
+import { validateMessages } from '../../../utils/form'
 
 const { Item } = Form
 const { Group } = Input
-const { Option } = Select;
+const { Option } = Select
 
 const ProfileForm = () => {
-    const onFinish = (values) => {
+  const onFinish = (values) => {
 
-    };
+  }
 
-    return (
+  return (
         <Form
             // {...formItemLayoutWithOutLabel}
             // form={form}
@@ -68,7 +69,7 @@ const ProfileForm = () => {
                 </Button>
             </Item>
         </Form>
-    )
+  )
 }
 
 export default ProfileForm

@@ -1,5 +1,5 @@
 // React
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 // Components
 import MealCard from '../components/MealCard'
 import ProfileForm from './components/ProfileForm'
@@ -31,8 +31,8 @@ const Dashboard = () => {
   return (
     <>
       {
-        loading ?
-          <Content>
+        loading
+          ? <Content>
             <Row>
               <Col xs={24} style={{ padding: '5px' }}>
                 <Card>
@@ -49,8 +49,7 @@ const Dashboard = () => {
               </Col>
             </Row>
           </Content>
-          :
-          <Content style={{ margin: '15px' }}>
+          : <Content style={{ margin: '15px' }}>
             <Row>
               <Col xs={24} style={{ padding: '5px' }}>
                 <Card>

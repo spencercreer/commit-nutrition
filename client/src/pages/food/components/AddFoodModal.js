@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import React, { useState } from 'react'
 // Antd
 import { Modal, Form, Input, InputNumber, Select, AutoComplete, message, Alert, Button } from 'antd'
 // Utils
@@ -11,29 +11,29 @@ const { Group } = Input
 const { Option } = Select
 
 const AddFoodModal = ({ visible, handleCloseModal }) => {
-    const [form] = Form.useForm()
-    const [loading, setLoading] = useState(false)
-    const [alert, setAlert] = useState()
-    
-    const [createFood] = usePost('/api/food')
+  const [form] = Form.useForm()
+  const [loading, setLoading] = useState(false)
+  const [alert, setAlert] = useState()
 
-    const onFinish = async (values) => {
-        setLoading(true)
-        createFood(values)
-            .then(res => {
-                message.success(`${res.name} added successfully!`)
-                form.resetFields()
-                setAlert(null)
-                setLoading(false)
-            })
-            .catch(err => {
-                setAlert('We were not able to save this food. Please try again.')
-                console.log(err)
-                setLoading(false)
-            })
-    }
+  const [createFood] = usePost('/api/food')
 
-    const footerButtons =
+  const onFinish = async (values) => {
+    setLoading(true)
+    createFood(values)
+      .then(res => {
+        message.success(`${res.name} added successfully!`)
+        form.resetFields()
+        setAlert(null)
+        setLoading(false)
+      })
+      .catch(err => {
+        setAlert('We were not able to save this food. Please try again.')
+        console.log(err)
+        setLoading(false)
+      })
+  }
+
+  const footerButtons =
         [
             <Button
                 key='back'
@@ -53,7 +53,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
             </Button>
         ]
 
-    return (
+  return (
         <Modal
             title={'Add Food'}
             visible={visible}
@@ -101,7 +101,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                                 placeholder='Unit'
                                 options={servingUnits}
                                 filterOption={(inputValue, option) =>
-                                    option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                  option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                 }
                             />
                         </Item>
@@ -171,7 +171,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                         showSearch
                         placeholder='Category'
                         filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         }
                     >
                         {
@@ -191,7 +191,7 @@ const AddFoodModal = ({ visible, handleCloseModal }) => {
                 }
             </Form>
         </Modal>
-    )
+  )
 }
 
 export default AddFoodModal

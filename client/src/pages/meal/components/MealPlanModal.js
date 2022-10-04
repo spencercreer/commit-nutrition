@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { Modal, Skeleton, Button } from 'antd'
+import React, { useState } from 'react'
+import { Modal, Skeleton, Button, Card } from 'antd'
 import { useGet } from '../../../utils/API'
-import { Card } from 'antd'
+
 import NutrientsChart from '../../components/NutrientsChart'
 
 // const tabList = [
@@ -16,16 +16,16 @@ import NutrientsChart from '../../components/NutrientsChart'
 // ]
 
 const MealPlanModal = ({ recipeId, visible, handleCloseModal }) => {
-    const [activeTab, setActiveTab] = useState('recipe')
-    const { data: mealData, loading } = useGet(`/api/meal/${recipeId}`)
+  const [activeTab, setActiveTab] = useState('recipe')
+  const { data: mealData, loading } = useGet(`/api/meal/${recipeId}`)
 
-    // const onTab1Change = (key) => {
-    //     setActiveTab(key)
-    // }
+  // const onTab1Change = (key) => {
+  //     setActiveTab(key)
+  // }
 
-    console.log(mealData)
+  console.log(mealData)
 
-    const footerButtons =
+  const footerButtons =
         [
             <Button
                 key='back'
@@ -35,7 +35,7 @@ const MealPlanModal = ({ recipeId, visible, handleCloseModal }) => {
             </Button>
         ]
 
-    return (
+  return (
         <>
             {
                 <Modal
@@ -45,12 +45,11 @@ const MealPlanModal = ({ recipeId, visible, handleCloseModal }) => {
                     footer={footerButtons}
                 >
                     {
-                        loading ?
-                            <Skeleton loading />
-                            :
-                            <Card
+                        loading
+                          ? <Skeleton loading />
+                          : <Card
                                 style={{
-                                    width: '100%',
+                                  width: '100%'
                                 }}
                                 bordered={false}
                             // tabList={tabList}
@@ -60,43 +59,43 @@ const MealPlanModal = ({ recipeId, visible, handleCloseModal }) => {
                             // }}
                             >
                                 {
-                                    mealData?.breakfast?.ingredients?.map(ingredient => (
-                                        <div>{ingredient.foodId.name}</div>
+                                    mealData?.breakfast?.ingredients?.map((ingredient, i) => (
+                                        <div key={`breakfast_ingredient_${i}`}>{ingredient.foodId.name}</div>
                                     ))
                                 }
                                 {
-                                    mealData?.breakfast?.recipes?.map(ingredient => (
-                                        <div>{ingredient.recipeId.name}</div>
+                                    mealData?.breakfast?.recipes?.map((ingredient, i) => (
+                                        <div key={`breakfast_recipe_${i}`}>{ingredient.recipeId.name}</div>
                                     ))
                                 }
                                 {
-                                    mealData?.lunch?.ingredients?.map(ingredient => (
-                                        <div>{ingredient.foodId.name}</div>
+                                    mealData?.lunch?.ingredients?.map((ingredient, i) => (
+                                        <div  key={`lunch_ingredient_${i}`}>{ingredient.foodId.name}</div>
                                     ))
                                 }
                                 {
-                                    mealData?.lunch?.recipes?.map(ingredient => (
-                                        <div>{ingredient.recipeId.name}</div>
+                                    mealData?.lunch?.recipes?.map((ingredient, i) => (
+                                        <div key={`lunch_recipe_${i}`}>{ingredient.recipeId.name}</div>
                                     ))
                                 }
                                 {
-                                    mealData?.dinner?.ingredients?.map(ingredient => (
-                                        <div>{ingredient.foodId.name}</div>
+                                    mealData?.dinner?.ingredients?.map((ingredient, i) => (
+                                        <div key={`dinner_ingredient_${i}`}>{ingredient.foodId.name}</div>
                                     ))
                                 }
                                 {
-                                    mealData?.dinner?.recipes?.map(ingredient => (
-                                        <div>{ingredient.recipeId.name}</div>
+                                    mealData?.dinner?.recipes?.map((ingredient, i) => (
+                                        <div key={`dinner_recipe_${i}`}>{ingredient.recipeId.name}</div>
                                     ))
                                 }
                                 {
-                                    mealData?.snacks?.ingredients?.map(ingredient => (
-                                        <div>{ingredient.foodId.name}</div>
+                                    mealData?.snacks?.ingredients?.map((ingredient, i) => (
+                                        <div key={`snacks_ingredient_${i}`}>{ingredient.foodId.name}</div>
                                     ))
                                 }
                                 {
-                                    mealData?.snacks?.recipes?.map(ingredient => (
-                                        <div>{ingredient.recipeId.name}</div>
+                                    mealData?.snacks?.recipes?.map((ingredient, i) => (
+                                        <div key={`snacks_ingredient_${i}`}>{ingredient.recipeId.name}</div>
                                     ))
                                 }
                                 <NutrientsChart nutrients={{ calories: mealData?.calories, carbs: mealData?.carbs, protein: mealData?.protein, fat: mealData?.fat, sodium: mealData?.sodium }} />
@@ -105,7 +104,7 @@ const MealPlanModal = ({ recipeId, visible, handleCloseModal }) => {
                 </Modal>
             }
         </>
-    )
+  )
 }
 
 export default MealPlanModal

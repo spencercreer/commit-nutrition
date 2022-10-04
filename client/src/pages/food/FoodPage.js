@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import React, { useState } from 'react'
 // Components
 import PageSider from '../components/PageSider'
 import FilterSelect from '../components/FilterSelect'
@@ -14,26 +14,26 @@ import { useFilterGet } from '../../utils/API'
 const { Content } = Layout
 
 const FoodPage = () => {
-    const [search, setSearch] = useState('')
-    const [filter, setFilter] = useState('all')
-    const [modalVisible, setModalVisible] = useState(false)
-    const [{ data: foodData, loading }, filterFoods] = useFilterGet('/api/food')
+  const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState('all')
+  const [modalVisible, setModalVisible] = useState(false)
+  const [{ data: foodData, loading }, filterFoods] = useFilterGet('/api/food')
 
-    const handleToggleModal = () => {
-        setModalVisible(!modalVisible)
-    }
+  const handleToggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
 
-    const handleSearch = (event) => {
-        setSearch(event.target.value)
-        filterFoods(filter, event.target.value)
-    }
+  const handleSearch = (event) => {
+    setSearch(event.target.value)
+    filterFoods(filter, event.target.value)
+  }
 
-    const handleFilterChange = (value) => {
-        setFilter(value)
-        filterFoods(value, search)
-    }
+  const handleFilterChange = (value) => {
+    setFilter(value)
+    filterFoods(value, search)
+  }
 
-    return (
+  return (
         <>
             <PageSider
                 title='Foods'
@@ -78,7 +78,7 @@ const FoodPage = () => {
                 />
             </Content>
         </>
-    )
+  )
 }
 
 export default FoodPage
