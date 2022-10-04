@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
-const servingSchema = require('./Serving')
-const ingredientSchema = require('./Ingredient')
+const servingSchema = require('./schemas/Serving')
+const ingredientSchema = require('./schemas/Ingredient')
 
 const recipeSchema = new Schema(
     {
