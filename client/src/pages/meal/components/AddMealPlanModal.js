@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import React, { useState } from 'react'
 // Components
 import NutrientsRow from '../../components/NutrientsRow'
 import NutrientsChart from '../../components/NutrientsChart'

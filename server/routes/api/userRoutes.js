@@ -6,6 +6,6 @@ const {
 
 router.route('/').post(createUser)
 
-router.route('/:userEmail').get(getOneUser)
+router.route('/:username').get(getOneUser)
 
 module.exports = router
