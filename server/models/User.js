@@ -3,11 +3,17 @@ const mealSchema = require('./Meal')
 
 const userSchema = new Schema(
     {
+        name: {
+            first: String,
+            last: String,
+        },
         username: {
-            type: String
+            type: String,
+            required: true,
         },
         email: {
-            type: String
+            type: String,
+            required: true,
         },
         password: {
             type: String
@@ -30,8 +36,17 @@ const userSchema = new Schema(
         meals: {
             type: [Schema.Types.ObjectId]
         }
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
     }
-)
+);
+
+userSchema.virtual("full_name").get(function () {
+    return this.name.first + ' ' + this.name.last;
+});
 
 const User = model('User', userSchema)
 
