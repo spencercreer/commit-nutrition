@@ -24,10 +24,10 @@ const userSchema = new Schema(
         gender: {
             type: String
         },
-        weight: {
+        weight_kg: {
             type: Number
         },
-        height: {
+        height_cm: {
             type: Number
         },
         recipes: {
@@ -46,6 +46,32 @@ const userSchema = new Schema(
 
 userSchema.virtual("full_name").get(function () {
     return this.name.first + ' ' + this.name.last;
+});
+
+userSchema.virtual("age").get(function () {
+    const today = new Date();
+    const day = today.getDay();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    const birthdate = new Date(this.birthdate);
+    const birthDay = birthdate.getMonth();
+    const birthMonth = birthdate.getMonth();
+    const birthYear = birthdate.getFullYear();
+    if (month > birthMonth || month === birthMonth && day >= birthDay) {
+        return year - birthYear;
+    } else {
+        return year - birthYear - 1;
+    }
+});
+
+userSchema.virtual("bmr").get(function () {
+    if (this.gender === 'male') {
+        return Math.round(10 * 0.45359 * this.weight_kg + 6.25 * this.height_cm * 2.54 - 5 * this.age + 5);
+    } else if (this.gender === "female") {
+        return Math.round(10 * 0.45359 * this.weight_kg + 6.25 * this.height_cm * 2.54 - 5 * this.age - 161);
+    } else {
+        return null;
+    }
 });
 
 const User = model('User', userSchema)
