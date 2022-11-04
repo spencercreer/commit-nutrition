@@ -1,5 +1,6 @@
-const { Schema, model } = require('mongoose')
-const mealSchema = require('./Meal')
+const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
+const mealSchema = require('./Meal');
 
 const userSchema = new Schema(
     {
@@ -43,6 +44,19 @@ const userSchema = new Schema(
         },
     }
 );
+
+userSchema.pre('save', async function (next) {
+    if (this.isNew || this.isModified('password')) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
+  
+    next();
+  });
+
+userSchema.methods.comparePassword = async function (password) {
+    console.log(password)
+    return bcrypt.compare(password, this.password);
+};
 
 userSchema.virtual("full_name").get(function () {
     return this.name.first + ' ' + this.name.last;
