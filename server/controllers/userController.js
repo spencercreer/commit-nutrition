@@ -1,18 +1,30 @@
 const { User } = require('../models')
 
 const userController = {
-    getOneUser(req, res) {
-        User.findOne({ where: { username: req.params.username } })
-            .then((dbUserData) => {
-                if (!dbUserData) {
-                    return res.status(404).json({ message: 'No user with this email found.' })
-                }
-                res.json(dbUserData)
-            })
-            .catch((err) => {
-                console.log(err)
-                res.status(500).json(err)
-            })
+    async login({ body }, res) {
+        try {
+            if (!body.password || !(body.username || body.email)) {
+                console.log(body.password)
+                return res.status(400).json({ message: "Invalid user credentials." });
+            }
+
+            const user = await User.findOne({ $or: [{ username: body.username }, { email: body.email }] });
+            if (!user) {
+                return res.status(400).json({ message: "User not found" });
+            }
+    
+            const correctPw = await user.comparePassword(body.password);
+            if (!correctPw) {
+                return res.status(400).json({ message: 'Invalid user credentials.' });
+            }
+            // const token = signToken(user);
+            res.json({
+                // token,
+                user
+            });
+        } catch {
+            res.status(500).json({ message: 'Server error: Login'})
+        }
     },
 
     createUser(req, res) {

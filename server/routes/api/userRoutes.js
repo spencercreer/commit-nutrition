@@ -1,13 +1,13 @@
 const router = require('express').Router()
 const {
-    getOneUser,
+    login,
     createUser,
     updateUser
 } = require('../../controllers/userController')
 
 router.route('/').post(createUser)
 
-router.route('/:username').get(getOneUser)
+router.route('/login').post(login)
 
 router.route('/:id').put(updateUser)
 
