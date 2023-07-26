@@ -7,7 +7,6 @@ import RecipePage from './pages/recipe/RecipePage'
 import MealPage from './pages/meal/MealPage'
 import GroceryPage from './pages/grocery/GroceryPage'
 import LoginPage from './pages/login/LoginPage'
-import UserInfoPage from './pages/userInfo/UserInfoPage'
 
 import { Layout } from 'antd'
 import './App.css'
@@ -26,10 +25,10 @@ function App () {
             path="/signup"
             element={<LoginPage form={'signup'} />}
           />
-          <Route
+          {/* <Route
             path="/user"
             element={<UserInfoPage />}
-          />
+          /> */}
           <Route
             path="/dashboard"
             element={<Dashboard />}
